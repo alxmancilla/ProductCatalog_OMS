@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog + OMS - API Tester</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 0;
+            min-height: 600px;
+        }
+        
+        .sidebar {
+            background: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(100vh - 200px);
+        }
+        
+        .content {
+            padding: 30px;
+            overflow-y: auto;
+            max-height: calc(100vh - 200px);
+        }
+        
+        .nav-section {
+            margin-bottom: 25px;
+        }
+        
+        .nav-section h3 {
+            color: #667eea;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .nav-button {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.95em;
+            transition: all 0.3s;
+            color: #333;
+        }
+        
+        .nav-button:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateX(5px);
+        }
+        
+        .nav-button.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .method-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .method-get { background: #28a745; color: white; }
+        .method-post { background: #007bff; color: white; }
+        .method-put { background: #ffc107; color: #333; }
+        .method-delete { background: #dc3545; color: white; }
+        
+        .endpoint-section {
+            display: none;
+        }
+        
+        .endpoint-section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .endpoint-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .endpoint-header h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        
+        .endpoint-url {
+            font-family: 'Courier New', monospace;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: 'Courier New', monospace;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            margin-left: 10px;
+        }
+
+        .response-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .response-section.show {
+            display: block;
+        }
+
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .response-header h3 {
+            color: #333;
+        }
+
+        .status-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .status-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-error {
+            background: #dc3545;
+            color: white;
+        }
+
+        .response-body {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .example-section {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .example-section h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .example-code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .info-box h4 {
+            color: #0c5460;
+            margin-bottom: 10px;
+        }
+
+        .pattern-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛍️ Product Catalog + OMS</h1>
+            <p>Interactive API Tester - Test all endpoints without curl!</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Sidebar Navigation -->
+            <div class="sidebar">
+                <div class="nav-section">
+                    <h3>👥 Customers</h3>
+                    <button class="nav-button active" onclick="showEndpoint('createCustomer')">
+                        <span class="method-badge method-post">POST</span> Create Customer
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('getAllCustomers')">
+                        <span class="method-badge method-get">GET</span> Get All Customers
+                    </button>
+                </div>
+
+                <div class="nav-section">
+                    <h3>📦 Products</h3>
+                    <button class="nav-button" onclick="showEndpoint('createProduct')">
+                        <span class="method-badge method-post">POST</span> Create Product
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('getAllProducts')">
+                        <span class="method-badge method-get">GET</span> Get All Products
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('createElectronics')">
+                        <span class="method-badge method-post">POST</span> Create Electronics
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('createClothing')">
+                        <span class="method-badge method-post">POST</span> Create Clothing
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('createBook')">
+                        <span class="method-badge method-post">POST</span> Create Book
+                    </button>
+                </div>
+
+                <div class="nav-section">
+                    <h3>🛒 Orders</h3>
+                    <button class="nav-button" onclick="showEndpoint('createOrder')">
+                        <span class="method-badge method-post">POST</span> Create Order
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('getAllOrders')">
+                        <span class="method-badge method-get">GET</span> Get All Orders
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('createLargeOrder')">
+                        <span class="method-badge method-post">POST</span> Create Large Order (100+ items)
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('getOrderItems')">
+                        <span class="method-badge method-get">GET</span> Get Order Items
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="content">
+                <!-- Create Customer -->
+                <div id="createCustomer" class="endpoint-section active">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-post">POST</span> Create Customer</h2>
+                        <div class="endpoint-url">POST /customers</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📋 What This Does</h4>
+                        <p>Creates a new customer in the MongoDB database. Customers are stored in the <code>customers</code> collection.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Request Body (JSON):</label>
+                        <textarea id="createCustomerBody">{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "phone": "+1-555-0123"
+}</textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('createCustomer')">
+                        🚀 Send Request
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetForm('createCustomer')">
+                        🔄 Reset
+                    </button>
+
+                    <div id="createCustomerResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="createCustomerStatus" class="status-badge"></span>
+                        </div>
+                        <div id="createCustomerBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Get All Customers -->
+                <div id="getAllCustomers" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-get">GET</span> Get All Customers</h2>
+                        <div class="endpoint-url">GET /customers</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📋 What This Does</h4>
+                        <p>Retrieves all customers from the database. Returns an array of customer documents.</p>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('getAllCustomers')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="getAllCustomersResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="getAllCustomersStatus" class="status-badge"></span>
+                        </div>
+                        <div id="getAllCustomersBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Create Product -->
+                <div id="createProduct" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-post">POST</span> Create Product</h2>
+                        <div class="endpoint-url">POST /products</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📋 What This Does</h4>
+                        <p>Creates a new product. This is a basic product without type-specific fields.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Request Body (JSON):</label>
+                        <textarea id="createProductBody">{
+  "name": "Generic Product",
+  "price": 99.99,
+  "category": "General",
+  "inventory": 100
+}</textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('createProduct')">
+                        🚀 Send Request
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetForm('createProduct')">
+                        🔄 Reset
+                    </button>
+
+                    <div id="createProductResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="createProductStatus" class="status-badge"></span>
+                        </div>
+                        <div id="createProductBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Get All Products -->
+                <div id="getAllProducts" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-get">GET</span> Get All Products</h2>
+                        <div class="endpoint-url">GET /products</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📋 What This Does</h4>
+                        <p>Retrieves all products from the database. Shows the <strong>Polymorphic Pattern</strong> in action!</p>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">🎭 Polymorphic Pattern</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('getAllProducts')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="getAllProductsResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="getAllProductsStatus" class="status-badge"></span>
+                        </div>
+                        <div id="getAllProductsBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Create Electronics -->
+                <div id="createElectronics" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-post">POST</span> Create Electronics Product</h2>
+                        <div class="endpoint-url">POST /products</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📋 Polymorphic Pattern Example</h4>
+                        <p>Electronics products have unique fields: <code>type</code>, <code>warranty</code>, and <code>brand</code>.</p>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">🎭 Polymorphic Pattern</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Request Body (JSON):</label>
+                        <textarea id="createElectronicsBody">{
+  "name": "Laptop Pro 15",
+  "price": 1299.99,
+  "category": "Electronics",
+  "inventory": 50,
+  "type": "Electronics",
+  "warranty": "2 years",
+  "brand": "TechCorp"
+}</textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('createElectronics')">
+                        🚀 Send Request
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetForm('createElectronics')">
+                        🔄 Reset
+                    </button>
+
+                    <div id="createElectronicsResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="createElectronicsStatus" class="status-badge"></span>
+                        </div>
+                        <div id="createElectronicsBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Create Clothing -->
+                <div id="createClothing" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-post">POST</span> Create Clothing Product</h2>
+                        <div class="endpoint-url">POST /products</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📋 Polymorphic Pattern Example</h4>
+                        <p>Clothing products have unique fields: <code>type</code>, <code>size</code>, <code>color</code>, and <code>material</code>.</p>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">🎭 Polymorphic Pattern</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Request Body (JSON):</label>
+                        <textarea id="createClothingBody">{
+  "name": "Cotton T-Shirt",
+  "price": 29.99,
+  "category": "Clothing",
+  "inventory": 200,
+  "type": "Clothing",
+  "size": "M",
+  "color": "Blue",
+  "material": "100% Cotton"
+}</textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('createClothing')">
+                        🚀 Send Request
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetForm('createClothing')">
+                        🔄 Reset
+                    </button>
+
+                    <div id="createClothingResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="createClothingStatus" class="status-badge"></span>
+                        </div>
+                        <div id="createClothingBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Create Book -->
+                <div id="createBook" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-post">POST</span> Create Book Product</h2>
+                        <div class="endpoint-url">POST /products</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📋 Polymorphic Pattern Example</h4>
+                        <p>Book products have unique fields: <code>type</code>, <code>author</code>, <code>isbn</code>, and <code>pages</code>.</p>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">🎭 Polymorphic Pattern</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Request Body (JSON):</label>
+                        <textarea id="createBookBody">{
+  "name": "MongoDB Design Patterns",
+  "price": 49.99,
+  "category": "Books",
+  "inventory": 75,
+  "type": "Book",
+  "author": "Jane Developer",
+  "isbn": "978-1234567890",
+  "pages": 350
+}</textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('createBook')">
+                        🚀 Send Request
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetForm('createBook')">
+                        🔄 Reset
+                    </button>
+
+                    <div id="createBookResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="createBookStatus" class="status-badge"></span>
+                        </div>
+                        <div id="createBookBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Create Order -->
+                <div id="createOrder" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-post">POST</span> Create Order</h2>
+                        <div class="endpoint-url">POST /orders</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📋 Multiple Patterns in Action!</h4>
+                        <p>This endpoint demonstrates several MongoDB patterns:</p>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">📦 Embedding Pattern</span>
+                            <span class="pattern-badge">🔗 Subset Pattern</span>
+                            <span class="pattern-badge">🧮 Computed Pattern</span>
+                            <span class="pattern-badge">📋 Document Versioning</span>
+                        </div>
+                    </div>
+
+                    <div class="example-section">
+                        <h4>💡 Tip</h4>
+                        <p>Use customer IDs and product IDs from the responses above. The order total is automatically calculated!</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Request Body (JSON):</label>
+                        <textarea id="createOrderBody">{
+  "customerId": "PASTE_CUSTOMER_ID_HERE",
+  "customerName": "John Doe",
+  "items": [
+    {
+      "productId": "PASTE_PRODUCT_ID_HERE",
+      "name": "Laptop Pro 15",
+      "price": 1299.99,
+      "quantity": 1
+    },
+    {
+      "productId": "PASTE_PRODUCT_ID_HERE",
+      "name": "Wireless Mouse",
+      "price": 29.99,
+      "quantity": 2
+    }
+  ]
+}</textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('createOrder')">
+                        🚀 Send Request
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetForm('createOrder')">
+                        🔄 Reset
+                    </button>
+
+                    <div id="createOrderResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="createOrderStatus" class="status-badge"></span>
+                        </div>
+                        <div id="createOrderBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Get All Orders -->
+                <div id="getAllOrders" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-get">GET</span> Get All Orders</h2>
+                        <div class="endpoint-url">GET /orders</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📋 What This Does</h4>
+                        <p>Retrieves all orders. Notice how customer name and product details are embedded for fast access!</p>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('getAllOrders')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="getAllOrdersResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="getAllOrdersStatus" class="status-badge"></span>
+                        </div>
+                        <div id="getAllOrdersBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Create Large Order -->
+                <div id="createLargeOrder" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-post">POST</span> Create Large Order (100+ items)</h2>
+                        <div class="endpoint-url">POST /orders</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📋 Outlier Pattern in Action! 🆕</h4>
+                        <p>This creates an order with 100+ items. The system will automatically:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Set <code>isLargeOrder = true</code></li>
+                            <li>Split items into buckets of 50</li>
+                            <li>Store buckets in <code>order_item_buckets</code> collection</li>
+                        </ul>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">🎯 Outlier Pattern</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Request Body (JSON):</label>
+                        <textarea id="createLargeOrderBody" style="min-height: 300px;">{
+  "customerId": "PASTE_CUSTOMER_ID_HERE",
+  "customerName": "Alice Johnson",
+  "items": [
+    {"productId": "prod1", "name": "Item 1", "price": 10.00, "quantity": 1},
+    {"productId": "prod2", "name": "Item 2", "price": 10.00, "quantity": 1},
+    {"productId": "prod3", "name": "Item 3", "price": 10.00, "quantity": 1}
+  ]
+}</textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="generateLargeOrder()">
+                        ⚡ Generate 150 Items
+                    </button>
+                    <button class="btn btn-primary" onclick="executeRequest('createLargeOrder')">
+                        🚀 Send Request
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetForm('createLargeOrder')">
+                        🔄 Reset
+                    </button>
+
+                    <div id="createLargeOrderResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="createLargeOrderStatus" class="status-badge"></span>
+                        </div>
+                        <div id="createLargeOrderBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Get Order Items -->
+                <div id="getOrderItems" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-get">GET</span> Get Order Items</h2>
+                        <div class="endpoint-url">GET /orders/{id}/items</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📋 Outlier Pattern Retrieval 🆕</h4>
+                        <p>This endpoint transparently retrieves items from both normal and large orders:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Normal orders: Returns embedded items</li>
+                            <li>Large orders: Retrieves and combines all buckets</li>
+                        </ul>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">🎯 Outlier Pattern</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Order ID:</label>
+                        <input type="text" id="getOrderItemsId" placeholder="Paste order ID here">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('getOrderItems')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="getOrderItemsResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="getOrderItemsStatus" class="status-badge"></span>
+                        </div>
+                        <div id="getOrderItemsBody_response" class="response-body"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Base URL for API
+        const API_BASE = window.location.origin;
+
+        // Show/hide endpoint sections
+        function showEndpoint(endpointId) {
+            // Hide all sections
+            document.querySelectorAll('.endpoint-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(endpointId).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.closest('.nav-button').classList.add('active');
+        }
+
+        // Default form values
+        const defaultValues = {
+            createCustomer: '{\n  "name": "John Doe",\n  "email": "john.doe@example.com",\n  "phone": "+1-555-0123"\n}',
+            createProduct: '{\n  "name": "Generic Product",\n  "price": 99.99,\n  "category": "General",\n  "inventory": 100\n}',
+            createElectronics: '{\n  "name": "Laptop Pro 15",\n  "price": 1299.99,\n  "category": "Electronics",\n  "inventory": 50,\n  "type": "Electronics",\n  "warranty": "2 years",\n  "brand": "TechCorp"\n}',
+            createClothing: '{\n  "name": "Cotton T-Shirt",\n  "price": 29.99,\n  "category": "Clothing",\n  "inventory": 200,\n  "type": "Clothing",\n  "size": "M",\n  "color": "Blue",\n  "material": "100% Cotton"\n}',
+            createBook: '{\n  "name": "MongoDB Design Patterns",\n  "price": 49.99,\n  "category": "Books",\n  "inventory": 75,\n  "type": "Book",\n  "author": "Jane Developer",\n  "isbn": "978-1234567890",\n  "pages": 350\n}',
+            createOrder: '{\n  "customerId": "PASTE_CUSTOMER_ID_HERE",\n  "customerName": "John Doe",\n  "items": [\n    {\n      "productId": "PASTE_PRODUCT_ID_HERE",\n      "name": "Laptop Pro 15",\n      "price": 1299.99,\n      "quantity": 1\n    },\n    {\n      "productId": "PASTE_PRODUCT_ID_HERE",\n      "name": "Wireless Mouse",\n      "price": 29.99,\n      "quantity": 2\n    }\n  ]\n}',
+            createLargeOrder: '{\n  "customerId": "PASTE_CUSTOMER_ID_HERE",\n  "customerName": "Alice Johnson",\n  "items": [\n    {"productId": "prod1", "name": "Item 1", "price": 10.00, "quantity": 1},\n    {"productId": "prod2", "name": "Item 2", "price": 10.00, "quantity": 1},\n    {"productId": "prod3", "name": "Item 3", "price": 10.00, "quantity": 1}\n  ]\n}'
+        };
+
+        // Reset form to default
+        function resetForm(endpointId) {
+            const textarea = document.getElementById(endpointId + 'Body');
+            if (textarea && defaultValues[endpointId]) {
+                textarea.value = defaultValues[endpointId];
+            }
+
+            const input = document.getElementById(endpointId + 'Id');
+            if (input) {
+                input.value = '';
+            }
+        }
+
+        // Generate large order with 150 items
+        function generateLargeOrder() {
+            const items = [];
+            for (let i = 1; i <= 150; i++) {
+                items.push({
+                    productId: `prod${i}`,
+                    name: `Item ${i}`,
+                    price: 10.00 + (i * 0.5),
+                    quantity: 1
+                });
+            }
+
+            const order = {
+                customerId: "PASTE_CUSTOMER_ID_HERE",
+                customerName: "Alice Johnson (Large Order)",
+                items: items
+            };
+
+            document.getElementById('createLargeOrderBody').value = JSON.stringify(order, null, 2);
+        }
+
+        // Execute API request
+        async function executeRequest(endpointId) {
+            let url, method, body;
+
+            // Configure request based on endpoint
+            switch(endpointId) {
+                case 'createCustomer':
+                    url = `${API_BASE}/customers`;
+                    method = 'POST';
+                    body = document.getElementById('createCustomerBody').value;
+                    break;
+
+                case 'getAllCustomers':
+                    url = `${API_BASE}/customers`;
+                    method = 'GET';
+                    break;
+
+                case 'createProduct':
+                case 'createElectronics':
+                case 'createClothing':
+                case 'createBook':
+                    url = `${API_BASE}/products`;
+                    method = 'POST';
+                    body = document.getElementById(endpointId + 'Body').value;
+                    break;
+
+                case 'getAllProducts':
+                    url = `${API_BASE}/products`;
+                    method = 'GET';
+                    break;
+
+                case 'createOrder':
+                case 'createLargeOrder':
+                    url = `${API_BASE}/orders`;
+                    method = 'POST';
+                    body = document.getElementById(endpointId + 'Body').value;
+                    break;
+
+                case 'getAllOrders':
+                    url = `${API_BASE}/orders`;
+                    method = 'GET';
+                    break;
+
+                case 'getOrderItems':
+                    const orderId = document.getElementById('getOrderItemsId').value;
+                    if (!orderId) {
+                        alert('Please enter an Order ID');
+                        return;
+                    }
+                    url = `${API_BASE}/orders/${orderId}/items`;
+                    method = 'GET';
+                    break;
+
+                default:
+                    console.error('Unknown endpoint:', endpointId);
+                    return;
+            }
+
+            try {
+                // Show loading state
+                const responseSection = document.getElementById(endpointId + 'Response');
+                const statusBadge = document.getElementById(endpointId + 'Status');
+                const responseBody = document.getElementById(endpointId + 'Body_response');
+
+                responseSection.classList.add('show');
+                statusBadge.textContent = 'Loading...';
+                statusBadge.className = 'status-badge';
+                responseBody.textContent = 'Sending request...';
+
+                // Make request
+                const options = {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+
+                if (body) {
+                    options.body = body;
+                }
+
+                const response = await fetch(url, options);
+                const data = await response.json();
+
+                // Update UI with response
+                if (response.ok) {
+                    statusBadge.textContent = `${response.status} ${response.statusText}`;
+                    statusBadge.className = 'status-badge status-success';
+                } else {
+                    statusBadge.textContent = `${response.status} ${response.statusText}`;
+                    statusBadge.className = 'status-badge status-error';
+                }
+
+                responseBody.textContent = JSON.stringify(data, null, 2);
+
+            } catch (error) {
+                const responseSection = document.getElementById(endpointId + 'Response');
+                const statusBadge = document.getElementById(endpointId + 'Status');
+                const responseBody = document.getElementById(endpointId + 'Body_response');
+
+                responseSection.classList.add('show');
+                statusBadge.textContent = 'Error';
+                statusBadge.className = 'status-badge status-error';
+                responseBody.textContent = `Error: ${error.message}\n\nMake sure the Spring Boot application is running on ${API_BASE}`;
+            }
+        }
+    </script>
+</body>
+</html>
+

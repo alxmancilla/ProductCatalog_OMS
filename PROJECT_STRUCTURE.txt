@@ -1,0 +1,261 @@
+Product Catalog + OMS Demo - Project Structure
+================================================
+
+ProductCatalog_OMS/
+│
+├── 📄 pom.xml                          # Maven configuration
+├── 📄 docker-compose.yml               # MongoDB Docker setup
+├── 📄 .gitignore                       # Git ignore rules
+│
+├── 📜 README.md                        # Quick start guide + documentation index
+│
+├── 📚 FOR BEGINNERS:
+│   ├── BEGINNERS_GUIDE.md              # 🎓 MongoDB concepts explained simply
+│   ├── WEB_INTERFACE_GUIDE.md          # 🌐 Interactive web interface guide
+│   └── DEMO_GUIDE.md                   # Demo walkthrough with visual examples
+│
+├── 👨‍💻 FOR DEVELOPERS:
+│   ├── SCHEMA_PATTERNS_GUIDE.md        # ⭐ Seven MongoDB Schema Design Patterns
+│   ├── OUTLIER_PATTERN_GUIDE.md        # 🆕 Handling large arrays (50+ items)
+│   └── DATA_MODELING_PRINCIPLE.md      # "Data together" principle (deep dive)
+│
+├── 🎤 FOR PRESENTERS:
+│   ├── WEBINAR_OUTLINE.md              # 15-minute presentation script
+│   └── PRESENTER_CHECKLIST.md          # Pre-webinar setup checklist
+│
+├── 📜 PROJECT_STRUCTURE.txt            # This file
+│
+├── 🔧 demo-commands.sh                 # Automated demo script
+│
+└── src/
+    └── main/
+        ├── java/
+        │   └── com/
+        │       └── example/
+        │           └── store/
+        │               │
+        │               ├── 📦 model/
+        │               │   ├── Customer.java      # @Document - customers collection
+        │               │   ├── Product.java       # @Document - products collection
+        │               │   ├── Order.java         # @Document - orders collection
+        │               │   ├── OrderItem.java     # Embedded document
+        │               │   └── OrderItemBucket.java # @Document - order_item_buckets (Outlier Pattern)
+        │               │
+        │               ├── 📦 repository/
+        │               │   ├── CustomerRepository.java # MongoRepository
+        │               │   ├── ProductRepository.java  # MongoRepository
+        │               │   ├── OrderRepository.java    # MongoRepository
+        │               │   └── OrderItemBucketRepository.java # MongoRepository (Outlier Pattern)
+        │               │
+        │               ├── 📦 controller/
+        │               │   ├── CustomerController.java # REST API for customers
+        │               │   ├── ProductController.java  # REST API for products
+        │               │   └── OrderController.java    # REST API for orders
+        │               │
+        │               ├── 📦 config/
+        │               │   └── MongoConfig.java        # BigDecimal → Decimal128 converters
+        │               │
+        │               └── DemoApplication.java   # @SpringBootApplication
+        │
+        └── resources/
+            ├── application.properties      # MongoDB connection config
+            └── static/
+                └── index.html              # 🌐 NEW! Interactive web interface
+
+
+File Count Summary
+==================
+Java Files:        14 (includes MongoConfig.java, OrderItemBucket.java, OrderItemBucketRepository.java)
+Configuration:     3 (pom.xml, application.properties, docker-compose.yml)
+Documentation:     8 (streamlined - removed redundant files!)
+Web Interface:     1 (index.html)
+Scripts:           1 (demo-commands.sh)
+Total:            27 files
+
+
+Key Components
+==============
+
+MODEL LAYER (5 files)
+├── Customer.java         - Customer entity with @Document annotation
+├── Product.java          - Product entity with @Document annotation (Polymorphic Pattern)
+├── Order.java            - Order entity with embedded OrderItems (Outlier Pattern)
+├── OrderItem.java        - Embedded document (no @Document)
+└── OrderItemBucket.java  - 🆕 Bucket entity for large orders (Outlier Pattern)
+
+REPOSITORY LAYER (4 files)
+├── CustomerRepository.java       - Extends MongoRepository<Customer, String>
+├── ProductRepository.java        - Extends MongoRepository<Product, String>
+├── OrderRepository.java          - Extends MongoRepository<Order, String>
+└── OrderItemBucketRepository.java - 🆕 Extends MongoRepository<OrderItemBucket, String>
+
+CONTROLLER LAYER (3 files)
+├── CustomerController.java - POST /customers, GET /customers
+├── ProductController.java  - POST /products, GET /products
+└── OrderController.java    - POST /orders, GET /orders
+
+CONFIGURATION LAYER (1 file)
+└── MongoConfig.java        - BigDecimal ↔ Decimal128 converters (proper numeric storage)
+
+APPLICATION (1 file)
+└── DemoApplication.java   - Spring Boot main class
+
+
+MongoDB Collections
+===================
+
+customers
+├── Stores Customer documents
+└── Fields: _id, name, email, phone
+
+products
+├── Stores Product documents (Polymorphic Pattern)
+└── Fields: _id, name, price, category, inventory, type, warranty, brand, size, color, etc.
+
+orders
+├── Stores Order documents with embedded OrderItems (normal orders)
+├── Uses Subset Pattern: customerId (reference) + customerName (subset)
+├── Uses Computed Pattern: pre-calculated total
+├── Uses Outlier Pattern: isLargeOrder flag for 50+ items
+└── Fields: _id, customerId, customerName, orderDate, items[], total, schemaVersion, isLargeOrder, totalItemCount, bucketCount
+
+order_item_buckets 🆕
+├── Stores OrderItemBucket documents (for large orders with 100+ items)
+├── Uses Outlier Pattern: splits large orders into buckets of 50 items
+└── Fields: _id, orderId, bucketNumber, items[]
+
+
+API Endpoints
+=============
+
+Customers API
+├── POST   /customers     - Create a new customer
+└── GET    /customers     - Get all customers
+
+Products API
+├── POST   /products      - Create a new product
+└── GET    /products      - Get all products
+
+Orders API
+├── POST   /orders        - Create a new order
+└── GET    /orders        - Get all orders
+
+
+Documentation Guide
+===================
+
+For Quick Start:
+└── README.md
+
+For Demo Presentation:
+├── WEBINAR_OUTLINE.md        (minute-by-minute guide)
+├── PRESENTER_CHECKLIST.md    (setup checklist)
+└── demo-commands.sh          (automated script)
+
+For Learning:
+├── DEMO_GUIDE.md             (comprehensive documentation)
+└── CURL_EXAMPLES.md          (API testing examples)
+
+For Overview:
+├── PROJECT_SUMMARY.md        (high-level summary)
+└── PROJECT_STRUCTURE.txt     (this file)
+
+
+MongoDB's Guiding Principle
+===========================
+
+    "Data that is accessed together should be stored together."
+
+This principle drives all data modeling decisions in this demo.
+
+
+MongoDB Design Patterns Demonstrated (6 Total!)
+================================================
+
+CORE DATA MODELING PATTERNS:
+
+1. EMBEDDING PATTERN (Data ALWAYS accessed together)
+   ├── OrderItem documents embedded in Order
+   ├── Why? Order items are ALWAYS accessed with the order
+   ├── Result: Zero joins, single query retrieval
+   └── Benefits: 100x faster than relational joins, atomic updates
+
+2. SUBSET PATTERN (Data FREQUENTLY accessed together) ⭐
+   ├── Order stores customerId (reference) + customerName (subset)
+   ├── OrderItem stores productId (reference) + name/price (subset)
+   ├── Why? Customer name FREQUENTLY accessed, full data RARELY needed
+   ├── Result: 90% of queries need no lookup
+   └── Benefits: optimized reads, historical accuracy, flexibility
+
+3. REFERENCING PATTERN (Data OCCASIONALLY accessed together)
+   ├── Order references Customer by customerId
+   ├── OrderItem references Product by productId
+   ├── Why? Full customer/product data OCCASIONALLY needed
+   ├── Result: Can lookup complete data when needed
+   └── Benefits: single source of truth, data integrity, optimal storage
+
+SCHEMA DESIGN PATTERNS (Official MongoDB Patterns):
+
+4. COMPUTED PATTERN 🧮
+   ├── Pre-calculate and store values in documents
+   ├── Example: Order 'total' calculated from items
+   ├── Why? Avoid expensive calculations on every read
+   └── Benefits: Fast queries, consistent results, simple code
+
+5. POLYMORPHIC PATTERN 🎭
+   ├── Different document types in same collection
+   ├── Example: Electronics, Clothing, Books in 'products' collection
+   ├── Why? Flexible schema, easy to add new types
+   └── Benefits: Single collection, type-specific fields, no schema changes
+
+6. DOCUMENT VERSIONING PATTERN 📋
+   ├── Track schema evolution over time
+   ├── Example: schemaVersion field in Order (v1 → v2)
+   ├── Why? Safe schema changes, gradual migration
+   └── Benefits: Backward compatibility, audit trail, no downtime
+
+
+Technology Stack
+================
+
+Language:       Java 21
+Framework:      Spring Boot 3.2.0
+Database:       MongoDB 8
+Build Tool:     Maven
+Libraries:      Spring Data MongoDB, Lombok
+Container:      Docker (for MongoDB)
+
+
+Build & Run Commands
+====================
+
+Start MongoDB:
+$ docker-compose up -d
+
+Build Project:
+$ mvn clean install
+
+Run Application:
+$ mvn spring-boot:run
+
+Run Demo:
+$ ./demo-commands.sh
+
+View in MongoDB:
+$ mongosh
+> use sample_pc_oms
+> db.customers.find().pretty()
+> db.products.find().pretty()
+> db.orders.find().pretty()
+
+
+Project Status
+==============
+
+✅ All source files created
+✅ Project compiles successfully
+✅ Documentation complete
+✅ Demo scripts ready
+✅ Docker setup configured
+✅ Ready for webinar presentation
+

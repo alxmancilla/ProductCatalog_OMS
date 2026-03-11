@@ -2,7 +2,7 @@
 # SENSITIVE FILES - Never commit credentials!
 # ============================================================================
 # Application properties with database credentials
-src/main/resources/application.properties
+*.properties
 src/main/resources/application-*.properties
 
 # Environment files

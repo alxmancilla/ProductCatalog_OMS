@@ -1,3 +1,18 @@
+# ============================================================================
+# SENSITIVE FILES - Never commit credentials!
+# ============================================================================
+# Application properties with database credentials
+src/main/resources/application.properties
+src/main/resources/application-*.properties
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# ============================================================================
+# MAVEN BUILD FILES
+# ============================================================================
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -34,4 +49,33 @@ build/
 
 ### macOS ###
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
 
+### Windows ###
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+### Linux ###
+*~
+.directory
+
+# ============================================================================
+# LOGS AND TEMPORARY FILES
+# ============================================================================
+logs/
+*.log
+*.log.*
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# ============================================================================
+# MONGODB
+# ============================================================================
+# MongoDB data directories (if running locally)
+data/
+mongodb/

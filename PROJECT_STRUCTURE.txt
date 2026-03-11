@@ -58,19 +58,21 @@ ProductCatalog_OMS/
         │               └── DemoApplication.java   # @SpringBootApplication
         │
         └── resources/
-            ├── application.properties      # MongoDB connection config
+            ├── application.properties.template  # 🔒 Configuration template (copy to application.properties)
             └── static/
-                └── index.html              # 🌐 NEW! Interactive web interface
+                └── index.html              # 🌐 Interactive web interface
+
+NOTE: application.properties is in .gitignore to protect credentials!
 
 
 File Count Summary
 ==================
 Java Files:        14 (includes MongoConfig.java, OrderItemBucket.java, OrderItemBucketRepository.java)
-Configuration:     3 (pom.xml, application.properties, docker-compose.yml)
+Configuration:     4 (pom.xml, application.properties.template, docker-compose.yml, .gitignore)
 Documentation:     8 (streamlined - removed redundant files!)
 Web Interface:     1 (index.html)
 Scripts:           1 (demo-commands.sh)
-Total:            27 files
+Total:            28 files (+ application.properties - not in git)
 
 
 Key Components

@@ -1,0 +1,79 @@
+# ============================================================================
+# Product Catalog + OMS Demo - Application Configuration Template
+# ============================================================================
+# 
+# INSTRUCTIONS:
+# 1. Copy this file to: application.properties
+# 2. Replace the placeholder values with your actual credentials
+# 3. Never commit application.properties to version control!
+#
+# ============================================================================
+
+# ============================================================================
+# MONGODB CONFIGURATION
+# ============================================================================
+
+# MongoDB Atlas Connection String
+# Replace <db_username> and <db_password> with your actual credentials
+spring.data.mongodb.uri=mongodb+srv://<db_username>:<db_password>@democluster.elz1q.mongodb.net/?retryWrites=true&w=majority&appName=Demo-PC-OMS
+
+# Database name
+spring.data.mongodb.database=demo_pc_oms
+
+# ============================================================================
+# Alternative: Local MongoDB Configuration
+# ============================================================================
+# Uncomment these lines if using local MongoDB instead of Atlas:
+# spring.data.mongodb.uri=mongodb://localhost:27017
+# spring.data.mongodb.database=demo_pc_oms
+
+# ============================================================================
+# SERVER CONFIGURATION
+# ============================================================================
+
+# Server port (default: 8080)
+server.port=8080
+
+# ============================================================================
+# APPLICATION CONFIGURATION
+# ============================================================================
+
+# Application name
+spring.application.name=demo_pc_oms
+
+# ============================================================================
+# LOGGING CONFIGURATION
+# ============================================================================
+
+# MongoDB query logging (useful for debugging)
+logging.level.org.springframework.data.mongodb=DEBUG
+
+# ============================================================================
+# JACKSON JSON CONFIGURATION
+# ============================================================================
+
+# Exclude null fields from JSON responses for cleaner API output
+# This is especially useful for the Polymorphic Pattern
+spring.jackson.default-property-inclusion=non_null
+
+# ============================================================================
+# NOTES
+# ============================================================================
+#
+# MongoDB Atlas Setup:
+# 1. Create a free cluster at https://www.mongodb.com/cloud/atlas
+# 2. Create a database user with read/write permissions
+# 3. Whitelist your IP address (or use 0.0.0.0/0 for testing)
+# 4. Get your connection string from the Atlas dashboard
+# 5. Replace <db_username> and <db_password> in the URI above
+#
+# Local MongoDB Setup:
+# 1. Install MongoDB 8: https://www.mongodb.com/try/download/community
+# 2. Start MongoDB: mongod --dbpath /path/to/data
+# 3. Use the local configuration above
+#
+# Or use Docker:
+# docker run -d -p 27017:27017 --name mongodb mongo:8
+#
+# ============================================================================
+

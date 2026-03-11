@@ -78,14 +78,34 @@ http://localhost:8080
 ### Prerequisites
 - Java 21+
 - Maven 3.6+
-- MongoDB 8 (running on localhost:27017)
+- MongoDB 8 (Atlas or local)
 
-### Start MongoDB with Docker
+### 1. Configure Database Connection
+
+**First time setup:**
 ```bash
-docker run -d -p 27017:27017 --name mongodb mongo:8
+# Copy the template file
+cp src/main/resources/application.properties.template src/main/resources/application.properties
+
+# Edit application.properties and add your MongoDB credentials
+# For MongoDB Atlas: Replace <db_username> and <db_password>
+# For local MongoDB: Use mongodb://localhost:27017
 ```
 
-### Run the Application
+**Note:** The `application.properties` file is in `.gitignore` to protect your credentials.
+
+### 2. Start MongoDB (if using local)
+
+```bash
+# Option 1: Docker (recommended)
+docker run -d -p 27017:27017 --name mongodb mongo:8
+
+# Option 2: Docker Compose
+docker-compose up -d
+```
+
+### 3. Run the Application
+
 ```bash
 mvn clean install
 mvn spring-boot:run

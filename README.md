@@ -92,7 +92,11 @@ cp src/main/resources/application.properties.template src/main/resources/applica
 # For local MongoDB: Use mongodb://localhost:27017
 ```
 
-**Note:** The `application.properties` file is in `.gitignore` to protect your credentials.
+**Important Security Notes:**
+- ✅ The `application.properties` file is in `.gitignore` to protect your credentials
+- ✅ Never commit database passwords or API keys to version control
+- ✅ Use the template file (`application.properties.template`) as a reference
+- ✅ Each developer should create their own `application.properties` locally
 
 ### 2. Start MongoDB (if using local)
 
@@ -112,6 +116,12 @@ mvn spring-boot:run
 ```
 
 The application starts on `http://localhost:8080`
+
+### ⚠️ Connection Issues?
+
+If you see MongoDB connection timeout errors, see **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** for solutions.
+
+**Quick fix:** Whitelist your IP address in MongoDB Atlas Network Access settings.
 
 ## 📚 Complete Documentation
 

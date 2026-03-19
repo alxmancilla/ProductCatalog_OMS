@@ -195,6 +195,54 @@ Bucket 2 (items 101-150):
 
 ---
 
+## 🔒 MongoDB Schema Validation 🆕
+
+### The Challenge
+
+When using the Outlier Pattern, the `items` field is set to `null` for large orders. This creates a challenge with MongoDB schema validation:
+
+- **Regular orders:** `items` must be an array with at least 1 item
+- **Large orders:** `items` must be `null` (items stored in buckets)
+
+### The Solution
+
+The schema validation is configured to allow `items` to be **either an array OR null**:
+
+```java
+// MongoSchemaValidation.java
+Document validator = new Document("$jsonSchema", new Document()
+    .append("bsonType", "object")
+    .append("required", Arrays.asList("customerId", "customerName", "total"))  // ← items NOT required!
+    .append("properties", new Document()
+        .append("items", new Document()
+            .append("bsonType", Arrays.asList("array", "null"))  // ← Allows array OR null
+            .append("description", "Order items array (null for large orders using Outlier Pattern)")
+        )
+    )
+);
+```
+
+### Key Points
+
+1. **`items` is NOT in the required fields list** - This allows it to be optional or null
+2. **`bsonType` accepts both "array" and "null"** - This allows flexibility for both patterns
+3. **Regular orders:** `items` is an array (validated normally)
+4. **Large orders:** `items` is `null` (validation passes)
+
+### Why This Matters
+
+Without this flexible validation:
+- ❌ Large orders would fail validation (missing `items` field)
+- ❌ MongoDB would reject documents with `items: null`
+- ❌ The Outlier Pattern wouldn't work
+
+With flexible validation:
+- ✅ Regular orders work normally
+- ✅ Large orders work with `items: null`
+- ✅ Both patterns coexist seamlessly
+
+---
+
 ## 🚀 How It Works in Code
 
 ### Creating a Normal Order

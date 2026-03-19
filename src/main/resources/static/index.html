@@ -449,9 +449,11 @@
                         <label>Request Body (JSON):</label>
                         <textarea id="createProductBody">{
   "name": "Generic Product",
+  "description": "A versatile general-purpose product suitable for various applications. High-quality construction and reliable performance.",
   "price": 99.99,
   "category": "General",
-  "inventory": 100
+  "inventory": 100,
+  "sku": "GEN-PROD-001"
 }</textarea>
                     </div>
 
@@ -508,7 +510,8 @@
 
                     <div class="info-box">
                         <h4>📋 Polymorphic Pattern Example</h4>
-                        <p>Electronics products have unique fields: <code>type</code>, <code>warranty</code>, and <code>brand</code>.</p>
+                        <p>Electronics products have unique fields: <code>type</code>, <code>warranty</code>, <code>brand</code>, <code>weight</code>, and <code>screenSize</code>.</p>
+                        <p style="margin-top: 8px;">The <code>description</code> field enables powerful fuzzy matching in the AI agent! 🤖</p>
                         <div style="margin-top: 10px;">
                             <span class="pattern-badge">🎭 Polymorphic Pattern</span>
                         </div>
@@ -518,12 +521,16 @@
                         <label>Request Body (JSON):</label>
                         <textarea id="createElectronicsBody">{
   "name": "Laptop Pro 15",
+  "description": "High-performance 15.6-inch laptop designed for professionals and power users. Features Intel Core i7 processor, 16GB RAM, and 512GB SSD for lightning-fast performance. Perfect for software development, video editing, and demanding applications.",
   "price": 1299.99,
   "category": "Electronics",
   "inventory": 50,
   "type": "Electronics",
   "warranty": "2 years",
-  "brand": "TechCorp"
+  "brand": "TechCorp",
+  "weight": "1.8 kg",
+  "screenSize": "15.6 inch",
+  "sku": "LAPTOP-PRO15-SG"
 }</textarea>
                     </div>
 
@@ -553,6 +560,7 @@
                     <div class="info-box">
                         <h4>📋 Polymorphic Pattern Example</h4>
                         <p>Clothing products have unique fields: <code>type</code>, <code>size</code>, <code>color</code>, and <code>material</code>.</p>
+                        <p style="margin-top: 8px;">The <code>description</code> field enables powerful fuzzy matching in the AI agent! 🤖</p>
                         <div style="margin-top: 10px;">
                             <span class="pattern-badge">🎭 Polymorphic Pattern</span>
                         </div>
@@ -562,13 +570,15 @@
                         <label>Request Body (JSON):</label>
                         <textarea id="createClothingBody">{
   "name": "Cotton T-Shirt",
+  "description": "Premium quality cotton t-shirt with a comfortable, relaxed fit. Made from 100% organic cotton for breathability and softness. Perfect for casual wear or layering. Machine washable and pre-shrunk for lasting fit.",
   "price": 29.99,
   "category": "Clothing",
   "inventory": 200,
   "type": "Clothing",
   "size": "M",
   "color": "Blue",
-  "material": "100% Cotton"
+  "material": "100% Cotton",
+  "sku": "TSHIRT-COT-BL-M"
 }</textarea>
                     </div>
 
@@ -597,7 +607,8 @@
 
                     <div class="info-box">
                         <h4>📋 Polymorphic Pattern Example</h4>
-                        <p>Book products have unique fields: <code>type</code>, <code>author</code>, <code>isbn</code>, and <code>pages</code>.</p>
+                        <p>Book products have unique fields: <code>type</code>, <code>author</code>, <code>isbn</code>, <code>pages</code>, <code>publisher</code>, and <code>language</code>.</p>
+                        <p style="margin-top: 8px;">The <code>description</code> field enables powerful fuzzy matching in the AI agent! 🤖</p>
                         <div style="margin-top: 10px;">
                             <span class="pattern-badge">🎭 Polymorphic Pattern</span>
                         </div>
@@ -607,13 +618,17 @@
                         <label>Request Body (JSON):</label>
                         <textarea id="createBookBody">{
   "name": "MongoDB Design Patterns",
+  "description": "Comprehensive guide to MongoDB schema design patterns and best practices. Learn the 7 essential patterns including Embedding, Subset, Polymorphic, Computed, and Outlier patterns. Includes real-world examples and performance optimization techniques. Perfect for developers building scalable applications.",
   "price": 49.99,
   "category": "Books",
   "inventory": 75,
   "type": "Book",
   "author": "Jane Developer",
   "isbn": "978-1234567890",
-  "pages": 350
+  "pages": 350,
+  "publisher": "TechBooks Publishing",
+  "language": "English",
+  "sku": "BOOK-MONGO-PAT"
 }</textarea>
                     </div>
 
@@ -728,12 +743,15 @@
 
                     <div class="info-box">
                         <h4>📋 Outlier Pattern in Action! 🆕</h4>
-                        <p>This creates an order with 100+ items. The system will automatically:</p>
+                        <p>This creates an order with 150 items using <strong>real products from products-dataset.json</strong>. The system will automatically:</p>
                         <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Fetch products from the database</li>
+                            <li>Generate 150 items by cycling through available products</li>
                             <li>Set <code>isLargeOrder = true</code></li>
                             <li>Split items into buckets of 50</li>
                             <li>Store buckets in <code>order_item_buckets</code> collection</li>
                         </ul>
+                        <p style="margin-top: 10px;"><strong>💡 Tip:</strong> Click "⚡ Generate 150 Items" to auto-populate with real products!</p>
                         <div style="margin-top: 10px;">
                             <span class="pattern-badge">🎯 Outlier Pattern</span>
                         </div>
@@ -837,10 +855,10 @@
         // Default form values
         const defaultValues = {
             createCustomer: '{\n  "name": "John Doe",\n  "email": "john.doe@example.com",\n  "phone": "+1-555-0123"\n}',
-            createProduct: '{\n  "name": "Generic Product",\n  "price": 99.99,\n  "category": "General",\n  "inventory": 100\n}',
-            createElectronics: '{\n  "name": "Laptop Pro 15",\n  "price": 1299.99,\n  "category": "Electronics",\n  "inventory": 50,\n  "type": "Electronics",\n  "warranty": "2 years",\n  "brand": "TechCorp"\n}',
-            createClothing: '{\n  "name": "Cotton T-Shirt",\n  "price": 29.99,\n  "category": "Clothing",\n  "inventory": 200,\n  "type": "Clothing",\n  "size": "M",\n  "color": "Blue",\n  "material": "100% Cotton"\n}',
-            createBook: '{\n  "name": "MongoDB Design Patterns",\n  "price": 49.99,\n  "category": "Books",\n  "inventory": 75,\n  "type": "Book",\n  "author": "Jane Developer",\n  "isbn": "978-1234567890",\n  "pages": 350\n}',
+            createProduct: '{\n  "name": "Generic Product",\n  "description": "A versatile general-purpose product suitable for various applications. High-quality construction and reliable performance.",\n  "price": 99.99,\n  "category": "General",\n  "inventory": 100,\n  "sku": "GEN-PROD-001"\n}',
+            createElectronics: '{\n  "name": "Laptop Pro 15",\n  "description": "High-performance 15.6-inch laptop designed for professionals and power users. Features Intel Core i7 processor, 16GB RAM, and 512GB SSD for lightning-fast performance. Perfect for software development, video editing, and demanding applications.",\n  "price": 1299.99,\n  "category": "Electronics",\n  "inventory": 50,\n  "type": "Electronics",\n  "warranty": "2 years",\n  "brand": "TechCorp",\n  "weight": "1.8 kg",\n  "screenSize": "15.6 inch",\n  "sku": "LAPTOP-PRO15-SG"\n}',
+            createClothing: '{\n  "name": "Cotton T-Shirt",\n  "description": "Premium quality cotton t-shirt with a comfortable, relaxed fit. Made from 100% organic cotton for breathability and softness. Perfect for casual wear or layering. Machine washable and pre-shrunk for lasting fit.",\n  "price": 29.99,\n  "category": "Clothing",\n  "inventory": 200,\n  "type": "Clothing",\n  "size": "M",\n  "color": "Blue",\n  "material": "100% Cotton",\n  "sku": "TSHIRT-COT-BL-M"\n}',
+            createBook: '{\n  "name": "MongoDB Design Patterns",\n  "description": "Comprehensive guide to MongoDB schema design patterns and best practices. Learn the 7 essential patterns including Embedding, Subset, Polymorphic, Computed, and Outlier patterns. Includes real-world examples and performance optimization techniques. Perfect for developers building scalable applications.",\n  "price": 49.99,\n  "category": "Books",\n  "inventory": 75,\n  "type": "Book",\n  "author": "Jane Developer",\n  "isbn": "978-1234567890",\n  "pages": 350,\n  "publisher": "TechBooks Publishing",\n  "language": "English",\n  "sku": "BOOK-MONGO-PAT"\n}',
             createOrder: '{\n  "customerId": "PASTE_CUSTOMER_ID_HERE",\n  "customerName": "John Doe",\n  "items": [\n    {\n      "productId": "PASTE_PRODUCT_ID_HERE",\n      "name": "Laptop Pro 15",\n      "price": 1299.99,\n      "quantity": 1\n    },\n    {\n      "productId": "PASTE_PRODUCT_ID_HERE",\n      "name": "Wireless Mouse",\n      "price": 29.99,\n      "quantity": 2\n    }\n  ]\n}',
             createLargeOrder: '{\n  "customerId": "PASTE_CUSTOMER_ID_HERE",\n  "customerName": "Alice Johnson",\n  "items": [\n    {"productId": "prod1", "name": "Item 1", "price": 10.00, "quantity": 1},\n    {"productId": "prod2", "name": "Item 2", "price": 10.00, "quantity": 1},\n    {"productId": "prod3", "name": "Item 3", "price": 10.00, "quantity": 1}\n  ]\n}'
         };
@@ -858,25 +876,52 @@
             }
         }
 
-        // Generate large order with 150 items
-        function generateLargeOrder() {
-            const items = [];
-            for (let i = 1; i <= 150; i++) {
-                items.push({
-                    productId: `prod${i}`,
-                    name: `Item ${i}`,
-                    price: 10.00 + (i * 0.5),
-                    quantity: 1
-                });
+        // Generate large order with 150 items using real products from database
+        async function generateLargeOrder() {
+            try {
+                // Fetch all products from the database
+                const response = await fetch(`${API_BASE}/products`);
+                if (!response.ok) {
+                    alert('Failed to fetch products. Please make sure products are loaded in the database.');
+                    return;
+                }
+
+                const products = await response.json();
+
+                if (!products || products.length === 0) {
+                    alert('No products found in database. Please import products-dataset.json first:\n\nmongoimport --db product_catalog_oms --collection products --file products-dataset.json --jsonArray --drop');
+                    return;
+                }
+
+                // Generate 150 items by cycling through available products
+                const items = [];
+                for (let i = 0; i < 150; i++) {
+                    const product = products[i % products.length]; // Cycle through products
+                    const quantity = Math.floor(Math.random() * 3) + 1; // Random quantity 1-3
+
+                    items.push({
+                        productId: product.id,
+                        name: product.name,
+                        price: product.price,
+                        quantity: quantity
+                    });
+                }
+
+                const order = {
+                    customerId: "PASTE_CUSTOMER_ID_HERE",
+                    customerName: "Alice Johnson (Large Order - 150 items)",
+                    items: items
+                };
+
+                document.getElementById('createLargeOrderBody').value = JSON.stringify(order, null, 2);
+
+                // Show success message
+                alert(`✅ Generated large order with 150 items using ${products.length} products from database!\n\nNote: Don't forget to replace PASTE_CUSTOMER_ID_HERE with an actual customer ID.`);
+
+            } catch (error) {
+                console.error('Error generating large order:', error);
+                alert('Error generating large order: ' + error.message);
             }
-
-            const order = {
-                customerId: "PASTE_CUSTOMER_ID_HERE",
-                customerName: "Alice Johnson (Large Order)",
-                items: items
-            };
-
-            document.getElementById('createLargeOrderBody').value = JSON.stringify(order, null, 2);
         }
 
         // Execute API request

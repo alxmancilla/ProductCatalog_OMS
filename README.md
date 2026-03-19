@@ -1,6 +1,6 @@
 # Product Catalog + Order Management System
 
-A production-quality demo application built with **Java 21**, **Spring Boot 3**, and **MongoDB 8** showcasing **7 MongoDB design patterns** with an interactive web interface.
+A production-quality demo application built with **Java 21**, **Spring Boot 3**, and **MongoDB 8** showcasing **8 MongoDB design patterns**, **ACID transactions**, and **AI-powered order processing** with an interactive web interface.
 
 > **Perfect for:** 15-minute webinars, MongoDB workshops, and teaching document database concepts
 
@@ -13,8 +13,9 @@ This demo exemplifies MongoDB's fundamental data modeling principle:
 - **Embedding** - OrderItems stored with Orders (always accessed together) → Zero joins!
 - **Subset Pattern** - Customer name stored with Orders (frequently accessed together) → Fast queries!
 - **References** - Full customer/product data (occasionally accessed together) → Flexibility!
+- **Transactions** 🆕 - ACID guarantees for order + inventory updates → Data consistency!
 
-**Result:** 100x faster queries, simpler code, better performance! 🚀
+**Result:** 100x faster queries, simpler code, better performance, guaranteed consistency! 🚀
 
 ## 🎯 Purpose
 
@@ -23,16 +24,57 @@ This project demonstrates:
 - MongoDB document storage with JSON-like documents
 - Natural mapping between Java objects and MongoDB documents
 - REST API implementation with Spring Boot
-- **Seven MongoDB design patterns:**
+- **ACID transactions** 🆕 for inventory management
+- **Eight MongoDB design patterns:**
   1. **Embedding Pattern** - OrderItems embedded in Orders
   2. **Subset Pattern** - Customer/Product data denormalized
   3. **Reference Pattern** - Links between collections
   4. **Computed Pattern** ⭐ - Pre-calculated order totals
   5. **Polymorphic Pattern** ⭐ - Different product types (Electronics, Clothing, Books)
   6. **Document Versioning** ⭐ - Schema evolution tracking
-  7. **Outlier Pattern** 🆕 - Handling large arrays (100+ items) with bucketing
+  7. **Outlier Pattern** ⭐ - Handling large arrays (100+ items) with bucketing
+  8. **Transaction Pattern** 🆕 - ACID transactions for order creation + inventory updates
 
-## 🌐 Interactive Web Interface 🆕
+## 🤖 AI Order Assistant 🆕
+
+**Create orders using natural language with intelligent inventory validation!** Powered by LangGraph + Grove API (OpenAI GPT-5.4):
+
+```bash
+curl -X POST http://localhost:8080/ai/order \
+  -H "Content-Type: application/json" \
+  -d '{"message": "I want 2 laptops for John Doe"}'
+```
+
+**Success Response:**
+```json
+{
+  "success": true,
+  "message": "✅ Order created! Order #12345 for John Doe with 2 items. Total: $2599.98. Thank you!",
+  "orderId": "12345",
+  "total": "2599.98"
+}
+```
+
+**Insufficient Inventory Response:**
+```json
+{
+  "success": false,
+  "message": "I'm sorry, but we only have 5 'Laptop Pro 15' in stock, but you requested 100. Would you like to order 5 instead?"
+}
+```
+
+**Features:**
+- 🧠 Natural language processing with GPT-5.4
+- 🔄 LangGraph state machine orchestration
+- 🔍 Fuzzy product matching
+- 👤 Automatic customer resolution
+- 📦 **Inventory validation with transactions** 🆕
+- 💬 **Intelligent error messages** 🆕
+- 📊 All 8 MongoDB patterns in action
+
+See **[AI_AGENT_GUIDE.md](AI_AGENT_GUIDE.md)** for complete documentation.
+
+## 🌐 Interactive Web Interface
 
 **No curl commands needed!** This demo includes a beautiful web interface to test all API endpoints:
 
@@ -63,15 +105,20 @@ http://localhost:8080
 3. **[DEMO_GUIDE.md](DEMO_GUIDE.md)** - Complete API walkthrough with examples
 
 ### 👨‍💻 **For Developers**
-- **[SCHEMA_PATTERNS_GUIDE.md](SCHEMA_PATTERNS_GUIDE.md)** ⭐ - Seven MongoDB Schema Design Patterns
-- **[OUTLIER_PATTERN_GUIDE.md](OUTLIER_PATTERN_GUIDE.md)** 🆕 - Handling large arrays (50+ items)
+- **[SCHEMA_PATTERNS_GUIDE.md](SCHEMA_PATTERNS_GUIDE.md)** ⭐ - Eight MongoDB Schema Design Patterns
+- **[TRANSACTIONS_GUIDE.md](TRANSACTIONS_GUIDE.md)** 🆕 - ACID transactions for inventory management
+- **[OUTLIER_PATTERN_GUIDE.md](OUTLIER_PATTERN_GUIDE.md)** - Handling large arrays (100+ items)
+- **[PRODUCT_SCHEMA_VERSIONING.md](PRODUCT_SCHEMA_VERSIONING.md)** 🆕 - Product schema evolution (v1 → v2)
+- **[AI_AGENT_GUIDE.md](AI_AGENT_GUIDE.md)** 🤖 - Natural language order processing
 - **[DATA_MODELING_PRINCIPLE.md](DATA_MODELING_PRINCIPLE.md)** - Deep dive into "data together" principle
+- **[VALIDATION_ARCHITECTURE.md](VALIDATION_ARCHITECTURE.md)** - Defense-in-depth validation
 - **Code files** - All model classes have beginner-friendly comments
 
 ### 🎤 **For Presenters**
 - **[WEBINAR_OUTLINE.md](WEBINAR_OUTLINE.md)** - 15-minute presentation script
 - **[PRESENTER_CHECKLIST.md](PRESENTER_CHECKLIST.md)** - Pre-webinar setup checklist
 - **[demo-commands.sh](demo-commands.sh)** - Automated demo script
+- **[test-transactions.sh](test-transactions.sh)** 🆕 - Transaction testing script
 
 ## 🚀 Quick Start
 
@@ -98,15 +145,29 @@ cp src/main/resources/application.properties.template src/main/resources/applica
 - ✅ Use the template file (`application.properties.template`) as a reference
 - ✅ Each developer should create their own `application.properties` locally
 
-### 2. Start MongoDB (if using local)
+### 2. Start MongoDB with Replica Set (Required for Transactions)
+
+**Important:** MongoDB transactions require a replica set configuration!
 
 ```bash
-# Option 1: Docker (recommended)
-docker run -d -p 27017:27017 --name mongodb mongo:8
-
-# Option 2: Docker Compose
+# Option 1: Docker Compose (recommended - includes replica set)
 docker-compose up -d
+
+# Wait for replica set initialization (automatic via healthcheck)
+# Check status:
+mongosh
+> rs.status()
+
+# Option 2: Docker (manual replica set setup)
+docker run -d -p 27017:27017 --name mongodb \
+  mongo:8 --replSet rs0 --bind_ip_all
+
+# Initialize replica set:
+mongosh
+> rs.initiate({_id: "rs0", members: [{_id: 0, host: "localhost:27017"}]})
 ```
+
+**Why replica set?** MongoDB transactions require the replica set's oplog for ACID guarantees. Even a single-node replica set works for development!
 
 ### 3. Run the Application
 
@@ -127,57 +188,182 @@ If you see MongoDB connection timeout errors, see **[TROUBLESHOOTING.md](TROUBLE
 
 This project includes comprehensive documentation:
 
+### 🤖 AI Agent
+- **[AI_AGENT_GUIDE.md](AI_AGENT_GUIDE.md)** 🆕 - Natural language order assistant with LangGraph
+
+### 📖 Core Documentation
 - **[README.md](README.md)** (this file) - Quick start and overview
 - **[DEMO_GUIDE.md](DEMO_GUIDE.md)** - Complete API walkthrough with curl examples
 - **[BEGINNERS_GUIDE.md](BEGINNERS_GUIDE.md)** - MongoDB concepts for beginners
 - **[WEB_INTERFACE_GUIDE.md](WEB_INTERFACE_GUIDE.md)** - Interactive web interface guide
-- **[SCHEMA_PATTERNS_GUIDE.md](SCHEMA_PATTERNS_GUIDE.md)** - Seven MongoDB design patterns
-- **[OUTLIER_PATTERN_GUIDE.md](OUTLIER_PATTERN_GUIDE.md)** - Handling large arrays
+
+### 🎨 Design Patterns & Transactions
+- **[SCHEMA_PATTERNS_GUIDE.md](SCHEMA_PATTERNS_GUIDE.md)** - Eight MongoDB design patterns
+- **[TRANSACTIONS_GUIDE.md](TRANSACTIONS_GUIDE.md)** 🆕 - ACID transactions for inventory management
+- **[OUTLIER_PATTERN_GUIDE.md](OUTLIER_PATTERN_GUIDE.md)** - Handling large arrays (100+ items)
+- **[PRODUCT_SCHEMA_VERSIONING.md](PRODUCT_SCHEMA_VERSIONING.md)** 🆕 - Product schema evolution
 - **[DATA_MODELING_PRINCIPLE.md](DATA_MODELING_PRINCIPLE.md)** - Core data modeling principles
+- **[VALIDATION_ARCHITECTURE.md](VALIDATION_ARCHITECTURE.md)** - Defense-in-depth validation
+
+### 🎤 Presentation
 - **[WEBINAR_OUTLINE.md](WEBINAR_OUTLINE.md)** - 15-minute presentation script
 - **[PRESENTER_CHECKLIST.md](PRESENTER_CHECKLIST.md)** - Pre-webinar checklist
+
+### 🔧 Reference
 - **[PROJECT_STRUCTURE.txt](PROJECT_STRUCTURE.txt)** - Complete project structure
+- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Common issues and solutions
+- **[TRANSACTION_IMPLEMENTATION_SUMMARY.md](TRANSACTION_IMPLEMENTATION_SUMMARY.md)** 🆕 - Transaction implementation details
 
 ## 🏗️ Project Structure
 
 ```
 src/main/java/com/example/store/
 ├── model/
-│   ├── Customer.java      # Customer entity
-│   ├── Product.java       # Product entity
-│   ├── Order.java         # Order entity
-│   └── OrderItem.java     # Embedded document
+│   ├── Customer.java          # Customer entity
+│   ├── Product.java           # Product entity (with inventory)
+│   ├── Order.java             # Order entity (with versioning)
+│   ├── OrderItem.java         # Embedded document
+│   └── OrderItemBucket.java   # Outlier pattern for large orders
 ├── repository/
 │   ├── CustomerRepository.java
 │   ├── ProductRepository.java
-│   └── OrderRepository.java
+│   ├── OrderRepository.java
+│   └── OrderItemBucketRepository.java
+├── service/
+│   └── OrderTransactionService.java  # 🆕 Transaction service
+├── exception/
+│   ├── InsufficientInventoryException.java  # 🆕 Inventory errors
+│   └── ProductNotFoundException.java        # 🆕 Product errors
 ├── controller/
 │   ├── CustomerController.java
 │   ├── ProductController.java
-│   └── OrderController.java
-└── DemoApplication.java   # Main application
+│   └── OrderController.java   # Uses transactions
+├── ai/                        # 🤖 AI Agent
+│   ├── graph/
+│   │   └── OrderAssistantGraph.java  # LangGraph state machine
+│   ├── service/
+│   │   ├── IntentParserService.java
+│   │   ├── CustomerResolverService.java
+│   │   ├── ProductMatcherService.java
+│   │   ├── OrderCreatorService.java  # Uses transactions
+│   │   └── ResponseGeneratorService.java
+│   └── controller/
+│       └── AIOrderController.java
+├── config/
+│   ├── MongoConfig.java       # 🆕 Transaction manager
+│   └── MongoSchemaValidation.java
+└── DemoApplication.java       # Main application
 ```
 
 ## 🧪 Quick Test
 
+### Test Basic CRUD
 ```bash
-# Create a product
+# Create a product with inventory
 curl -X POST http://localhost:8080/products \
   -H "Content-Type: application/json" \
-  -d '{"name":"Laptop","price":1299.99,"category":"Electronics","inventory":50}'
+  -d '{
+    "name": "Laptop Pro 15",
+    "description": "High-performance laptop",
+    "price": 1299.99,
+    "category": "Electronics",
+    "inventory": 10,
+    "sku": "LAPTOP-001"
+  }'
 
 # Get all products
 curl http://localhost:8080/products
+```
+
+### Test Transactions & Inventory 🆕
+```bash
+# Run the automated transaction test script
+./test-transactions.sh
+
+# Or test manually:
+# 1. Create an order (inventory will be decremented)
+curl -X POST http://localhost:8080/orders \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customerId": "CUSTOMER_ID",
+    "customerName": "John Doe",
+    "items": [
+      {
+        "productId": "PRODUCT_ID",
+        "name": "Laptop Pro 15",
+        "price": 1299.99,
+        "quantity": 2
+      }
+    ]
+  }'
+
+# 2. Check inventory was decremented
+curl http://localhost:8080/products/PRODUCT_ID
+# inventory should now be 8 (10 - 2)
+
+# 3. Try to order more than available (should fail)
+curl -X POST http://localhost:8080/orders \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customerId": "CUSTOMER_ID",
+    "customerName": "Jane Smith",
+    "items": [
+      {
+        "productId": "PRODUCT_ID",
+        "name": "Laptop Pro 15",
+        "price": 1299.99,
+        "quantity": 100
+      }
+    ]
+  }'
+# Returns 400 Bad Request with inventory error details
+```
+
+### Test AI Agent 🤖
+```bash
+# Natural language order with inventory validation
+curl -X POST http://localhost:8080/ai/order \
+  -H "Content-Type: application/json" \
+  -d '{"message": "I want 2 laptops for John Doe"}'
 ```
 
 ## 📖 Key Technologies
 
 - **Java 21** - Latest LTS version
 - **Spring Boot 3.2** - Application framework
-- **Spring Data MongoDB** - MongoDB integration
-- **MongoDB 8** - Document database
+- **Spring Data MongoDB** - MongoDB integration with transaction support
+- **MongoDB 8** - Document database with ACID transactions
+- **Grove API (OpenAI GPT-5.4)** 🆕 - AI-powered natural language processing
 - **Lombok** - Reduce boilerplate code
 - **Maven** - Build tool
+
+## 🔄 Transaction Features 🆕
+
+This application demonstrates **MongoDB ACID transactions** for inventory management:
+
+### **What Transactions Provide**
+- ✅ **Atomicity** - Order creation + inventory updates succeed or fail together
+- ✅ **Consistency** - Data always in valid state
+- ✅ **Isolation** - Concurrent orders don't interfere
+- ✅ **Durability** - Committed changes are permanent
+
+### **Use Case: Order Creation**
+```
+START TRANSACTION
+├─ 1. Validate all products exist
+├─ 2. Check inventory availability
+├─ 3. Create order document
+├─ 4. Decrement inventory for all products
+└─ COMMIT (if all succeed) or ROLLBACK (if any fail)
+```
+
+### **Benefits**
+- 🛡️ **No Overselling** - Can't sell more than available
+- 🔄 **Automatic Rollback** - Failed operations don't leave partial data
+- 🏃 **Race Condition Prevention** - Concurrent orders handled correctly
+- 💬 **Clear Error Messages** - Users know exactly what went wrong
+
+**See [TRANSACTIONS_GUIDE.md](TRANSACTIONS_GUIDE.md) for complete documentation.**
 
 ## ⚙️ Configuration Highlights
 
@@ -309,16 +495,17 @@ This demo showcases **SEVEN MongoDB design patterns**:
 
 6. **Document Versioning**: Track schema evolution
    - `schemaVersion` field tracks changes
-   - v1: `customer` (string)
-   - v2: `customerId` + `customerName` (Subset Pattern)
-   - v3: Added Outlier Pattern fields
+   - **Orders**: v1 → v2 (Subset Pattern) → v3 (Outlier Pattern)
+   - **Products**: v1 (basic) → v2 (inventory + SKU + description) 🆕
    - Safe gradual migration
+   - See [PRODUCT_SCHEMA_VERSIONING.md](PRODUCT_SCHEMA_VERSIONING.md) for details
 
 7. **Outlier Pattern** 🆕: Handle large arrays gracefully
-   - Normal orders (< 50 items): Embed items in Order
-   - Large orders (100+ items): Split into buckets
+   - Normal orders (< 100 items): Embed items in Order
+   - Large orders (100+ items): Split into buckets, `items` field set to `null`
    - Optimizes for common case (99% of orders)
    - Handles outliers without hitting 16MB limit
+   - Schema validation allows `items` to be `null` for large orders 🆕
 
 **See [SCHEMA_PATTERNS_GUIDE.md](SCHEMA_PATTERNS_GUIDE.md) and [OUTLIER_PATTERN_GUIDE.md](OUTLIER_PATTERN_GUIDE.md) for detailed explanations!**
 

@@ -1,6 +1,6 @@
 # MongoDB Schema Design Patterns in This Demo
 
-This demo showcases **FOUR official MongoDB Schema Design Patterns** that solve real-world data modeling challenges.
+This demo showcases **EIGHT MongoDB Schema Design Patterns** (including the Transaction Pattern) that solve real-world data modeling challenges.
 
 ---
 
@@ -183,13 +183,15 @@ Track schema changes over time to handle evolving requirements while maintaining
 
 ### Where We Use It
 
-**Order Schema Evolution** - `Order.java`
+**Order Schema Evolution** - `Order.java` (currently v3)
+**Product Schema Evolution** - `Product.java` (currently v2) 🆕
 
 ### The Problem
 
 Your schema needs to change, but you have existing data:
 - Old orders use `customer: "John Doe"` (string)
 - New orders need `customerId` + `customerName` (Subset Pattern)
+- Products need new fields (`inventory`, `sku`, `description`) 🆕
 - Can't migrate millions of documents instantly
 - Application must handle both formats
 
@@ -198,16 +200,26 @@ Your schema needs to change, but you have existing data:
 **Track the version:**
 
 ```java
+// Order.java
 public class Order {
-    private Integer schemaVersion = 2;  // Track which version
+    private Integer schemaVersion = 3;  // Track which version (v1 → v2 → v3)
     private String customerId;          // v2 field
     private String customerName;        // v2 field
+    private Boolean isLargeOrder;       // v3 field (Outlier Pattern)
+}
+
+// Product.java 🆕
+public class Product {
+    private Integer schemaVersion = 2;  // Track which version (v1 → v2)
+    private String description;         // v2 field (for AI matching)
+    private Integer inventory;          // v2 field (for transactions)
+    private String sku;                 // v2 field (unique identifier)
 }
 ```
 
 ### Example Documents
 
-**Version 1 (Old format):**
+**Order Version 1 (Old format):**
 ```json
 {
   "_id": "order123",
@@ -218,16 +230,33 @@ public class Order {
 }
 ```
 
-**Version 2 (New format):**
+**Order Version 3 (Current format):**
 ```json
 {
   "_id": "order456",
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "customerId": "cust789",
   "customerName": "Jane Smith",
   "orderDate": "2024-02-20",
   "items": [...],
+  "isLargeOrder": false,
+  "totalItemCount": 2,
+  "bucketCount": 0,
   "total": 899.99
+}
+```
+
+**Product Version 2 (Current format):** 🆕
+```json
+{
+  "_id": "prod123",
+  "schemaVersion": 2,
+  "name": "Laptop Pro 15",
+  "description": "High-performance laptop for professionals",
+  "price": 1299.99,
+  "category": "Electronics",
+  "inventory": 50,
+  "sku": "LAPTOP-PRO15-SG"
 }
 ```
 
@@ -264,6 +293,17 @@ if (order.getSchemaVersion() == null || order.getSchemaVersion() == 1) {
 - Can't migrate all documents immediately
 - Need to support multiple schema versions
 - Want to track schema changes for debugging
+
+### Current Schema Versions 🆕
+
+| Collection | Current Version | Evolution |
+|------------|----------------|-----------|
+| **orders** | v3 | v1 (basic) → v2 (Subset Pattern) → v3 (Outlier Pattern) |
+| **products** | v2 | v1 (basic) → v2 (inventory + SKU + description) |
+| **customers** | No versioning | Schema stable since creation |
+| **order_item_buckets** | No versioning | Created for Outlier Pattern |
+
+**See [PRODUCT_SCHEMA_VERSIONING.md](PRODUCT_SCHEMA_VERSIONING.md) for detailed product schema evolution!**
 
 ---
 
@@ -452,7 +492,7 @@ Main Order Document:
   "isLargeOrder": true,
   "totalItemCount": 150,
   "bucketCount": 3,
-  "items": null,
+  "items": null,  // ← Set to null for large orders
   "total": 15000.00
 }
 ```
@@ -467,6 +507,22 @@ Bucket Documents (in `order_item_buckets` collection):
 }
 ```
 
+### Schema Validation 🆕
+
+**Important:** MongoDB schema validation allows `items` to be `null` for large orders:
+
+```java
+// MongoSchemaValidation.java
+.append("items", new Document()
+    .append("bsonType", Arrays.asList("array", "null"))  // ← Allows null!
+    .append("description", "Order items array (null for large orders using Outlier Pattern)")
+)
+```
+
+**Why?** The `items` field is NOT in the required fields list to support the Outlier Pattern. This allows:
+- ✅ Regular orders: `items` is an array
+- ✅ Large orders: `items` is `null` (items stored in buckets)
+
 ### Benefits
 
 ✅ **Optimizes for common case** (99% of orders are small)
@@ -474,6 +530,7 @@ Bucket Documents (in `order_item_buckets` collection):
 ✅ **Stays below 16MB limit** (buckets are manageable size)
 ✅ **Maintains performance** (small orders are fast)
 ✅ **Scalable** (can handle 1000s of items)
+✅ **Schema validation supports both patterns** (array or null) 🆕
 
 ### When to Use
 
@@ -486,13 +543,152 @@ Bucket Documents (in `order_item_buckets` collection):
 
 ---
 
+## 🔄 Pattern 8: Transaction Pattern 🆕
+
+### What Is It?
+
+Use MongoDB ACID transactions to ensure multiple operations across collections succeed or fail together atomically.
+
+### Where We Use It
+
+**Order Creation with Inventory Management** - `OrderTransactionService.java`
+
+### The Problem
+
+Without transactions:
+```java
+// ❌ DANGEROUS: Race conditions and inconsistent data!
+Order order = orderRepository.save(order);  // Step 1: Create order
+
+// Step 2: Decrement inventory (might fail!)
+for (OrderItem item : order.getItems()) {
+    Product product = productRepository.findById(item.getProductId());
+    product.setInventory(product.getInventory() - item.getQuantity());
+    productRepository.save(product);  // What if this fails?
+}
+// Result: Order created but inventory not updated! 😱
+```
+
+**Problems:**
+- Order created even if inventory insufficient
+- Partial updates if one product fails
+- Race conditions with concurrent orders
+- Data inconsistency
+
+### Our Solution
+
+```java
+@Transactional  // ✅ All-or-nothing guarantee!
+public Order createOrderWithInventoryUpdate(Order order) {
+    // START TRANSACTION
+
+    // 1. Validate all products exist
+    for (OrderItem item : order.getItems()) {
+        Product product = productRepository.findById(item.getProductId())
+            .orElseThrow(() -> new ProductNotFoundException(...));
+
+        // 2. Check inventory availability
+        if (product.getInventory() < item.getQuantity()) {
+            throw new InsufficientInventoryException(...);
+        }
+    }
+
+    // 3. Create order
+    Order savedOrder = orderRepository.save(order);
+
+    // 4. Decrement inventory for all products
+    for (OrderItem item : order.getItems()) {
+        productRepository.decrementInventory(
+            item.getProductId(),
+            item.getQuantity()
+        );
+    }
+
+    // COMMIT (if all succeed) or ROLLBACK (if any fail)
+    return savedOrder;
+}
+```
+
+### The Result
+
+**Successful Order:**
+```json
+// Order created
+{
+  "_id": "order123",
+  "customerId": "cust456",
+  "items": [
+    { "productId": "prod789", "quantity": 2 }
+  ],
+  "total": 2599.98
+}
+
+// Inventory decremented atomically
+{
+  "_id": "prod789",
+  "name": "Laptop Pro 15",
+  "inventory": 8  // Was 10, now 8 (10 - 2)
+}
+```
+
+**Insufficient Inventory (Transaction Rollback):**
+```json
+// HTTP 400 Bad Request
+{
+  "error": "Insufficient inventory for product 'Laptop Pro 15'. Available: 8, Requested: 100"
+}
+
+// No order created, inventory unchanged!
+```
+
+### Benefits
+
+✅ **Atomicity** - All operations succeed or all fail together
+✅ **Consistency** - Data always in valid state
+✅ **Isolation** - Concurrent transactions don't interfere
+✅ **Durability** - Committed changes are permanent
+✅ **No Overselling** - Can't sell more than available
+✅ **Automatic Rollback** - Failed operations don't leave partial data
+
+### When to Use
+
+- Operations that span multiple documents/collections
+- Inventory management and stock control
+- Financial transactions
+- Any operation requiring all-or-nothing guarantee
+- Preventing race conditions
+
+### Requirements
+
+⚠️ **MongoDB transactions require a replica set!**
+
+```yaml
+# docker-compose.yml
+services:
+  mongodb:
+    image: mongo:8
+    command: --replSet rs0  # Enable replica set
+    healthcheck:
+      test: ["CMD", "bash", "/docker-entrypoint-initdb.d/init-replica-set.sh"]
+```
+
+Even a single-node replica set works for development!
+
+**See [TRANSACTIONS_GUIDE.md](TRANSACTIONS_GUIDE.md) for comprehensive details!**
+
+---
+
 ## 🎓 Key Takeaways
 
-1. **Computed Pattern** = Calculate once, read many times
-2. **Polymorphic Pattern** = One collection, flexible schema
-3. **Document Versioning** = Safe schema evolution
-4. **Outlier Pattern** = Optimize for common case, handle outliers gracefully
+1. **Embedding Pattern** = Store related data together (OrderItems in Orders)
+2. **Subset Pattern** = Denormalize frequently accessed data
+3. **Reference Pattern** = Link between collections when needed
+4. **Computed Pattern** = Calculate once, read many times
+5. **Polymorphic Pattern** = One collection, flexible schema
+6. **Document Versioning** = Safe schema evolution
+7. **Outlier Pattern** = Optimize for common case, handle outliers gracefully
+8. **Transaction Pattern** 🆕 = ACID guarantees for multi-document operations
 
-These patterns solve real-world problems and showcase MongoDB's flexibility! 🚀
+These patterns solve real-world problems and showcase MongoDB's flexibility and power! 🚀
 
 

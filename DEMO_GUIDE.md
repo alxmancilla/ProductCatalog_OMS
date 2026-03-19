@@ -243,6 +243,7 @@ curl -X POST http://localhost:8080/products \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Laptop Pro 15",
+    "description": "High-performance 15.6-inch laptop designed for professionals and power users. Features Intel Core i7 processor, 16GB RAM, and 512GB SSD.",
     "price": 1299.99,
     "category": "Electronics",
     "inventory": 50
@@ -253,6 +254,7 @@ curl -X POST http://localhost:8080/products \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Wireless Mouse",
+    "description": "Ergonomic wireless mouse with precision tracking and long battery life. Perfect for productivity and gaming.",
     "price": 29.99,
     "category": "Accessories",
     "inventory": 200
@@ -263,6 +265,7 @@ curl -X POST http://localhost:8080/products \
   -H "Content-Type: application/json" \
   -d '{
     "name": "USB-C Cable 2m",
+    "description": "Durable 2-meter USB-C cable supporting fast charging and data transfer up to 480Mbps. Universal compatibility.",
     "price": 15.99,
     "category": "Accessories",
     "inventory": 500
@@ -275,9 +278,15 @@ curl -X POST http://localhost:8080/products \
 curl http://localhost:8080/products | jq
 ```
 
-### 4. Create an Order
+### 4. Create an Order (with Inventory Validation) 🆕
 
 **Note:** Replace `<customer-id>`, `<product-id-1>`, and `<product-id-2>` with actual IDs from the customer and products you created.
+
+**This operation now uses MongoDB ACID transactions to:**
+- ✅ Validate inventory availability
+- ✅ Create the order
+- ✅ Decrement product inventory
+- ✅ Rollback everything if any step fails
 
 ```bash
 curl -X POST http://localhost:8080/orders \
@@ -302,7 +311,57 @@ curl -X POST http://localhost:8080/orders \
   }'
 ```
 
-### 5. Get All Orders
+**Success Response:**
+```json
+{
+  "_id": "order123",
+  "customerId": "cust456",
+  "customerName": "John Doe",
+  "items": [...],
+  "total": 1359.97
+}
+```
+
+**Insufficient Inventory Response (HTTP 400):**
+```json
+{
+  "error": "Insufficient inventory for product 'Laptop Pro 15'. Available: 0, Requested: 1"
+}
+```
+
+### 5. Verify Inventory Was Decremented 🆕
+
+```bash
+# Check the product inventory after order creation
+curl http://localhost:8080/products/<product-id-1> | jq
+
+# You'll see inventory decreased by the quantity ordered!
+```
+
+### 6. Test Insufficient Inventory (Transaction Rollback) 🆕
+
+```bash
+# Try to order more than available (should fail gracefully)
+curl -X POST http://localhost:8080/orders \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customerId": "<customer-id>",
+    "customerName": "Jane Smith",
+    "items": [
+      {
+        "productId": "<product-id-1>",
+        "name": "Laptop Pro 15",
+        "price": 1299.99,
+        "quantity": 1000
+      }
+    ]
+  }'
+
+# Returns HTTP 400 with clear error message
+# No order created, inventory unchanged!
+```
+
+### 7. Get All Orders
 
 ```bash
 curl http://localhost:8080/orders | jq
@@ -330,9 +389,25 @@ curl http://localhost:8080/orders | jq
 {
   "_id": "65a1b2c3d4e5f6g7h8i9j0k1",
   "name": "Laptop Pro 15",
+  "description": "High-performance laptop with 15-inch display",
   "price": 1299.99,
   "category": "Electronics",
-  "inventory": 50,
+  "inventory": 50,  // 🆕 Decremented atomically when orders are created!
+  "sku": "LAPTOP-001",
+  "_class": "com.example.store.model.Product"
+}
+```
+
+**After creating an order with 1 laptop:**
+```json
+{
+  "_id": "65a1b2c3d4e5f6g7h8i9j0k1",
+  "name": "Laptop Pro 15",
+  "description": "High-performance laptop with 15-inch display",
+  "price": 1299.99,
+  "category": "Electronics",
+  "inventory": 49,  // 🆕 Automatically decremented from 50 to 49!
+  "sku": "LAPTOP-001",
   "_class": "com.example.store.model.Product"
 }
 ```
@@ -651,6 +726,9 @@ com.example.store
    - **Get All Products** - Show different types in one collection
    - **Create Order** - Show Embedding, Subset, and Computed patterns
    - **Create Large Order** - Click "⚡ Generate 150 Items" to demo Outlier Pattern
+     - **Note:** Uses real products from database (cycles through 110 products to create 150 items) 🆕
+     - Shows how `items` field is set to `null` for large orders
+     - Demonstrates schema validation flexibility (array or null)
    - **Get Order Items** - Show transparent bucket retrieval
    - Point out the pattern badges in the UI!
 

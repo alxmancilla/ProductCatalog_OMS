@@ -37,9 +37,11 @@ PRODUCT1=$(curl -s -X POST $BASE_URL/products \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Laptop Pro 15",
+    "description": "High-performance 15.6-inch laptop designed for professionals and power users. Features Intel Core i7 processor, 16GB RAM, and 512GB SSD.",
     "price": 1299.99,
     "category": "Electronics",
-    "inventory": 50
+    "inventory": 50,
+    "sku": "LAPTOP-PRO15-SG"
   }')
 echo "$PRODUCT1" | jq
 PRODUCT1_ID=$(echo "$PRODUCT1" | jq -r '.id')
@@ -52,9 +54,11 @@ PRODUCT2=$(curl -s -X POST $BASE_URL/products \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Wireless Mouse",
+    "description": "Ergonomic wireless mouse with precision tracking and long battery life. Perfect for productivity and gaming.",
     "price": 29.99,
     "category": "Accessories",
-    "inventory": 200
+    "inventory": 200,
+    "sku": "MOUSE-WL-ERG-BK"
   }')
 echo "$PRODUCT2" | jq
 PRODUCT2_ID=$(echo "$PRODUCT2" | jq -r '.id')
@@ -67,9 +71,11 @@ PRODUCT3=$(curl -s -X POST $BASE_URL/products \
   -H "Content-Type: application/json" \
   -d '{
     "name": "USB-C Cable 2m",
+    "description": "Durable 2-meter USB-C cable supporting fast charging and data transfer up to 480Mbps. Universal compatibility.",
     "price": 15.99,
     "category": "Accessories",
-    "inventory": 500
+    "inventory": 500,
+    "sku": "CABLE-USBC-2M"
   }')
 echo "$PRODUCT3" | jq
 PRODUCT3_ID=$(echo "$PRODUCT3" | jq -r '.id')

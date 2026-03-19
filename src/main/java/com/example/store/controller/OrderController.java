@@ -5,6 +5,7 @@ import com.example.store.model.OrderItem;
 import com.example.store.model.OrderItemBucket;
 import com.example.store.repository.OrderRepository;
 import com.example.store.repository.OrderItemBucketRepository;
+import com.example.store.service.OrderTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,18 +47,22 @@ public class OrderController {
     @Autowired
     private OrderItemBucketRepository orderItemBucketRepository;
 
+    @Autowired
+    private OrderTransactionService orderTransactionService;
+
     /**
-     * Create a new order.
+     * Create a new order with inventory validation and updates.
      * POST /orders
      *
-     * 🎯 COMPUTED PATTERN + OUTLIER PATTERN in action:
+     * 🎯 TRANSACTION + COMPUTED PATTERN + OUTLIER PATTERN in action:
      * 1. Receives order with items (each has price and quantity)
      * 2. Calculates total = sum of (price × quantity) for all items
-     * 3. Checks if this is a large order (50+ items)
-     * 4. For large orders (100+ items): Splits into buckets
-     * 5. Stores the order (and buckets if needed)
+     * 3. Validates all products exist and have sufficient inventory
+     * 4. Creates order and decrements inventory (in a transaction)
+     * 5. Checks if this is a large order (50+ items)
+     * 6. For large orders (100+ items): Splits into buckets
      *
-     * Result: Optimized for common case, handles outliers gracefully!
+     * Result: ACID transactions + Optimized for common case + Handles outliers gracefully!
      */
     @PostMapping
     public ResponseEntity<Order> createOrder(@RequestBody Order order) {
@@ -90,7 +95,16 @@ public class OrderController {
             // For 50-99 items, still embed but flag for monitoring
         }
 
-        Order savedOrder = orderRepository.save(order);
+        // ═══════════════════════════════════════════════════════════════════
+        // TRANSACTION: Create order and update inventory atomically
+        // ═══════════════════════════════════════════════════════════════════
+        // This will:
+        // 1. Validate all products exist
+        // 2. Check inventory availability
+        // 3. Create the order
+        // 4. Decrement inventory for all products
+        // 5. Rollback everything if any step fails
+        Order savedOrder = orderTransactionService.createOrderWithInventoryUpdate(order);
         return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
     }
 

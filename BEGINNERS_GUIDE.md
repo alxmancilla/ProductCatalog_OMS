@@ -277,7 +277,7 @@ Becomes:
 **A:** Old orders keep the old name (historical accuracy). If you need the current name, use the customerId to look it up.
 
 ### Q: "When should I NOT use MongoDB?"
-**A:** When you have complex relationships that change frequently, or when you need complex transactions across many entities. Traditional databases might be better.
+**A:** MongoDB now supports ACID transactions! 🆕 This demo shows how to use transactions for inventory management. However, if you have extremely complex multi-entity transactions across dozens of collections, traditional databases might still be simpler.
 
 ### Q: "How do I know if I'm doing it right?"
 **A:** Ask: "What data do I access together?" Then store it together!
@@ -290,15 +290,16 @@ Becomes:
 2. ✅ Read `WEB_INTERFACE_GUIDE.md` - Learn to use the interactive interface
 3. ✅ Read `DEMO_GUIDE.md` - Understand the API and curl examples
 4. ✅ Look at `Order.java` - See the patterns in code
-5. ✅ Read `SCHEMA_PATTERNS_GUIDE.md` ⭐ - Learn all 7 MongoDB design patterns!
-6. ✅ Read `OUTLIER_PATTERN_GUIDE.md` 🆕 - Handle large arrays (100+ items)
-7. ✅ Experiment - Create your own orders!
+5. ✅ Read `SCHEMA_PATTERNS_GUIDE.md` ⭐ - Learn all 8 MongoDB design patterns!
+6. ✅ Read `TRANSACTIONS_GUIDE.md` 🆕 - Understand ACID transactions for inventory
+7. ✅ Read `OUTLIER_PATTERN_GUIDE.md` - Handle large arrays (100+ items)
+8. ✅ Experiment - Create your own orders!
 
 **Remember:** MongoDB is about storing data the way you access it! 🚀
 
 ---
 
-## 🎓 Bonus: Four More Patterns (Intermediate Level)
+## 🎓 Bonus: Five More Patterns (Intermediate Level)
 
 Once you're comfortable with the basics, check out these advanced patterns:
 
@@ -314,14 +315,33 @@ Once you're comfortable with the basics, check out these advanced patterns:
 
 ### 3. 📋 Document Versioning
 **What:** Track schema changes over time
-**Example:** `schemaVersion: 2` tracks Order schema evolution
+**Example:**
+- Orders: `schemaVersion: 3` (v1 → v2 → v3)
+- Products: `schemaVersion: 2` (v1 → v2 with inventory + SKU) 🆕
 **Benefit:** Safe schema updates, gradual migration
 
-### 4. 🎯 Outlier Pattern 🆕
+### 4. 🎯 Outlier Pattern
 **What:** Handle large arrays gracefully
-**Example:** Normal orders embed items, large orders (100+) use bucketing
-**Benefit:** Optimizes for common case, handles outliers without hitting limits
+**Example:** Normal orders embed items, large orders (100+) use bucketing with `items: null`
+**Benefit:** Optimizes for common case, handles outliers
+**Note:** Schema validation allows `items` to be array OR null 🆕 without hitting limits
 
-**See [SCHEMA_PATTERNS_GUIDE.md](SCHEMA_PATTERNS_GUIDE.md) and [OUTLIER_PATTERN_GUIDE.md](OUTLIER_PATTERN_GUIDE.md) for full details!**
+### 5. 🔄 Transaction Pattern 🆕
+**What:** ACID guarantees for multi-document operations
+**Example:** Order creation + inventory decrement happen atomically
+**Benefit:** Data consistency, no overselling, automatic rollback on failure
+
+**Real-World Example:**
+```
+When you create an order:
+1. ✅ Validate inventory is available
+2. ✅ Create the order document
+3. ✅ Decrement product inventory
+4. ✅ If ANY step fails, EVERYTHING rolls back!
+
+Result: You can never sell more products than you have in stock! 🎉
+```
+
+**See [SCHEMA_PATTERNS_GUIDE.md](SCHEMA_PATTERNS_GUIDE.md), [TRANSACTIONS_GUIDE.md](TRANSACTIONS_GUIDE.md), and [OUTLIER_PATTERN_GUIDE.md](OUTLIER_PATTERN_GUIDE.md) for full details!**
 
 

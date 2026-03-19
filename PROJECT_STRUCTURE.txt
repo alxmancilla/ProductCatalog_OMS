@@ -9,6 +9,9 @@ ProductCatalog_OMS/
 │
 ├── 📜 README.md                        # Quick start guide + documentation index
 │
+├── 🤖 AI AGENT:
+│   └── AI_AGENT_GUIDE.md               # 🆕 Natural language order assistant (LangGraph + Grove API)
+│
 ├── 📚 FOR BEGINNERS:
 │   ├── BEGINNERS_GUIDE.md              # 🎓 MongoDB concepts explained simply
 │   ├── WEB_INTERFACE_GUIDE.md          # 🌐 Interactive web interface guide
@@ -51,6 +54,25 @@ ProductCatalog_OMS/
         │               │   ├── CustomerController.java # REST API for customers
         │               │   ├── ProductController.java  # REST API for products
         │               │   └── OrderController.java    # REST API for orders
+        │               │
+        │               ├── 🤖 ai/                      # AI Order Assistant (NEW!)
+        │               │   ├── controller/
+        │               │   │   └── AIOrderController.java # Natural language order endpoint
+        │               │   ├── graph/
+        │               │   │   └── OrderAssistantGraph.java # LangGraph state machine
+        │               │   ├── model/
+        │               │   │   ├── AgentState.java     # State machine state
+        │               │   │   ├── OrderIntent.java    # Parsed intent
+        │               │   │   └── AgentResponse.java  # API response
+        │               │   ├── service/
+        │               │   │   ├── GroveApiService.java        # Grove API integration
+        │               │   │   ├── IntentParserService.java    # Node 1: Parse NL
+        │               │   │   ├── CustomerResolverService.java # Node 2: Find/create customer
+        │               │   │   ├── ProductMatcherService.java  # Node 3: Fuzzy matching
+        │               │   │   ├── OrderCreatorService.java    # Node 4: Create order
+        │               │   │   └── ResponseGeneratorService.java # Node 5: Generate response
+        │               │   └── config/
+        │               │       └── GroveApiConfig.java  # Grove API configuration
         │               │
         │               ├── 📦 config/
         │               │   └── MongoConfig.java        # BigDecimal → Decimal128 converters

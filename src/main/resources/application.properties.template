@@ -57,6 +57,29 @@ logging.level.org.springframework.data.mongodb=DEBUG
 spring.jackson.default-property-inclusion=non_null
 
 # ============================================================================
+# AI AGENT CONFIGURATION (Grove API for OpenAI)
+# ============================================================================
+
+# Grove API key (required for AI Order Assistant)
+# Get your API key from your Grove API dashboard
+grove.api.key=<YOUR_GROVE_API_KEY>
+
+# Grove API URL (default is production endpoint)
+grove.api.url=https://grove-gateway-prod.azure-api.net/grove-foundry-prod/openai/v1
+
+# Model to use (gpt-5.4 recommended)
+grove.api.model=gpt-5.4
+
+# Temperature (0.0-1.0, lower = more deterministic, higher = more creative)
+grove.api.temperature=0.7
+
+# Max tokens in response
+grove.api.max-tokens=1000
+
+# Timeout in seconds
+grove.api.timeout-seconds=30
+
+# ============================================================================
 # NOTES
 # ============================================================================
 #

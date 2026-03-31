@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +48,7 @@ import java.util.List;
  *   "total": 899.99
  * }
  *
- * Version 3 (Current - Outlier Pattern):
+ * Version 3 (Outlier Pattern):
  * {
  *   "_id": "order789",
  *   "schemaVersion": 3,                ← Version tracking
@@ -59,13 +60,55 @@ import java.util.List;
  *   "total": 1299.99
  * }
  *
- * Version 3 (Large Order - 100+ items):
+ * Version 4 (Current - Order Status Management):
  * {
  *   "_id": "order999",
- *   "schemaVersion": 3,
+ *   "schemaVersion": 4,                ← Version tracking
+ *   "customerId": "cust123",
+ *   "customerName": "Alice Johnson",
+ *   "orderDate": "2024-03-10",
+ *   "status": "SHIPPED",               ← Current status (v4)
+ *   "statusHistory": [                 ← Status change audit trail (v4)
+ *     {
+ *       "fromStatus": null,
+ *       "toStatus": "PENDING",
+ *       "changedAt": "2024-03-10T10:00:00",
+ *       "changedBy": "system",
+ *       "reason": "Order created"
+ *     },
+ *     {
+ *       "fromStatus": "PENDING",
+ *       "toStatus": "CONFIRMED",
+ *       "changedAt": "2024-03-10T10:05:00",
+ *       "changedBy": "admin@example.com",
+ *       "reason": "Payment confirmed"
+ *     },
+ *     {
+ *       "fromStatus": "CONFIRMED",
+ *       "toStatus": "SHIPPED",
+ *       "changedAt": "2024-03-10T14:00:00",
+ *       "changedBy": "warehouse-system",
+ *       "reason": "Package dispatched",
+ *       "metadata": {
+ *         "trackingNumber": "1Z999AA10123456784",
+ *         "carrier": "UPS"
+ *       }
+ *     }
+ *   ],
+ *   "items": [...],
+ *   "isLargeOrder": false,
+ *   "total": 1299.99
+ * }
+ *
+ * Version 4 (Large Order - 100+ items):
+ * {
+ *   "_id": "order888",
+ *   "schemaVersion": 4,
  *   "customerId": "cust456",
  *   "customerName": "Bob Smith",
  *   "orderDate": "2024-03-10",
+ *   "status": "PROCESSING",            ← Current status (v4)
+ *   "statusHistory": [...],            ← Status history (v4)
  *   "items": null,                     ← No embedded items for large orders
  *   "isLargeOrder": true,              ← Outlier Pattern flag (v3)
  *   "totalItemCount": 150,             ← Total items (v3)
@@ -80,8 +123,8 @@ import java.util.List;
  * - Safe schema evolution in production
  *
  * Migration Strategy:
- * - New orders created with schemaVersion = 2
- * - Old orders (v1) can be migrated on-demand or in batches
+ * - New orders created with schemaVersion = 4
+ * - Old orders (v1-v3) can be migrated on-demand or in batches
  * - Application code can check version and handle accordingly
  *
  * ═══════════════════════════════════════════════════════════════════════════
@@ -199,7 +242,7 @@ public class Order {
     private String id;
 
     // 📋 DOCUMENT VERSIONING PATTERN: Track schema evolution
-    private Integer schemaVersion = 3;   // Current version (v1 = customer string, v2 = customerId + customerName, v3 = added Outlier Pattern)
+    private Integer schemaVersion = 4;   // Current version (v1 = customer string, v2 = customerId + customerName, v3 = Outlier Pattern, v4 = Status Management)
 
     // 🔗 SUBSET PATTERN: We store BOTH a link and a copy
     private String customerId;           // Link to full Customer (for email, phone, etc.)
@@ -217,5 +260,10 @@ public class Order {
 
     // 🧮 COMPUTED PATTERN: Pre-calculated value stored in document
     private BigDecimal total;            // Total price (calculated once, stored for fast reads)
+
+    // 🎯 ORDER STATUS MANAGEMENT (v4): Current status + complete audit trail
+    // EMBEDDING PATTERN: Status history stored INSIDE the order (accessed together!)
+    private OrderStatus status = OrderStatus.PENDING;  // Current status (denormalized for fast queries)
+    private List<StatusChange> statusHistory = new ArrayList<>();  // Complete audit trail (embedded)
 }
 

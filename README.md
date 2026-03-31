@@ -1,8 +1,9 @@
 # Product Catalog + Order Management System
 
-A production-quality demo application built with **Java 21**, **Spring Boot 3**, and **MongoDB 8** showcasing **8 MongoDB design patterns**, **ACID transactions**, and **AI-powered order processing** with an interactive web interface.
+A production-quality demo application built with **Java 21**, **Spring Boot 3**, and **MongoDB 8** showcasing **8 MongoDB design patterns**, **ACID transactions**, **complete OMS P0 features**, and **AI-powered order processing** with an interactive web interface.
 
 > **Perfect for:** 15-minute webinars, MongoDB workshops, and teaching document database concepts
+> **NEW:** Full Order Management System with status tracking, search, updates, and cancellation! 🎉
 
 ## 💡 MongoDB's Guiding Principle
 
@@ -24,16 +25,79 @@ This project demonstrates:
 - MongoDB document storage with JSON-like documents
 - Natural mapping between Java objects and MongoDB documents
 - REST API implementation with Spring Boot
-- **ACID transactions** 🆕 for inventory management
+- **Complete Order Management System (OMS)** 🆕 with all P0 features
+- **ACID transactions** for inventory management and order operations
 - **Eight MongoDB design patterns:**
-  1. **Embedding Pattern** - OrderItems embedded in Orders
+  1. **Embedding Pattern** - OrderItems + StatusHistory embedded in Orders
   2. **Subset Pattern** - Customer/Product data denormalized
   3. **Reference Pattern** - Links between collections
   4. **Computed Pattern** ⭐ - Pre-calculated order totals
   5. **Polymorphic Pattern** ⭐ - Different product types (Electronics, Clothing, Books)
   6. **Document Versioning** ⭐ - Schema evolution tracking
   7. **Outlier Pattern** ⭐ - Handling large arrays (100+ items) with bucketing
-  8. **Transaction Pattern** 🆕 - ACID transactions for order creation + inventory updates
+  8. **Transaction Pattern** 🆕 - ACID transactions for multi-document updates
+
+## 🚀 Order Management System (OMS) Features
+
+All **Priority 0 (P0)** features are fully implemented and tested:
+
+| Feature | Status | Endpoint | Description |
+|---------|--------|----------|-------------|
+| ✅ **Order Creation** | Complete | `POST /orders` | Create orders with inventory validation |
+| ✅ **Status Management** | Complete | `PUT /orders/{id}/status` | Update status with audit trail |
+| ✅ **Get by ID** | Complete | `GET /orders/{id}` | Retrieve order with all items |
+| ✅ **Search & Filter** | Complete | `GET /orders?...` | Search by customer, status, date, total |
+| ✅ **Order Updates** | Complete | `PUT /orders/{id}/items` | Modify items with delta calculation, remove items with `quantity: 0` |
+| ✅ **Order Cancellation** | Complete | `POST /orders/{id}/cancel` | Cancel with inventory restoration |
+| ✅ **Analytics** 🆕 | Complete | `GET /analytics/orders/...` | Business intelligence using Aggregation Framework |
+
+**See [`OMS_P0_TESTING_GUIDE.md`](OMS_P0_TESTING_GUIDE.md) for complete testing documentation.**
+
+## 📊 Analytics & Business Intelligence 🆕
+
+**Powered by MongoDB's Aggregation Framework!** Demonstrates advanced data analytics capabilities:
+
+| Analytics Endpoint | Description | MongoDB Features |
+|-------------------|-------------|------------------|
+| `GET /analytics/orders/revenue-by-status` | Revenue breakdown by order status | `$group`, `$sum`, `$sort` |
+| `GET /analytics/orders/top-customers?limit=10` | Top spending customers | `$group`, `$first`, `$limit` |
+| `GET /analytics/orders/popular-products?limit=10` | Best-selling products | `$unwind`, `$addFields`, `$multiply` |
+| `GET /analytics/orders/daily-revenue?days=30` | Daily revenue trends | `$dateToString`, time-series |
+
+**Example - Revenue by Status:**
+```bash
+curl http://localhost:8080/analytics/orders/revenue-by-status
+```
+
+**Response:**
+```json
+[
+  {
+    "status": "DELIVERED",
+    "totalRevenue": 125000.50,
+    "orderCount": 450,
+    "averageOrderValue": 277.78
+  },
+  {
+    "status": "CONFIRMED",
+    "totalRevenue": 85000.25,
+    "orderCount": 320,
+    "averageOrderValue": 265.63
+  }
+]
+```
+
+**MongoDB Aggregation Pipeline (vs SQL):**
+- **$group** = `GROUP BY` + aggregation functions
+- **$match** = `WHERE` clause filtering
+- **$sort** = `ORDER BY` sorting
+- **$unwind** = Flatten embedded arrays (unique to document databases!)
+- **$addFields** = Computed fields during aggregation
+- **$dateToString** = Date formatting and grouping
+
+**Perfect for:** Executive dashboards, BI reports, revenue forecasting, customer segmentation! 📈
+
+**See [`OrderAnalyticsController.java`](src/main/java/com/example/store/controller/OrderAnalyticsController.java) for detailed examples.**
 
 ## 🤖 AI Order Assistant 🆕
 
@@ -309,7 +373,24 @@ curl -X POST http://localhost:8080/orders \
 curl http://localhost:8080/products/PRODUCT_ID
 # inventory should now be 8 (10 - 2)
 
-# 3. Try to order more than available (should fail)
+# 3. Update order items (remove item by setting quantity to 0)
+curl -X PUT http://localhost:8080/orders/ORDER_ID/items \
+  -H "Content-Type: application/json" \
+  -d '{
+    "items": [
+      {
+        "productId": "PRODUCT_ID",
+        "name": "Laptop Pro 15",
+        "price": 1299.99,
+        "quantity": 0
+      }
+    ],
+    "updatedBy": "customer@example.com",
+    "reason": "Customer removed item"
+  }'
+# Item with quantity 0 is removed, inventory restored to 10
+
+# 4. Try to order more than available (should fail)
 curl -X POST http://localhost:8080/orders \
   -H "Content-Type: application/json" \
   -d '{

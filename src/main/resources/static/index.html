@@ -353,18 +353,66 @@
                 </div>
 
                 <div class="nav-section">
-                    <h3>🛒 Orders</h3>
+                    <h3>🛒 Orders - Basic</h3>
                     <button class="nav-button" onclick="showEndpoint('createOrder')">
                         <span class="method-badge method-post">POST</span> Create Order
                     </button>
                     <button class="nav-button" onclick="showEndpoint('getAllOrders')">
                         <span class="method-badge method-get">GET</span> Get All Orders
                     </button>
+                    <button class="nav-button" onclick="showEndpoint('getOrderById')">
+                        <span class="method-badge method-get">GET</span> Get Order by ID
+                    </button>
                     <button class="nav-button" onclick="showEndpoint('createLargeOrder')">
                         <span class="method-badge method-post">POST</span> Create Large Order (100+ items)
                     </button>
                     <button class="nav-button" onclick="showEndpoint('getOrderItems')">
                         <span class="method-badge method-get">GET</span> Get Order Items
+                    </button>
+                </div>
+
+                <div class="nav-section">
+                    <h3>📝 Orders - Status & Search</h3>
+                    <button class="nav-button" onclick="showEndpoint('updateOrderStatus')">
+                        <span class="method-badge method-put">PUT</span> Update Order Status
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('searchByStatus')">
+                        <span class="method-badge method-get">GET</span> Search by Status
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('searchByCustomer')">
+                        <span class="method-badge method-get">GET</span> Search by Customer
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('searchByDate')">
+                        <span class="method-badge method-get">GET</span> Search by Date Range
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('searchByTotal')">
+                        <span class="method-badge method-get">GET</span> Search by Price Range
+                    </button>
+                </div>
+
+                <div class="nav-section">
+                    <h3>⚡ Orders - Modifications</h3>
+                    <button class="nav-button" onclick="showEndpoint('updateOrderItems')">
+                        <span class="method-badge method-put">PUT</span> Update Order Items
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('cancelOrder')">
+                        <span class="method-badge method-post">POST</span> Cancel Order
+                    </button>
+                </div>
+
+                <div class="nav-section">
+                    <h3>📊 Analytics</h3>
+                    <button class="nav-button" onclick="showEndpoint('revenueByStatus')">
+                        <span class="method-badge method-get">GET</span> Revenue by Status
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('topCustomers')">
+                        <span class="method-badge method-get">GET</span> Top Customers
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('popularProducts')">
+                        <span class="method-badge method-get">GET</span> Popular Products
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('dailyRevenue')">
+                        <span class="method-badge method-get">GET</span> Daily Revenue
                     </button>
                 </div>
             </div>
@@ -750,6 +798,45 @@
                     </div>
                 </div>
 
+                <!-- Get Order by ID -->
+                <div id="getOrderById" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-get">GET</span> Get Order by ID</h2>
+                        <div class="endpoint-url">GET /orders/{id}</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📋 Order Retrieval with Outlier Pattern Support 🆕</h4>
+                        <p>Retrieves a single order with all details:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Normal orders: Returns order with embedded items</li>
+                            <li>Large orders (100+ items): Automatically retrieves items from buckets</li>
+                            <li>Complete status history and audit trail</li>
+                        </ul>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">🎯 Outlier Pattern</span>
+                            <span class="pattern-badge">📦 Embedding Pattern</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Order ID:</label>
+                        <input type="text" id="getOrderByIdId" placeholder="Paste order ID here">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('getOrderById')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="getOrderByIdResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="getOrderByIdStatus" class="status-badge"></span>
+                        </div>
+                        <div id="getOrderByIdBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
                 <!-- Create Large Order -->
                 <div id="createLargeOrder" class="endpoint-section">
                     <div class="endpoint-header">
@@ -841,6 +928,563 @@
                         <div id="getOrderItemsBody_response" class="response-body"></div>
                     </div>
                 </div>
+
+                <!-- Update Order Status -->
+                <div id="updateOrderStatus" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-put">PUT</span> Update Order Status</h2>
+                        <div class="endpoint-url">PUT /orders/{id}/status</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📝 Order Status Management 🆕</h4>
+                        <p>Update order lifecycle status with complete audit trail:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Validates status transitions (business rules)</li>
+                            <li>Records change in status history (Embedding Pattern)</li>
+                            <li>Tracks who changed it, when, and why</li>
+                            <li>Supports custom metadata for each change</li>
+                        </ul>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">📦 Embedding Pattern</span>
+                            <span class="pattern-badge">🧾 Audit Trail</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Order ID:</label>
+                        <input type="text" id="updateOrderStatusId" placeholder="Paste order ID here">
+                    </div>
+
+                    <div class="example-section">
+                        <h4>💡 Valid Status Transitions</h4>
+                        <p>PENDING → CONFIRMED → PROCESSING → SHIPPED → DELIVERED<br>
+                        PENDING/CONFIRMED → CANCELLED</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Request Body (JSON):</label>
+                        <textarea id="updateOrderStatusBody">{
+  "newStatus": "CONFIRMED",
+  "changedBy": "admin@example.com",
+  "reason": "Payment confirmed",
+  "metadata": {
+    "paymentId": "pay_12345",
+    "paymentMethod": "credit_card",
+    "paymentAmount": 1329.98
+  }
+}</textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('updateOrderStatus')">
+                        🚀 Send Request
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetForm('updateOrderStatus')">
+                        🔄 Reset
+                    </button>
+
+                    <div id="updateOrderStatusResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="updateOrderStatusStatus" class="status-badge"></span>
+                        </div>
+                        <div id="updateOrderStatusBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Search by Status -->
+                <div id="searchByStatus" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-get">GET</span> Search Orders by Status</h2>
+                        <div class="endpoint-url">GET /orders?status={status}</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>🔍 Status Filtering with Optimized Index 🆕</h4>
+                        <p>Search orders by their current status:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Uses MongoDB index for fast queries</li>
+                            <li>Returns orders sorted by date (newest first)</li>
+                            <li>Supports all order statuses</li>
+                        </ul>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Order Status:</label>
+                        <select id="searchByStatusValue" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1em;">
+                            <option value="PENDING">PENDING</option>
+                            <option value="CONFIRMED">CONFIRMED</option>
+                            <option value="PROCESSING">PROCESSING</option>
+                            <option value="SHIPPED">SHIPPED</option>
+                            <option value="DELIVERED">DELIVERED</option>
+                            <option value="CANCELLED">CANCELLED</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('searchByStatus')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="searchByStatusResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="searchByStatusStatus" class="status-badge"></span>
+                        </div>
+                        <div id="searchByStatusBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Search by Customer -->
+                <div id="searchByCustomer" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-get">GET</span> Search Orders by Customer</h2>
+                        <div class="endpoint-url">GET /orders/search/by-customer?customerId={id}&status={status}</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>🔍 Customer Order History 🆕</h4>
+                        <p>Search orders for a specific customer with optional status filter:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Uses compound index (customerId + status + orderDate)</li>
+                            <li>Returns customer's order history</li>
+                            <li>Optional status filtering</li>
+                            <li>Sorted by date (newest first)</li>
+                        </ul>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Customer ID:</label>
+                        <input type="text" id="searchByCustomerId" placeholder="Paste customer ID here">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status (Optional):</label>
+                        <select id="searchByCustomerStatus" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1em;">
+                            <option value="">All Statuses</option>
+                            <option value="PENDING">PENDING</option>
+                            <option value="CONFIRMED">CONFIRMED</option>
+                            <option value="PROCESSING">PROCESSING</option>
+                            <option value="SHIPPED">SHIPPED</option>
+                            <option value="DELIVERED">DELIVERED</option>
+                            <option value="CANCELLED">CANCELLED</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('searchByCustomer')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="searchByCustomerResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="searchByCustomerStatus" class="status-badge"></span>
+                        </div>
+                        <div id="searchByCustomerBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Search by Date Range -->
+                <div id="searchByDate" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-get">GET</span> Search Orders by Date Range</h2>
+                        <div class="endpoint-url">GET /orders/search/by-date?startDate={start}&endDate={end}</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>🔍 Date Range Queries 🆕</h4>
+                        <p>Search orders within a specific time period:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Uses index on orderDate for fast queries</li>
+                            <li>Returns orders within date range</li>
+                            <li>Format: ISO 8601 (YYYY-MM-DDTHH:mm:ss)</li>
+                        </ul>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Start Date (ISO 8601):</label>
+                        <input type="text" id="searchByDateStart" placeholder="2024-01-01T00:00:00">
+                    </div>
+
+                    <div class="form-group">
+                        <label>End Date (ISO 8601):</label>
+                        <input type="text" id="searchByDateEnd" placeholder="2024-12-31T23:59:59">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('searchByDate')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="searchByDateResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="searchByDateStatus" class="status-badge"></span>
+                        </div>
+                        <div id="searchByDateBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Search by Total Range -->
+                <div id="searchByTotal" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-get">GET</span> Search Orders by Price Range</h2>
+                        <div class="endpoint-url">GET /orders/search/by-total?minTotal={min}&maxTotal={max}</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>🔍 Price Range Queries 🆕</h4>
+                        <p>Search orders by their total amount:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Uses index on total field for fast queries</li>
+                            <li>Find high-value or budget orders</li>
+                            <li>Computed Pattern in action!</li>
+                        </ul>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">🧮 Computed Pattern</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Minimum Total:</label>
+                        <input type="number" id="searchByTotalMin" placeholder="100.00" step="0.01">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Maximum Total:</label>
+                        <input type="number" id="searchByTotalMax" placeholder="1000.00" step="0.01">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('searchByTotal')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="searchByTotalResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="searchByTotalStatus" class="status-badge"></span>
+                        </div>
+                        <div id="searchByTotalBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Update Order Items -->
+                <div id="updateOrderItems" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-put">PUT</span> Update Order Items</h2>
+                        <div class="endpoint-url">PUT /orders/{id}/items</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>⚡ Order Modification with Inventory Delta Calculation 🆕</h4>
+                        <p>Update order items with smart inventory management:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>Validates:</strong> Only PENDING orders can be modified</li>
+                            <li><strong>Calculates Delta:</strong> Compares old vs new items to determine exact inventory changes</li>
+                            <li><strong>Updates Inventory:</strong> Increments/decrements based on delta</li>
+                            <li><strong>Recalculates Total:</strong> Computed Pattern updates order total</li>
+                            <li><strong>ACID Transaction:</strong> All changes atomic or rollback</li>
+                        </ul>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">💾 ACID Transactions</span>
+                            <span class="pattern-badge">🧮 Computed Pattern</span>
+                            <span class="pattern-badge">🎯 Inventory Delta</span>
+                        </div>
+                    </div>
+
+                    <div class="example-section">
+                        <h4>💡 Delta Calculation Example</h4>
+                        <p>Old: Laptop(2), Mouse(3) → New: Laptop(3), Mouse(1), Keyboard(1)<br>
+                        Deltas: Laptop -1, Mouse +2, Keyboard -1</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Order ID:</label>
+                        <input type="text" id="updateOrderItemsId" placeholder="Paste order ID here (must be PENDING status)">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Request Body (JSON):</label>
+                        <textarea id="updateOrderItemsBody">{
+  "items": [
+    {
+      "productId": "PASTE_PRODUCT_ID_HERE",
+      "name": "Gaming Laptop Pro",
+      "price": 1599.99,
+      "quantity": 3
+    },
+    {
+      "productId": "PASTE_PRODUCT_ID_HERE",
+      "name": "Wireless Mouse",
+      "price": 29.99,
+      "quantity": 1
+    }
+  ],
+  "updatedBy": "customer@example.com",
+  "reason": "Customer modified order",
+  "metadata": {
+    "source": "web",
+    "changeType": "modify"
+  }
+}</textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('updateOrderItems')">
+                        🚀 Send Request
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetForm('updateOrderItems')">
+                        🔄 Reset
+                    </button>
+
+                    <div id="updateOrderItemsResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="updateOrderItemsStatus" class="status-badge"></span>
+                        </div>
+                        <div id="updateOrderItemsBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Cancel Order -->
+                <div id="cancelOrder" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-post">POST</span> Cancel Order</h2>
+                        <div class="endpoint-url">POST /orders/{id}/cancel</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>🚫 Order Cancellation with Inventory Restoration 🆕</h4>
+                        <p>Cancel an order with full ACID transaction guarantees:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>Validates:</strong> Only PENDING/CONFIRMED orders can be cancelled</li>
+                            <li><strong>Restores Inventory:</strong> All items returned to stock atomically</li>
+                            <li><strong>Updates Status:</strong> Changes to CANCELLED with reason tracking</li>
+                            <li><strong>Audit Trail:</strong> Complete history of cancellation</li>
+                            <li><strong>ACID Transaction:</strong> Either all succeeds or all fails (no partial cancellations)</li>
+                        </ul>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">💾 ACID Transactions</span>
+                            <span class="pattern-badge">🧾 Audit Trail</span>
+                            <span class="pattern-badge">📦 Embedding Pattern</span>
+                        </div>
+                    </div>
+
+                    <div class="example-section">
+                        <h4>💡 Transaction Rollback Example</h4>
+                        <p>If inventory restoration fails (e.g., product deleted), the entire cancellation is rolled back. Order remains in original state!</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Order ID:</label>
+                        <input type="text" id="cancelOrderId" placeholder="Paste order ID here (PENDING or CONFIRMED status)">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Request Body (JSON):</label>
+                        <textarea id="cancelOrderBody">{
+  "cancelledBy": "customer@example.com",
+  "reason": "Customer requested cancellation",
+  "metadata": {
+    "refundId": "ref_12345",
+    "refundAmount": 1329.98,
+    "supportTicketId": "ticket_67890",
+    "refundMethod": "credit_card"
+  }
+}</textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('cancelOrder')">
+                        🚀 Send Request
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetForm('cancelOrder')">
+                        🔄 Reset
+                    </button>
+
+                    <div id="cancelOrderResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="cancelOrderStatus" class="status-badge"></span>
+                        </div>
+                        <div id="cancelOrderBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Revenue by Status Analytics -->
+                <div id="revenueByStatus" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-get">GET</span> Revenue by Status</h2>
+                        <div class="endpoint-url">GET /analytics/orders/revenue-by-status</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📊 MongoDB Aggregation Framework - Revenue Analysis 🆕</h4>
+                        <p>Demonstrates MongoDB's powerful aggregation pipeline:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>$match:</strong> Filter out cancelled orders (like SQL WHERE)</li>
+                            <li><strong>$group:</strong> Group by status and calculate totals (like SQL GROUP BY)</li>
+                            <li><strong>$sum:</strong> Aggregate revenue and count orders</li>
+                            <li><strong>$sort:</strong> Order by revenue descending</li>
+                        </ul>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">📊 Aggregation Pipeline</span>
+                            <span class="pattern-badge">💰 Business Intelligence</span>
+                            <span class="pattern-badge">🧮 Computed Pattern</span>
+                        </div>
+                    </div>
+
+                    <div class="example-section">
+                        <h4>🎯 Use Cases</h4>
+                        <p>Executive dashboards, revenue reporting, order pipeline analysis, business metrics</p>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('revenueByStatus')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="revenueByStatusResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="revenueByStatusStatus" class="status-badge"></span>
+                        </div>
+                        <div id="revenueByStatusBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Top Customers Analytics -->
+                <div id="topCustomers" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-get">GET</span> Top Customers by Spending</h2>
+                        <div class="endpoint-url">GET /analytics/orders/top-customers?limit=10</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>👑 Customer Segmentation with Aggregation 🆕</h4>
+                        <p>Find your VIP customers using MongoDB aggregation:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>$group:</strong> Group all orders by customer ID</li>
+                            <li><strong>$first:</strong> Get customer name from first document</li>
+                            <li><strong>$sum:</strong> Calculate total spent and order count</li>
+                            <li><strong>$limit:</strong> Return only top N customers</li>
+                        </ul>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">📊 Aggregation Pipeline</span>
+                            <span class="pattern-badge">🎯 Customer Segmentation</span>
+                        </div>
+                    </div>
+
+                    <div class="example-section">
+                        <h4>🎯 Use Cases</h4>
+                        <p>VIP identification, loyalty programs, customer rewards, marketing campaigns</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Limit (default: 10):</label>
+                        <input type="number" id="topCustomersLimit" value="10" placeholder="Number of top customers to return">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('topCustomers')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="topCustomersResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="topCustomersStatus" class="status-badge"></span>
+                        </div>
+                        <div id="topCustomersBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Popular Products Analytics -->
+                <div id="popularProducts" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-get">GET</span> Popular Products</h2>
+                        <div class="endpoint-url">GET /analytics/orders/popular-products?limit=10</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>🎁 Product Analytics with $unwind 🆕</h4>
+                        <p>Analyze embedded order items using MongoDB's unique $unwind operator:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>$unwind:</strong> "Explode" embedded items array into separate documents</li>
+                            <li><strong>$addFields:</strong> Calculate revenue per item (price × quantity)</li>
+                            <li><strong>$group:</strong> Group by product ID and sum quantities</li>
+                            <li><strong>No Joins!</strong> Items embedded in orders = zero joins needed!</li>
+                        </ul>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">📊 Aggregation + $unwind</span>
+                            <span class="pattern-badge">📦 Embedding Pattern</span>
+                            <span class="pattern-badge">💰 Revenue Analysis</span>
+                        </div>
+                    </div>
+
+                    <div class="example-section">
+                        <h4>🎯 Use Cases</h4>
+                        <p>Inventory planning, product recommendations, marketing campaigns, stock optimization</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Limit (default: 10):</label>
+                        <input type="number" id="popularProductsLimit" value="10" placeholder="Number of top products to return">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('popularProducts')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="popularProductsResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="popularProductsStatus" class="status-badge"></span>
+                        </div>
+                        <div id="popularProductsBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Daily Revenue Analytics -->
+                <div id="dailyRevenue" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-get">GET</span> Daily Revenue Trends</h2>
+                        <div class="endpoint-url">GET /analytics/orders/daily-revenue?days=30</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📈 Time-Series Analysis with Date Aggregation 🆕</h4>
+                        <p>Analyze revenue trends over time using MongoDB's date functions:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>$match:</strong> Filter orders by date range</li>
+                            <li><strong>$dateToString:</strong> Format dates for grouping (YYYY-MM-DD)</li>
+                            <li><strong>$addFields:</strong> Create date string field</li>
+                            <li><strong>$group:</strong> Group by date and sum revenue</li>
+                        </ul>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">📊 Time-Series Analysis</span>
+                            <span class="pattern-badge">📅 Date Aggregation</span>
+                            <span class="pattern-badge">📈 Trend Forecasting</span>
+                        </div>
+                    </div>
+
+                    <div class="example-section">
+                        <h4>🎯 Use Cases</h4>
+                        <p>Revenue forecasting, trend analysis, seasonal patterns, dashboard charts, business metrics</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Days to look back (default: 30):</label>
+                        <input type="number" id="dailyRevenueDays" value="30" placeholder="Number of days">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('dailyRevenue')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="dailyRevenueResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="dailyRevenueStatus" class="status-badge"></span>
+                        </div>
+                        <div id="dailyRevenueBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -876,7 +1520,10 @@
             createClothing: '{\n  "name": "Cotton T-Shirt",\n  "description": "Premium quality cotton t-shirt with a comfortable, relaxed fit. Made from 100% organic cotton for breathability and softness. Perfect for casual wear or layering. Machine washable and pre-shrunk for lasting fit.",\n  "price": 29.99,\n  "category": "Clothing",\n  "inventory": 200,\n  "type": "Clothing",\n  "clothingDetails": {\n    "size": "M",\n    "color": "Blue",\n    "material": "100% Cotton"\n  },\n  "sku": "TSHIRT-COT-BL-M"\n}',
             createBook: '{\n  "name": "MongoDB Design Patterns",\n  "description": "Comprehensive guide to MongoDB schema design patterns and best practices. Learn the 7 essential patterns including Embedding, Subset, Polymorphic, Computed, and Outlier patterns. Includes real-world examples and performance optimization techniques. Perfect for developers building scalable applications.",\n  "price": 49.99,\n  "category": "Books",\n  "inventory": 75,\n  "type": "Book",\n  "bookDetails": {\n    "author": "Jane Developer",\n    "isbn": "978-1234567890",\n    "pages": 350,\n    "publisher": "TechBooks Publishing",\n    "language": "English"\n  },\n  "sku": "BOOK-MONGO-PAT"\n}',
             createOrder: '{\n  "customerId": "PASTE_CUSTOMER_ID_HERE",\n  "customerName": "John Doe",\n  "items": [\n    {\n      "productId": "PASTE_PRODUCT_ID_HERE",\n      "name": "Laptop Pro 15",\n      "price": 1299.99,\n      "quantity": 1\n    },\n    {\n      "productId": "PASTE_PRODUCT_ID_HERE",\n      "name": "Wireless Mouse",\n      "price": 29.99,\n      "quantity": 2\n    }\n  ]\n}',
-            createLargeOrder: '{\n  "customerId": "PASTE_CUSTOMER_ID_HERE",\n  "customerName": "Alice Johnson",\n  "items": [\n    {"productId": "prod1", "name": "Item 1", "price": 10.00, "quantity": 1},\n    {"productId": "prod2", "name": "Item 2", "price": 10.00, "quantity": 1},\n    {"productId": "prod3", "name": "Item 3", "price": 10.00, "quantity": 1}\n  ]\n}'
+            createLargeOrder: '{\n  "customerId": "PASTE_CUSTOMER_ID_HERE",\n  "customerName": "Alice Johnson",\n  "items": [\n    {"productId": "prod1", "name": "Item 1", "price": 10.00, "quantity": 1},\n    {"productId": "prod2", "name": "Item 2", "price": 10.00, "quantity": 1},\n    {"productId": "prod3", "name": "Item 3", "price": 10.00, "quantity": 1}\n  ]\n}',
+            updateOrderStatus: '{\n  "newStatus": "CONFIRMED",\n  "changedBy": "admin@example.com",\n  "reason": "Payment confirmed",\n  "metadata": {\n    "paymentId": "pay_12345",\n    "paymentMethod": "credit_card",\n    "paymentAmount": 1329.98\n  }\n}',
+            updateOrderItems: '{\n  "items": [\n    {\n      "productId": "PASTE_PRODUCT_ID_HERE",\n      "name": "Gaming Laptop Pro",\n      "price": 1599.99,\n      "quantity": 3\n    },\n    {\n      "productId": "PASTE_PRODUCT_ID_HERE",\n      "name": "Wireless Mouse",\n      "price": 29.99,\n      "quantity": 1\n    }\n  ],\n  "updatedBy": "customer@example.com",\n  "reason": "Customer modified order",\n  "metadata": {\n    "source": "web",\n    "changeType": "modify"\n  }\n}',
+            cancelOrder: '{\n  "cancelledBy": "customer@example.com",\n  "reason": "Customer requested cancellation",\n  "metadata": {\n    "refundId": "ref_12345",\n    "refundAmount": 1329.98,\n    "supportTicketId": "ticket_67890",\n    "refundMethod": "credit_card"\n  }\n}'
         };
 
         // Reset form to default
@@ -983,6 +1630,16 @@
                     method = 'GET';
                     break;
 
+                case 'getOrderById':
+                    const getOrderByIdValue = document.getElementById('getOrderByIdId').value;
+                    if (!getOrderByIdValue) {
+                        alert('Please enter an Order ID');
+                        return;
+                    }
+                    url = `${API_BASE}/orders/${getOrderByIdValue}`;
+                    method = 'GET';
+                    break;
+
                 case 'getOrderItems':
                     const orderId = document.getElementById('getOrderItemsId').value;
                     if (!orderId) {
@@ -990,6 +1647,105 @@
                         return;
                     }
                     url = `${API_BASE}/orders/${orderId}/items`;
+                    method = 'GET';
+                    break;
+
+                case 'updateOrderStatus':
+                    const updateStatusId = document.getElementById('updateOrderStatusId').value;
+                    if (!updateStatusId) {
+                        alert('Please enter an Order ID');
+                        return;
+                    }
+                    url = `${API_BASE}/orders/${updateStatusId}/status`;
+                    method = 'PUT';
+                    body = document.getElementById('updateOrderStatusBody').value;
+                    break;
+
+                case 'searchByStatus':
+                    const statusValue = document.getElementById('searchByStatusValue').value;
+                    url = `${API_BASE}/orders?status=${statusValue}`;
+                    method = 'GET';
+                    break;
+
+                case 'searchByCustomer':
+                    const customerId = document.getElementById('searchByCustomerId').value;
+                    if (!customerId) {
+                        alert('Please enter a Customer ID');
+                        return;
+                    }
+                    const customerStatus = document.getElementById('searchByCustomerStatus').value;
+                    if (customerStatus) {
+                        url = `${API_BASE}/orders/search/by-customer?customerId=${customerId}&status=${customerStatus}`;
+                    } else {
+                        url = `${API_BASE}/orders/search/by-customer?customerId=${customerId}`;
+                    }
+                    method = 'GET';
+                    break;
+
+                case 'searchByDate':
+                    const startDate = document.getElementById('searchByDateStart').value;
+                    const endDate = document.getElementById('searchByDateEnd').value;
+                    if (!startDate || !endDate) {
+                        alert('Please enter both Start Date and End Date');
+                        return;
+                    }
+                    url = `${API_BASE}/orders/search/by-date?startDate=${startDate}&endDate=${endDate}`;
+                    method = 'GET';
+                    break;
+
+                case 'searchByTotal':
+                    const minTotal = document.getElementById('searchByTotalMin').value;
+                    const maxTotal = document.getElementById('searchByTotalMax').value;
+                    if (!minTotal || !maxTotal) {
+                        alert('Please enter both Minimum and Maximum Total');
+                        return;
+                    }
+                    url = `${API_BASE}/orders/search/by-total?minTotal=${minTotal}&maxTotal=${maxTotal}`;
+                    method = 'GET';
+                    break;
+
+                case 'updateOrderItems':
+                    const updateItemsId = document.getElementById('updateOrderItemsId').value;
+                    if (!updateItemsId) {
+                        alert('Please enter an Order ID');
+                        return;
+                    }
+                    url = `${API_BASE}/orders/${updateItemsId}/items`;
+                    method = 'PUT';
+                    body = document.getElementById('updateOrderItemsBody').value;
+                    break;
+
+                case 'cancelOrder':
+                    const cancelOrderIdValue = document.getElementById('cancelOrderId').value;
+                    if (!cancelOrderIdValue) {
+                        alert('Please enter an Order ID');
+                        return;
+                    }
+                    url = `${API_BASE}/orders/${cancelOrderIdValue}/cancel`;
+                    method = 'POST';
+                    body = document.getElementById('cancelOrderBody').value;
+                    break;
+
+                case 'revenueByStatus':
+                    url = `${API_BASE}/analytics/orders/revenue-by-status`;
+                    method = 'GET';
+                    break;
+
+                case 'topCustomers':
+                    const topCustomersLimit = document.getElementById('topCustomersLimit').value || 10;
+                    url = `${API_BASE}/analytics/orders/top-customers?limit=${topCustomersLimit}`;
+                    method = 'GET';
+                    break;
+
+                case 'popularProducts':
+                    const popularProductsLimit = document.getElementById('popularProductsLimit').value || 10;
+                    url = `${API_BASE}/analytics/orders/popular-products?limit=${popularProductsLimit}`;
+                    method = 'GET';
+                    break;
+
+                case 'dailyRevenue':
+                    const dailyRevenueDays = document.getElementById('dailyRevenueDays').value || 30;
+                    url = `${API_BASE}/analytics/orders/daily-revenue?days=${dailyRevenueDays}`;
                     method = 'GET';
                     break;
 

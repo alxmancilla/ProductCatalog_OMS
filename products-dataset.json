@@ -6,11 +6,13 @@
     "category": "Electronics",
     "inventory": 50,
     "type": "Electronics",
-    "brand": "TechCorp",
-    "warranty": "2 years",
-    "weight": "1.8 kg",
-    "screenSize": "15.6 inch",
-    "sku": "LAPTOP-PRO15-SG"
+    "sku": "LAPTOP-PRO15-SG",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "TechCorp",
+      "weight": "1.8 kg",
+      "screenSize": "15.6 inch"
+    }
   },
   {
     "name": "Laptop Air 13",
@@ -19,11 +21,13 @@
     "category": "Electronics",
     "inventory": 75,
     "type": "Electronics",
-    "brand": "TechCorp",
-    "warranty": "1 year",
-    "weight": "1.2 kg",
-    "screenSize": "13.3 inch",
-    "sku": "LAPTOP-AIR13-SV"
+    "sku": "LAPTOP-AIR13-SV",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "TechCorp",
+      "weight": "1.2 kg",
+      "screenSize": "13.3 inch"
+    }
   },
   {
     "name": "Wireless Mouse",
@@ -32,10 +36,11 @@
     "category": "Accessories",
     "inventory": 200,
     "type": "Electronics",
-    "brand": "TechCorp",
-    "warranty": "1 year",
-    "color": "Black",
-    "sku": "MOUSE-WL-BK"
+    "sku": "MOUSE-WL-BK",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "TechCorp"
+    }
   },
   {
     "name": "Mechanical Keyboard RGB",
@@ -44,10 +49,11 @@
     "category": "Accessories",
     "inventory": 80,
     "type": "Electronics",
-    "brand": "TechCorp",
-    "warranty": "2 years",
-    "color": "Black",
-    "sku": "KB-MECH-RGB-BK"
+    "sku": "KB-MECH-RGB-BK",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "TechCorp"
+    }
   },
   {
     "name": "USB-C Cable 2m",
@@ -56,10 +62,11 @@
     "category": "Accessories",
     "inventory": 500,
     "type": "Electronics",
-    "brand": "TechCorp",
-    "warranty": "1 year",
-    "color": "Black",
-    "sku": "CABLE-USBC-2M"
+    "sku": "CABLE-USBC-2M",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "TechCorp"
+    }
   },
   {
     "name": "Wireless Headphones",
@@ -68,10 +75,11 @@
     "category": "Electronics",
     "inventory": 60,
     "type": "Electronics",
-    "brand": "TechCorp",
-    "warranty": "2 years",
-    "color": "Black",
-    "sku": "HP-WL-ANC-BK"
+    "sku": "HP-WL-ANC-BK",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "TechCorp"
+    }
   },
   {
     "name": "Cotton T-Shirt",
@@ -80,10 +88,12 @@
     "category": "Clothing",
     "inventory": 200,
     "type": "Clothing",
-    "size": "M",
-    "color": "Blue",
-    "material": "100% Cotton",
-    "sku": "TSHIRT-COT-BL-M"
+    "sku": "TSHIRT-COT-BL-M",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Blue",
+      "material": "100% Cotton"
+    }
   },
   {
     "name": "Hoodie Pullover",
@@ -92,10 +102,12 @@
     "category": "Clothing",
     "inventory": 120,
     "type": "Clothing",
-    "size": "L",
-    "color": "Gray",
-    "material": "80% Cotton, 20% Polyester",
-    "sku": "HOODIE-PO-GY-L"
+    "sku": "HOODIE-PO-GY-L",
+    "clothingDetails": {
+      "size": "L",
+      "color": "Gray",
+      "material": "80% Cotton, 20% Polyester"
+    }
   },
   {
     "name": "Running Shoes",
@@ -104,10 +116,12 @@
     "category": "Clothing",
     "inventory": 90,
     "type": "Clothing",
-    "size": "10",
-    "color": "Black",
-    "material": "Mesh, Rubber",
-    "sku": "SHOE-RUN-BK-10"
+    "sku": "SHOE-RUN-BK-10",
+    "clothingDetails": {
+      "size": "10",
+      "color": "Black",
+      "material": "Mesh, Rubber"
+    }
   },
   {
     "name": "MongoDB Design Patterns",
@@ -116,12 +130,14 @@
     "category": "Books",
     "inventory": 75,
     "type": "Book",
-    "author": "Jane Developer",
-    "isbn": "978-1234567890",
-    "pages": 350,
-    "publisher": "TechBooks Publishing",
-    "language": "English",
-    "sku": "BOOK-MONGO-PAT"
+    "sku": "BOOK-MONGO-PAT",
+    "bookDetails": {
+      "author": "Jane Developer",
+      "isbn": "978-1234567890",
+      "pages": 350,
+      "publisher": "TechBooks Publishing",
+      "language": "English"
+    }
   },
   {
     "name": "JavaScript: The Complete Guide",
@@ -130,12 +146,14 @@
     "category": "Books",
     "inventory": 50,
     "type": "Book",
-    "author": "John Coder",
-    "isbn": "978-9876543210",
-    "pages": 480,
-    "publisher": "WebDev Press",
-    "language": "English",
-    "sku": "BOOK-JS-COMP"
+    "sku": "BOOK-JS-COMP",
+    "bookDetails": {
+      "author": "John Coder",
+      "isbn": "978-9876543210",
+      "pages": 480,
+      "publisher": "WebDev Press",
+      "language": "English"
+    }
   },
   {
     "name": "Clean Code Principles",
@@ -144,12 +162,14 @@
     "category": "Books",
     "inventory": 65,
     "type": "Book",
-    "author": "Robert Martin",
-    "isbn": "978-5555666677",
-    "pages": 400,
-    "publisher": "CodeCraft Publishing",
-    "language": "English",
-    "sku": "BOOK-CLEAN-CODE"
+    "sku": "BOOK-CLEAN-CODE",
+    "bookDetails": {
+      "author": "Robert Martin",
+      "isbn": "978-5555666677",
+      "pages": 400,
+      "publisher": "CodeCraft Publishing",
+      "language": "English"
+    }
   },
   {
     "name": "Backpack Travel Pro",
@@ -157,9 +177,7 @@
     "price": 79.99,
     "category": "Accessories",
     "inventory": 100,
-    "type": "Accessories",
-    "color": "Black",
-    "material": "Nylon",
+    "type": "General",
     "sku": "BAG-BP-TRAV-BK"
   },
   {
@@ -169,10 +187,11 @@
     "category": "Electronics",
     "inventory": 45,
     "type": "Electronics",
-    "brand": "FitTech",
-    "warranty": "1 year",
-    "color": "Black",
-    "sku": "WATCH-SMART-FIT-BK"
+    "sku": "WATCH-SMART-FIT-BK",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "FitTech"
+    }
   },
   {
     "name": "Portable SSD 1TB",
@@ -181,10 +200,12 @@
     "category": "Electronics",
     "inventory": 70,
     "type": "Electronics",
-    "brand": "DataSpeed",
-    "warranty": "3 years",
-    "capacity": "1TB",
-    "sku": "SSD-PORT-1TB"
+    "sku": "SSD-PORT-1TB",
+    "electronicsDetails": {
+      "warranty": "3 years",
+      "brand": "DataSpeed",
+      "capacity": "1TB"
+    }
   },
   {
     "name": "Bluetooth Speaker Portable",
@@ -193,10 +214,11 @@
     "category": "Electronics",
     "inventory": 110,
     "type": "Electronics",
-    "brand": "SoundWave",
-    "warranty": "1 year",
-    "color": "Blue",
-    "sku": "SPEAK-BT-PORT-BL"
+    "sku": "SPEAK-BT-PORT-BL",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "SoundWave"
+    }
   },
   {
     "name": "Denim Jeans Classic",
@@ -205,10 +227,12 @@
     "category": "Clothing",
     "inventory": 150,
     "type": "Clothing",
-    "size": "32x32",
-    "color": "Dark Blue",
-    "material": "98% Cotton, 2% Elastane",
-    "sku": "JEANS-DENIM-DB-32"
+    "sku": "JEANS-DENIM-DB-32",
+    "clothingDetails": {
+      "size": "32x32",
+      "color": "Dark Blue",
+      "material": "98% Cotton, 2% Elastane"
+    }
   },
   {
     "name": "Winter Jacket Insulated",
@@ -217,10 +241,12 @@
     "category": "Clothing",
     "inventory": 60,
     "type": "Clothing",
-    "size": "L",
-    "color": "Navy",
-    "material": "Polyester, Synthetic Down",
-    "sku": "JACKET-WINTER-NV-L"
+    "sku": "JACKET-WINTER-NV-L",
+    "clothingDetails": {
+      "size": "L",
+      "color": "Navy",
+      "material": "Polyester, Synthetic Down"
+    }
   },
   {
     "name": "Athletic Shorts",
@@ -229,10 +255,12 @@
     "category": "Clothing",
     "inventory": 180,
     "type": "Clothing",
-    "size": "M",
-    "color": "Black",
-    "material": "100% Polyester",
-    "sku": "SHORT-ATH-BK-M"
+    "sku": "SHORT-ATH-BK-M",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Black",
+      "material": "100% Polyester"
+    }
   },
   {
     "name": "System Design Interview Guide",
@@ -241,12 +269,14 @@
     "category": "Books",
     "inventory": 55,
     "type": "Book",
-    "author": "Alex Xu",
-    "isbn": "978-1234509876",
-    "pages": 420,
-    "publisher": "TechInterview Press",
-    "language": "English",
-    "sku": "BOOK-SYS-DESIGN"
+    "sku": "BOOK-SYS-DESIGN",
+    "bookDetails": {
+      "author": "Alex Xu",
+      "isbn": "978-1234509876",
+      "pages": 420,
+      "publisher": "TechInterview Press",
+      "language": "English"
+    }
   },
   {
     "name": "Python for Data Science",
@@ -255,12 +285,14 @@
     "category": "Books",
     "inventory": 40,
     "type": "Book",
-    "author": "Sarah Data",
-    "isbn": "978-9998887776",
-    "pages": 520,
-    "publisher": "DataScience Books",
-    "language": "English",
-    "sku": "BOOK-PYTHON-DS"
+    "sku": "BOOK-PYTHON-DS",
+    "bookDetails": {
+      "author": "Sarah Data",
+      "isbn": "978-9998887776",
+      "pages": 520,
+      "publisher": "DataScience Books",
+      "language": "English"
+    }
   },
   {
     "name": "Cloud Computing Essentials",
@@ -269,12 +301,14 @@
     "category": "Books",
     "inventory": 45,
     "type": "Book",
-    "author": "Michael Cloud",
-    "isbn": "978-7776665554",
-    "pages": 380,
-    "publisher": "CloudTech Publishing",
-    "language": "English",
-    "sku": "BOOK-CLOUD-ESS"
+    "sku": "BOOK-CLOUD-ESS",
+    "bookDetails": {
+      "author": "Michael Cloud",
+      "isbn": "978-7776665554",
+      "pages": 380,
+      "publisher": "CloudTech Publishing",
+      "language": "English"
+    }
   },
   {
     "name": "4K Webcam Pro",
@@ -283,10 +317,12 @@
     "category": "Electronics",
     "inventory": 35,
     "type": "Electronics",
-    "brand": "StreamTech",
-    "warranty": "2 years",
-    "resolution": "4K",
-    "sku": "WEBCAM-4K-PRO"
+    "sku": "WEBCAM-4K-PRO",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "StreamTech",
+      "resolution": "4K"
+    }
   },
   {
     "name": "Monitor Stand Adjustable",
@@ -294,9 +330,7 @@
     "price": 89.99,
     "category": "Accessories",
     "inventory": 65,
-    "type": "Accessories",
-    "color": "Silver",
-    "material": "Aluminum",
+    "type": "General",
     "sku": "STAND-MON-ADJ-SV"
   },
   {
@@ -305,8 +339,7 @@
     "price": 49.99,
     "category": "Accessories",
     "inventory": 90,
-    "type": "Accessories",
-    "color": "Black",
+    "type": "General",
     "sku": "LAMP-DESK-LED-BK"
   },
   {
@@ -315,8 +348,7 @@
     "price": 9.99,
     "category": "Accessories",
     "inventory": 300,
-    "type": "Accessories",
-    "color": "Black",
+    "type": "General",
     "sku": "COVER-WEBCAM-3PK"
   },
   {
@@ -325,8 +357,7 @@
     "price": 19.99,
     "category": "Accessories",
     "inventory": 200,
-    "type": "Accessories",
-    "color": "Black",
+    "type": "General",
     "sku": "ORG-CABLE-SET"
   },
   {
@@ -335,9 +366,7 @@
     "price": 39.99,
     "category": "Accessories",
     "inventory": 85,
-    "type": "Accessories",
-    "color": "Purple",
-    "material": "TPE",
+    "type": "General",
     "sku": "MAT-YOGA-PUR"
   },
   {
@@ -346,9 +375,7 @@
     "price": 29.99,
     "category": "Accessories",
     "inventory": 150,
-    "type": "Accessories",
-    "color": "Matte Black",
-    "material": "Stainless Steel",
+    "type": "General",
     "sku": "BOTTLE-INS-BK"
   },
   {
@@ -358,10 +385,12 @@
     "category": "Clothing",
     "inventory": 100,
     "type": "Clothing",
-    "size": "L",
-    "color": "White",
-    "material": "65% Cotton, 35% Polyester",
-    "sku": "SHIRT-DRESS-WH-L"
+    "sku": "SHIRT-DRESS-WH-L",
+    "clothingDetails": {
+      "size": "L",
+      "color": "White",
+      "material": "65% Cotton, 35% Polyester"
+    }
   },
   {
     "name": "Sneakers Casual",
@@ -370,10 +399,12 @@
     "category": "Clothing",
     "inventory": 120,
     "type": "Clothing",
-    "size": "9",
-    "color": "White",
-    "material": "Canvas, Rubber",
-    "sku": "SHOE-SNEAK-WH-9"
+    "sku": "SHOE-SNEAK-WH-9",
+    "clothingDetails": {
+      "size": "9",
+      "color": "White",
+      "material": "Canvas, Rubber"
+    }
   },
   {
     "name": "Baseball Cap Classic",
@@ -382,10 +413,12 @@
     "category": "Clothing",
     "inventory": 180,
     "type": "Clothing",
-    "size": "One Size",
-    "color": "Navy",
-    "material": "100% Cotton",
-    "sku": "CAP-BASE-NV"
+    "sku": "CAP-BASE-NV",
+    "clothingDetails": {
+      "size": "One Size",
+      "color": "Navy",
+      "material": "100% Cotton"
+    }
   },
   {
     "name": "Microservices Architecture",
@@ -394,12 +427,14 @@
     "category": "Books",
     "inventory": 30,
     "type": "Book",
-    "author": "Chris Richardson",
-    "isbn": "978-4443332221",
-    "pages": 450,
-    "publisher": "Architecture Press",
-    "language": "English",
-    "sku": "BOOK-MICRO-ARCH"
+    "sku": "BOOK-MICRO-ARCH",
+    "bookDetails": {
+      "author": "Chris Richardson",
+      "isbn": "978-4443332221",
+      "pages": 450,
+      "publisher": "Architecture Press",
+      "language": "English"
+    }
   },
   {
     "name": "React Complete Reference",
@@ -408,12 +443,14 @@
     "category": "Books",
     "inventory": 60,
     "type": "Book",
-    "author": "Emma Frontend",
-    "isbn": "978-3332221110",
-    "pages": 500,
-    "publisher": "WebDev Press",
-    "language": "English",
-    "sku": "BOOK-REACT-REF"
+    "sku": "BOOK-REACT-REF",
+    "bookDetails": {
+      "author": "Emma Frontend",
+      "isbn": "978-3332221110",
+      "pages": 500,
+      "publisher": "WebDev Press",
+      "language": "English"
+    }
   },
   {
     "name": "Tablet Pro 11",
@@ -422,11 +459,13 @@
     "category": "Electronics",
     "inventory": 40,
     "type": "Electronics",
-    "brand": "TechCorp",
-    "warranty": "1 year",
-    "screenSize": "11 inch",
-    "resolution": "2K",
-    "sku": "TABLET-PRO11-GY"
+    "sku": "TABLET-PRO11-GY",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "TechCorp",
+      "screenSize": "11 inch",
+      "resolution": "2K"
+    }
   },
   {
     "name": "Gaming Mouse RGB Pro",
@@ -435,10 +474,11 @@
     "category": "Electronics",
     "inventory": 95,
     "type": "Electronics",
-    "brand": "GameTech",
-    "warranty": "2 years",
-    "color": "Black",
-    "sku": "MOUSE-GAME-RGB-BK"
+    "sku": "MOUSE-GAME-RGB-BK",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "GameTech"
+    }
   },
   {
     "name": "USB Hub 7-Port",
@@ -447,10 +487,11 @@
     "category": "Electronics",
     "inventory": 120,
     "type": "Electronics",
-    "brand": "TechCorp",
-    "warranty": "1 year",
-    "color": "Silver",
-    "sku": "HUB-USB-7PORT-SV"
+    "sku": "HUB-USB-7PORT-SV",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "TechCorp"
+    }
   },
   {
     "name": "External Hard Drive 2TB",
@@ -459,10 +500,12 @@
     "category": "Electronics",
     "inventory": 75,
     "type": "Electronics",
-    "brand": "DataSafe",
-    "warranty": "2 years",
-    "capacity": "2TB",
-    "sku": "HDD-EXT-2TB-BK"
+    "sku": "HDD-EXT-2TB-BK",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "DataSafe",
+      "capacity": "2TB"
+    }
   },
   {
     "name": "Wireless Earbuds Pro",
@@ -471,10 +514,11 @@
     "category": "Electronics",
     "inventory": 85,
     "type": "Electronics",
-    "brand": "AudioTech",
-    "warranty": "1 year",
-    "color": "White",
-    "sku": "EARBUDS-WL-PRO-WH"
+    "sku": "EARBUDS-WL-PRO-WH",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "AudioTech"
+    }
   },
   {
     "name": "Laptop Cooling Pad",
@@ -483,10 +527,11 @@
     "category": "Electronics",
     "inventory": 110,
     "type": "Electronics",
-    "brand": "CoolTech",
-    "warranty": "1 year",
-    "color": "Black",
-    "sku": "COOL-PAD-5FAN-BK"
+    "sku": "COOL-PAD-5FAN-BK",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "CoolTech"
+    }
   },
   {
     "name": "Graphics Tablet Digital",
@@ -495,10 +540,11 @@
     "category": "Electronics",
     "inventory": 45,
     "type": "Electronics",
-    "brand": "ArtTech",
-    "warranty": "1 year",
-    "color": "Black",
-    "sku": "TABLET-GRAPH-10X6"
+    "sku": "TABLET-GRAPH-10X6",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "ArtTech"
+    }
   },
   {
     "name": "Power Bank 20000mAh",
@@ -507,10 +553,12 @@
     "category": "Electronics",
     "inventory": 140,
     "type": "Electronics",
-    "brand": "PowerTech",
-    "warranty": "1 year",
-    "capacity": "20000mAh",
-    "sku": "PWRBANK-20K-BK"
+    "sku": "PWRBANK-20K-BK",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "PowerTech",
+      "capacity": "20000mAh"
+    }
   },
   {
     "name": "Ring Light LED 10 inch",
@@ -519,10 +567,12 @@
     "category": "Electronics",
     "inventory": 95,
     "type": "Electronics",
-    "brand": "LightPro",
-    "warranty": "1 year",
-    "screenSize": "10 inch",
-    "sku": "LIGHT-RING-10IN"
+    "sku": "LIGHT-RING-10IN",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "LightPro",
+      "screenSize": "10 inch"
+    }
   },
   {
     "name": "Streaming Microphone USB",
@@ -531,10 +581,11 @@
     "category": "Electronics",
     "inventory": 70,
     "type": "Electronics",
-    "brand": "AudioPro",
-    "warranty": "2 years",
-    "color": "Black",
-    "sku": "MIC-USB-STREAM-BK"
+    "sku": "MIC-USB-STREAM-BK",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "AudioPro"
+    }
   },
   {
     "name": "HDMI Cable 4K 6ft",
@@ -543,10 +594,11 @@
     "category": "Electronics",
     "inventory": 200,
     "type": "Electronics",
-    "brand": "CableTech",
-    "warranty": "Lifetime",
-    "color": "Black",
-    "sku": "CABLE-HDMI-4K-6FT"
+    "sku": "CABLE-HDMI-4K-6FT",
+    "electronicsDetails": {
+      "warranty": "Lifetime",
+      "brand": "CableTech"
+    }
   },
   {
     "name": "Laptop Stand Aluminum",
@@ -554,9 +606,7 @@
     "price": 54.99,
     "category": "Accessories",
     "inventory": 80,
-    "type": "Accessories",
-    "color": "Silver",
-    "material": "Aluminum",
+    "type": "General",
     "sku": "STAND-LAPTOP-ALU-SV"
   },
   {
@@ -565,9 +615,7 @@
     "price": 19.99,
     "category": "Accessories",
     "inventory": 150,
-    "type": "Accessories",
-    "color": "Black",
-    "material": "Aluminum",
+    "type": "General",
     "sku": "STAND-PHONE-ADJ-BK"
   },
   {
@@ -577,10 +625,12 @@
     "category": "Electronics",
     "inventory": 100,
     "type": "Electronics",
-    "brand": "WebTech",
-    "warranty": "1 year",
-    "resolution": "1080p",
-    "sku": "WEBCAM-HD-1080P-BK"
+    "sku": "WEBCAM-HD-1080P-BK",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "WebTech",
+      "resolution": "1080p"
+    }
   },
   {
     "name": "Smart Watch Fitness Tracker",
@@ -589,10 +639,12 @@
     "category": "Electronics",
     "inventory": 65,
     "type": "Electronics",
-    "brand": "FitTech",
-    "warranty": "1 year",
-    "screenSize": "1.4 inch",
-    "sku": "WATCH-SMART-FIT-BK"
+    "sku": "WATCH-SMART-FIT-BK",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "FitTech",
+      "screenSize": "1.4 inch"
+    }
   },
   {
     "name": "Portable SSD 1TB",
@@ -601,10 +653,12 @@
     "category": "Electronics",
     "inventory": 55,
     "type": "Electronics",
-    "brand": "DataSpeed",
-    "warranty": "3 years",
-    "capacity": "1TB",
-    "sku": "SSD-PORT-1TB-GY"
+    "sku": "SSD-PORT-1TB-GY",
+    "electronicsDetails": {
+      "warranty": "3 years",
+      "brand": "DataSpeed",
+      "capacity": "1TB"
+    }
   },
   {
     "name": "Mechanical Keyboard RGB",
@@ -613,10 +667,11 @@
     "category": "Electronics",
     "inventory": 70,
     "type": "Electronics",
-    "brand": "GameTech",
-    "warranty": "2 years",
-    "color": "Black",
-    "sku": "KEYBOARD-MECH-RGB"
+    "sku": "KEYBOARD-MECH-RGB",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "GameTech"
+    }
   },
   {
     "name": "Monitor 27 inch 4K",
@@ -625,11 +680,13 @@
     "category": "Electronics",
     "inventory": 35,
     "type": "Electronics",
-    "brand": "ViewTech",
-    "warranty": "3 years",
-    "screenSize": "27 inch",
-    "resolution": "4K",
-    "sku": "MONITOR-27-4K-BK"
+    "sku": "MONITOR-27-4K-BK",
+    "electronicsDetails": {
+      "warranty": "3 years",
+      "brand": "ViewTech",
+      "screenSize": "27 inch",
+      "resolution": "4K"
+    }
   },
   {
     "name": "Bluetooth Speaker Portable",
@@ -638,10 +695,11 @@
     "category": "Electronics",
     "inventory": 90,
     "type": "Electronics",
-    "brand": "AudioWave",
-    "warranty": "1 year",
-    "color": "Blue",
-    "sku": "SPEAKER-BT-PORT-BL"
+    "sku": "SPEAKER-BT-PORT-BL",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "AudioWave"
+    }
   },
   {
     "name": "Desk Lamp LED Smart",
@@ -650,10 +708,11 @@
     "category": "Electronics",
     "inventory": 85,
     "type": "Electronics",
-    "brand": "LightSmart",
-    "warranty": "2 years",
-    "color": "White",
-    "sku": "LAMP-DESK-LED-WH"
+    "sku": "LAMP-DESK-LED-WH",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "LightSmart"
+    }
   },
   {
     "name": "Cable Organizer Set",
@@ -661,9 +720,7 @@
     "price": 29.99,
     "category": "Accessories",
     "inventory": 130,
-    "type": "Accessories",
-    "color": "Black",
-    "material": "Plastic",
+    "type": "General",
     "sku": "ORGANIZER-CABLE-SET"
   },
   {
@@ -673,10 +730,12 @@
     "category": "Clothing",
     "inventory": 180,
     "type": "Clothing",
-    "size": "M",
-    "color": "Navy",
-    "material": "Cotton",
-    "sku": "TSHIRT-COT-NV-M"
+    "sku": "TSHIRT-COT-NV-M",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Navy",
+      "material": "Cotton"
+    }
   },
   {
     "name": "Hoodie Fleece Gray",
@@ -685,10 +744,12 @@
     "category": "Clothing",
     "inventory": 95,
     "type": "Clothing",
-    "size": "L",
-    "color": "Gray",
-    "material": "Cotton-Polyester",
-    "sku": "HOODIE-FLEECE-GY-L"
+    "sku": "HOODIE-FLEECE-GY-L",
+    "clothingDetails": {
+      "size": "L",
+      "color": "Gray",
+      "material": "Cotton-Polyester"
+    }
   },
   {
     "name": "Jeans Slim Fit Dark Blue",
@@ -697,10 +758,12 @@
     "category": "Clothing",
     "inventory": 110,
     "type": "Clothing",
-    "size": "32x32",
-    "color": "Dark Blue",
-    "material": "Denim",
-    "sku": "JEANS-SLIM-DB-32"
+    "sku": "JEANS-SLIM-DB-32",
+    "clothingDetails": {
+      "size": "32x32",
+      "color": "Dark Blue",
+      "material": "Denim"
+    }
   },
   {
     "name": "Running Shorts Athletic",
@@ -709,10 +772,12 @@
     "category": "Clothing",
     "inventory": 140,
     "type": "Clothing",
-    "size": "M",
-    "color": "Black",
-    "material": "Polyester",
-    "sku": "SHORTS-RUN-BK-M"
+    "sku": "SHORTS-RUN-BK-M",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Black",
+      "material": "Polyester"
+    }
   },
   {
     "name": "Polo Shirt Pique White",
@@ -721,10 +786,12 @@
     "category": "Clothing",
     "inventory": 125,
     "type": "Clothing",
-    "size": "L",
-    "color": "White",
-    "material": "Cotton",
-    "sku": "POLO-PIQUE-WH-L"
+    "sku": "POLO-PIQUE-WH-L",
+    "clothingDetails": {
+      "size": "L",
+      "color": "White",
+      "material": "Cotton"
+    }
   },
   {
     "name": "Sweatpants Jogger Black",
@@ -733,10 +800,12 @@
     "category": "Clothing",
     "inventory": 105,
     "type": "Clothing",
-    "size": "M",
-    "color": "Black",
-    "material": "Cotton-Polyester",
-    "sku": "SWEATPANTS-JOG-BK-M"
+    "sku": "SWEATPANTS-JOG-BK-M",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Black",
+      "material": "Cotton-Polyester"
+    }
   },
   {
     "name": "Tank Top Athletic Gray",
@@ -745,10 +814,12 @@
     "category": "Clothing",
     "inventory": 160,
     "type": "Clothing",
-    "size": "M",
-    "color": "Gray",
-    "material": "Polyester",
-    "sku": "TANK-ATH-GY-M"
+    "sku": "TANK-ATH-GY-M",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Gray",
+      "material": "Polyester"
+    }
   },
   {
     "name": "Dress Shirt Button-Down Blue",
@@ -757,10 +828,12 @@
     "category": "Clothing",
     "inventory": 85,
     "type": "Clothing",
-    "size": "M",
-    "color": "Light Blue",
-    "material": "Cotton Blend",
-    "sku": "SHIRT-DRESS-LB-M"
+    "sku": "SHIRT-DRESS-LB-M",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Light Blue",
+      "material": "Cotton Blend"
+    }
   },
   {
     "name": "Jacket Windbreaker Navy",
@@ -769,10 +842,12 @@
     "category": "Clothing",
     "inventory": 75,
     "type": "Clothing",
-    "size": "L",
-    "color": "Navy",
-    "material": "Nylon",
-    "sku": "JACKET-WIND-NV-L"
+    "sku": "JACKET-WIND-NV-L",
+    "clothingDetails": {
+      "size": "L",
+      "color": "Navy",
+      "material": "Nylon"
+    }
   },
   {
     "name": "Leggings High-Waist Black",
@@ -781,10 +856,12 @@
     "category": "Clothing",
     "inventory": 145,
     "type": "Clothing",
-    "size": "M",
-    "color": "Black",
-    "material": "Polyester-Spandex",
-    "sku": "LEGGINGS-HW-BK-M"
+    "sku": "LEGGINGS-HW-BK-M",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Black",
+      "material": "Polyester-Spandex"
+    }
   },
   {
     "name": "Sweater Crewneck Burgundy",
@@ -793,10 +870,12 @@
     "category": "Clothing",
     "inventory": 90,
     "type": "Clothing",
-    "size": "L",
-    "color": "Burgundy",
-    "material": "Cotton-Acrylic",
-    "sku": "SWEATER-CREW-BU-L"
+    "sku": "SWEATER-CREW-BU-L",
+    "clothingDetails": {
+      "size": "L",
+      "color": "Burgundy",
+      "material": "Cotton-Acrylic"
+    }
   },
   {
     "name": "Shorts Cargo Khaki",
@@ -805,10 +884,12 @@
     "category": "Clothing",
     "inventory": 115,
     "type": "Clothing",
-    "size": "32",
-    "color": "Khaki",
-    "material": "Cotton",
-    "sku": "SHORTS-CARGO-KH-32"
+    "sku": "SHORTS-CARGO-KH-32",
+    "clothingDetails": {
+      "size": "32",
+      "color": "Khaki",
+      "material": "Cotton"
+    }
   },
   {
     "name": "Cardigan Knit Charcoal",
@@ -817,10 +898,12 @@
     "category": "Clothing",
     "inventory": 70,
     "type": "Clothing",
-    "size": "M",
-    "color": "Charcoal",
-    "material": "Acrylic-Wool",
-    "sku": "CARDIGAN-KNIT-CH-M"
+    "sku": "CARDIGAN-KNIT-CH-M",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Charcoal",
+      "material": "Acrylic-Wool"
+    }
   },
   {
     "name": "Vest Puffer Black",
@@ -829,10 +912,12 @@
     "category": "Clothing",
     "inventory": 65,
     "type": "Clothing",
-    "size": "L",
-    "color": "Black",
-    "material": "Polyester",
-    "sku": "VEST-PUFFER-BK-L"
+    "sku": "VEST-PUFFER-BK-L",
+    "clothingDetails": {
+      "size": "L",
+      "color": "Black",
+      "material": "Polyester"
+    }
   },
   {
     "name": "Chinos Slim Fit Olive",
@@ -841,10 +926,12 @@
     "category": "Clothing",
     "inventory": 95,
     "type": "Clothing",
-    "size": "32x32",
-    "color": "Olive",
-    "material": "Cotton",
-    "sku": "CHINOS-SLIM-OL-32"
+    "sku": "CHINOS-SLIM-OL-32",
+    "clothingDetails": {
+      "size": "32x32",
+      "color": "Olive",
+      "material": "Cotton"
+    }
   },
   {
     "name": "Henley Shirt Long Sleeve Gray",
@@ -853,10 +940,12 @@
     "category": "Clothing",
     "inventory": 120,
     "type": "Clothing",
-    "size": "M",
-    "color": "Gray",
-    "material": "Cotton-Polyester",
-    "sku": "HENLEY-LS-GY-M"
+    "sku": "HENLEY-LS-GY-M",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Gray",
+      "material": "Cotton-Polyester"
+    }
   },
   {
     "name": "Flannel Shirt Plaid Red",
@@ -865,10 +954,12 @@
     "category": "Clothing",
     "inventory": 100,
     "type": "Clothing",
-    "size": "L",
-    "color": "Red Plaid",
-    "material": "Cotton",
-    "sku": "FLANNEL-PLAID-RD-L"
+    "sku": "FLANNEL-PLAID-RD-L",
+    "clothingDetails": {
+      "size": "L",
+      "color": "Red Plaid",
+      "material": "Cotton"
+    }
   },
   {
     "name": "Track Jacket Zip-Up Blue",
@@ -877,10 +968,12 @@
     "category": "Clothing",
     "inventory": 85,
     "type": "Clothing",
-    "size": "M",
-    "color": "Blue",
-    "material": "Polyester",
-    "sku": "JACKET-TRACK-BL-M"
+    "sku": "JACKET-TRACK-BL-M",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Blue",
+      "material": "Polyester"
+    }
   },
   {
     "name": "Swim Trunks Board Shorts Navy",
@@ -889,10 +982,12 @@
     "category": "Clothing",
     "inventory": 110,
     "type": "Clothing",
-    "size": "M",
-    "color": "Navy",
-    "material": "Polyester",
-    "sku": "SWIM-BOARD-NV-M"
+    "sku": "SWIM-BOARD-NV-M",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Navy",
+      "material": "Polyester"
+    }
   },
   {
     "name": "Thermal Underwear Set Black",
@@ -901,10 +996,12 @@
     "category": "Clothing",
     "inventory": 80,
     "type": "Clothing",
-    "size": "M",
-    "color": "Black",
-    "material": "Polyester",
-    "sku": "THERMAL-SET-BK-M"
+    "sku": "THERMAL-SET-BK-M",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Black",
+      "material": "Polyester"
+    }
   },
   {
     "name": "The Midnight Library",
@@ -912,13 +1009,15 @@
     "price": 16.99,
     "category": "Books",
     "inventory": 145,
-    "type": "Books",
-    "author": "Matt Haig",
-    "isbn": "978-0525559474",
-    "pages": 304,
-    "publisher": "Viking",
-    "language": "English",
-    "sku": "BOOK-MIDNIGHT-LIB"
+    "type": "Book",
+    "sku": "BOOK-MIDNIGHT-LIB",
+    "bookDetails": {
+      "author": "Matt Haig",
+      "isbn": "978-0525559474",
+      "pages": 304,
+      "publisher": "Viking",
+      "language": "English"
+    }
   },
   {
     "name": "Atomic Habits",
@@ -926,13 +1025,15 @@
     "price": 18.99,
     "category": "Books",
     "inventory": 200,
-    "type": "Books",
-    "author": "James Clear",
-    "isbn": "978-0735211292",
-    "pages": 320,
-    "publisher": "Avery",
-    "language": "English",
-    "sku": "BOOK-ATOMIC-HABITS"
+    "type": "Book",
+    "sku": "BOOK-ATOMIC-HABITS",
+    "bookDetails": {
+      "author": "James Clear",
+      "isbn": "978-0735211292",
+      "pages": 320,
+      "publisher": "Avery",
+      "language": "English"
+    }
   },
   {
     "name": "Where the Crawdads Sing",
@@ -940,13 +1041,15 @@
     "price": 17.99,
     "category": "Books",
     "inventory": 130,
-    "type": "Books",
-    "author": "Delia Owens",
-    "isbn": "978-0735219090",
-    "pages": 384,
-    "publisher": "G.P. Putnam's Sons",
-    "language": "English",
-    "sku": "BOOK-CRAWDADS-SING"
+    "type": "Book",
+    "sku": "BOOK-CRAWDADS-SING",
+    "bookDetails": {
+      "author": "Delia Owens",
+      "isbn": "978-0735219090",
+      "pages": 384,
+      "publisher": "G.P. Putnam's Sons",
+      "language": "English"
+    }
   },
   {
     "name": "The Seven Husbands of Evelyn Hugo",
@@ -954,13 +1057,15 @@
     "price": 16.99,
     "category": "Books",
     "inventory": 155,
-    "type": "Books",
-    "author": "Taylor Jenkins Reid",
-    "isbn": "978-1501161933",
-    "pages": 400,
-    "publisher": "Atria Books",
-    "language": "English",
-    "sku": "BOOK-EVELYN-HUGO"
+    "type": "Book",
+    "sku": "BOOK-EVELYN-HUGO",
+    "bookDetails": {
+      "author": "Taylor Jenkins Reid",
+      "isbn": "978-1501161933",
+      "pages": 400,
+      "publisher": "Atria Books",
+      "language": "English"
+    }
   },
   {
     "name": "Educated: A Memoir",
@@ -968,13 +1073,15 @@
     "price": 19.99,
     "category": "Books",
     "inventory": 125,
-    "type": "Books",
-    "author": "Tara Westover",
-    "isbn": "978-0399590504",
-    "pages": 352,
-    "publisher": "Random House",
-    "language": "English",
-    "sku": "BOOK-EDUCATED-MEM"
+    "type": "Book",
+    "sku": "BOOK-EDUCATED-MEM",
+    "bookDetails": {
+      "author": "Tara Westover",
+      "isbn": "978-0399590504",
+      "pages": 352,
+      "publisher": "Random House",
+      "language": "English"
+    }
   },
   {
     "name": "The Silent Patient",
@@ -982,13 +1089,15 @@
     "price": 15.99,
     "category": "Books",
     "inventory": 140,
-    "type": "Books",
-    "author": "Alex Michaelides",
-    "isbn": "978-1250301697",
-    "pages": 336,
-    "publisher": "Celadon Books",
-    "language": "English",
-    "sku": "BOOK-SILENT-PATIENT"
+    "type": "Book",
+    "sku": "BOOK-SILENT-PATIENT",
+    "bookDetails": {
+      "author": "Alex Michaelides",
+      "isbn": "978-1250301697",
+      "pages": 336,
+      "publisher": "Celadon Books",
+      "language": "English"
+    }
   },
   {
     "name": "Becoming",
@@ -996,13 +1105,15 @@
     "price": 20.99,
     "category": "Books",
     "inventory": 110,
-    "type": "Books",
-    "author": "Michelle Obama",
-    "isbn": "978-1524763138",
-    "pages": 448,
-    "publisher": "Crown",
-    "language": "English",
-    "sku": "BOOK-BECOMING-OBA"
+    "type": "Book",
+    "sku": "BOOK-BECOMING-OBA",
+    "bookDetails": {
+      "author": "Michelle Obama",
+      "isbn": "978-1524763138",
+      "pages": 448,
+      "publisher": "Crown",
+      "language": "English"
+    }
   },
   {
     "name": "The Alchemist",
@@ -1010,13 +1121,15 @@
     "price": 14.99,
     "category": "Books",
     "inventory": 175,
-    "type": "Books",
-    "author": "Paulo Coelho",
-    "isbn": "978-0062315007",
-    "pages": 208,
-    "publisher": "HarperOne",
-    "language": "English",
-    "sku": "BOOK-ALCHEMIST-COE"
+    "type": "Book",
+    "sku": "BOOK-ALCHEMIST-COE",
+    "bookDetails": {
+      "author": "Paulo Coelho",
+      "isbn": "978-0062315007",
+      "pages": 208,
+      "publisher": "HarperOne",
+      "language": "English"
+    }
   },
   {
     "name": "Sapiens: A Brief History of Humankind",
@@ -1024,13 +1137,15 @@
     "price": 21.99,
     "category": "Books",
     "inventory": 95,
-    "type": "Books",
-    "author": "Yuval Noah Harari",
-    "isbn": "978-0062316097",
-    "pages": 464,
-    "publisher": "Harper Perennial",
-    "language": "English",
-    "sku": "BOOK-SAPIENS-HAR"
+    "type": "Book",
+    "sku": "BOOK-SAPIENS-HAR",
+    "bookDetails": {
+      "author": "Yuval Noah Harari",
+      "isbn": "978-0062316097",
+      "pages": 464,
+      "publisher": "Harper Perennial",
+      "language": "English"
+    }
   },
   {
     "name": "The Subtle Art of Not Giving a F*ck",
@@ -1038,13 +1153,15 @@
     "price": 17.99,
     "category": "Books",
     "inventory": 160,
-    "type": "Books",
-    "author": "Mark Manson",
-    "isbn": "978-0062457714",
-    "pages": 224,
-    "publisher": "HarperOne",
-    "language": "English",
-    "sku": "BOOK-SUBTLE-ART"
+    "type": "Book",
+    "sku": "BOOK-SUBTLE-ART",
+    "bookDetails": {
+      "author": "Mark Manson",
+      "isbn": "978-0062457714",
+      "pages": 224,
+      "publisher": "HarperOne",
+      "language": "English"
+    }
   },
   {
     "name": "The Four Agreements",
@@ -1052,13 +1169,15 @@
     "price": 13.99,
     "category": "Books",
     "inventory": 135,
-    "type": "Books",
-    "author": "Don Miguel Ruiz",
-    "isbn": "978-1878424310",
-    "pages": 160,
-    "publisher": "Amber-Allen Publishing",
-    "language": "English",
-    "sku": "BOOK-FOUR-AGREE"
+    "type": "Book",
+    "sku": "BOOK-FOUR-AGREE",
+    "bookDetails": {
+      "author": "Don Miguel Ruiz",
+      "isbn": "978-1878424310",
+      "pages": 160,
+      "publisher": "Amber-Allen Publishing",
+      "language": "English"
+    }
   },
   {
     "name": "Thinking, Fast and Slow",
@@ -1066,13 +1185,15 @@
     "price": 19.99,
     "category": "Books",
     "inventory": 85,
-    "type": "Books",
-    "author": "Daniel Kahneman",
-    "isbn": "978-0374533557",
-    "pages": 499,
-    "publisher": "Farrar, Straus and Giroux",
-    "language": "English",
-    "sku": "BOOK-THINK-FAST"
+    "type": "Book",
+    "sku": "BOOK-THINK-FAST",
+    "bookDetails": {
+      "author": "Daniel Kahneman",
+      "isbn": "978-0374533557",
+      "pages": 499,
+      "publisher": "Farrar, Straus and Giroux",
+      "language": "English"
+    }
   },
   {
     "name": "The Power of Now",
@@ -1080,13 +1201,15 @@
     "price": 15.99,
     "category": "Books",
     "inventory": 120,
-    "type": "Books",
-    "author": "Eckhart Tolle",
-    "isbn": "978-1577314806",
-    "pages": 236,
-    "publisher": "New World Library",
-    "language": "English",
-    "sku": "BOOK-POWER-NOW"
+    "type": "Book",
+    "sku": "BOOK-POWER-NOW",
+    "bookDetails": {
+      "author": "Eckhart Tolle",
+      "isbn": "978-1577314806",
+      "pages": 236,
+      "publisher": "New World Library",
+      "language": "English"
+    }
   },
   {
     "name": "The Great Gatsby",
@@ -1094,13 +1217,15 @@
     "price": 12.99,
     "category": "Books",
     "inventory": 190,
-    "type": "Books",
-    "author": "F. Scott Fitzgerald",
-    "isbn": "978-0743273565",
-    "pages": 180,
-    "publisher": "Scribner",
-    "language": "English",
-    "sku": "BOOK-GREAT-GATSBY"
+    "type": "Book",
+    "sku": "BOOK-GREAT-GATSBY",
+    "bookDetails": {
+      "author": "F. Scott Fitzgerald",
+      "isbn": "978-0743273565",
+      "pages": 180,
+      "publisher": "Scribner",
+      "language": "English"
+    }
   },
   {
     "name": "1984",
@@ -1108,13 +1233,15 @@
     "price": 13.99,
     "category": "Books",
     "inventory": 165,
-    "type": "Books",
-    "author": "George Orwell",
-    "isbn": "978-0451524935",
-    "pages": 328,
-    "publisher": "Signet Classic",
-    "language": "English",
-    "sku": "BOOK-1984-ORWELL"
+    "type": "Book",
+    "sku": "BOOK-1984-ORWELL",
+    "bookDetails": {
+      "author": "George Orwell",
+      "isbn": "978-0451524935",
+      "pages": 328,
+      "publisher": "Signet Classic",
+      "language": "English"
+    }
   },
   {
     "name": "To Kill a Mockingbird",
@@ -1122,13 +1249,15 @@
     "price": 14.99,
     "category": "Books",
     "inventory": 180,
-    "type": "Books",
-    "author": "Harper Lee",
-    "isbn": "978-0061120084",
-    "pages": 336,
-    "publisher": "Harper Perennial Modern Classics",
-    "language": "English",
-    "sku": "BOOK-MOCKINGBIRD"
+    "type": "Book",
+    "sku": "BOOK-MOCKINGBIRD",
+    "bookDetails": {
+      "author": "Harper Lee",
+      "isbn": "978-0061120084",
+      "pages": 336,
+      "publisher": "Harper Perennial Modern Classics",
+      "language": "English"
+    }
   },
   {
     "name": "The Catcher in the Rye",
@@ -1136,13 +1265,15 @@
     "price": 13.99,
     "category": "Books",
     "inventory": 155,
-    "type": "Books",
-    "author": "J.D. Salinger",
-    "isbn": "978-0316769174",
-    "pages": 277,
-    "publisher": "Little, Brown and Company",
-    "language": "English",
-    "sku": "BOOK-CATCHER-RYE"
+    "type": "Book",
+    "sku": "BOOK-CATCHER-RYE",
+    "bookDetails": {
+      "author": "J.D. Salinger",
+      "isbn": "978-0316769174",
+      "pages": 277,
+      "publisher": "Little, Brown and Company",
+      "language": "English"
+    }
   },
   {
     "name": "Pride and Prejudice",
@@ -1150,13 +1281,15 @@
     "price": 11.99,
     "category": "Books",
     "inventory": 170,
-    "type": "Books",
-    "author": "Jane Austen",
-    "isbn": "978-0141439518",
-    "pages": 432,
-    "publisher": "Penguin Classics",
-    "language": "English",
-    "sku": "BOOK-PRIDE-PREJ"
+    "type": "Book",
+    "sku": "BOOK-PRIDE-PREJ",
+    "bookDetails": {
+      "author": "Jane Austen",
+      "isbn": "978-0141439518",
+      "pages": 432,
+      "publisher": "Penguin Classics",
+      "language": "English"
+    }
   },
   {
     "name": "The Book Thief",
@@ -1164,13 +1297,15 @@
     "price": 16.99,
     "category": "Books",
     "inventory": 145,
-    "type": "Books",
-    "author": "Markus Zusak",
-    "isbn": "978-0375842207",
-    "pages": 552,
-    "publisher": "Alfred A. Knopf",
-    "language": "English",
-    "sku": "BOOK-BOOK-THIEF"
+    "type": "Book",
+    "sku": "BOOK-BOOK-THIEF",
+    "bookDetails": {
+      "author": "Markus Zusak",
+      "isbn": "978-0375842207",
+      "pages": 552,
+      "publisher": "Alfred A. Knopf",
+      "language": "English"
+    }
   },
   {
     "name": "The Hobbit",
@@ -1178,13 +1313,15 @@
     "price": 15.99,
     "category": "Books",
     "inventory": 160,
-    "type": "Books",
-    "author": "J.R.R. Tolkien",
-    "isbn": "978-0547928227",
-    "pages": 300,
-    "publisher": "Mariner Books",
-    "language": "English",
-    "sku": "BOOK-HOBBIT-TOLK"
+    "type": "Book",
+    "sku": "BOOK-HOBBIT-TOLK",
+    "bookDetails": {
+      "author": "J.R.R. Tolkien",
+      "isbn": "978-0547928227",
+      "pages": 300,
+      "publisher": "Mariner Books",
+      "language": "English"
+    }
   },
   {
     "name": "Laptop Backpack Water-Resistant",
@@ -1192,9 +1329,7 @@
     "price": 49.99,
     "category": "Accessories",
     "inventory": 95,
-    "type": "Accessories",
-    "color": "Black",
-    "material": "Polyester",
+    "type": "General",
     "sku": "BACKPACK-LAPTOP-BK"
   },
   {
@@ -1203,9 +1338,7 @@
     "price": 12.99,
     "category": "Accessories",
     "inventory": 220,
-    "type": "Accessories",
-    "color": "Clear",
-    "material": "Tempered Glass",
+    "type": "General",
     "sku": "SCREEN-PROT-GLASS"
   },
   {
@@ -1214,9 +1347,7 @@
     "price": 14.99,
     "category": "Accessories",
     "inventory": 185,
-    "type": "Accessories",
-    "color": "Clear",
-    "material": "Silicone",
+    "type": "General",
     "sku": "CASE-PHONE-SIL-CL"
   },
   {
@@ -1225,9 +1356,7 @@
     "price": 24.99,
     "category": "Accessories",
     "inventory": 140,
-    "type": "Accessories",
-    "color": "Black",
-    "material": "Plastic",
+    "type": "General",
     "sku": "CHARGER-WL-FAST-BK"
   },
   {
@@ -1236,9 +1365,7 @@
     "price": 9.99,
     "category": "Accessories",
     "inventory": 250,
-    "type": "Accessories",
-    "color": "Black",
-    "material": "Plastic",
+    "type": "General",
     "sku": "GRIP-POP-SOCKET-BK"
   },
   {
@@ -1247,9 +1374,7 @@
     "price": 19.99,
     "category": "Accessories",
     "inventory": 165,
-    "type": "Accessories",
-    "color": "Black",
-    "material": "Plastic",
+    "type": "General",
     "sku": "MOUNT-CAR-MAG-BK"
   },
   {
@@ -1258,9 +1383,7 @@
     "price": 8.99,
     "category": "Accessories",
     "inventory": 200,
-    "type": "Accessories",
-    "color": "Black",
-    "material": "Silicone",
+    "type": "General",
     "sku": "CASE-AIRPODS-SIL-BK"
   },
   {
@@ -1270,10 +1393,11 @@
     "category": "Electronics",
     "inventory": 80,
     "type": "Electronics",
-    "brand": "GameTech",
-    "warranty": "2 years",
-    "color": "Black",
-    "sku": "HEADSET-GAME-RGB-BK"
+    "sku": "HEADSET-GAME-RGB-BK",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "GameTech"
+    }
   },
   {
     "name": "Security Camera WiFi Indoor",
@@ -1282,10 +1406,12 @@
     "category": "Electronics",
     "inventory": 75,
     "type": "Electronics",
-    "brand": "SecureTech",
-    "warranty": "1 year",
-    "resolution": "1080p",
-    "sku": "CAMERA-WIFI-IN-BK"
+    "sku": "CAMERA-WIFI-IN-BK",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "SecureTech",
+      "resolution": "1080p"
+    }
   },
   {
     "name": "Smart Plug WiFi Mini",
@@ -1294,10 +1420,11 @@
     "category": "Electronics",
     "inventory": 180,
     "type": "Electronics",
-    "brand": "SmartHome",
-    "warranty": "1 year",
-    "color": "White",
-    "sku": "PLUG-SMART-WIFI-WH"
+    "sku": "PLUG-SMART-WIFI-WH",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "SmartHome"
+    }
   },
   {
     "name": "Drone with Camera 4K",
@@ -1306,10 +1433,12 @@
     "category": "Electronics",
     "inventory": 25,
     "type": "Electronics",
-    "brand": "SkyTech",
-    "warranty": "1 year",
-    "resolution": "4K",
-    "sku": "DRONE-CAM-4K-BK"
+    "sku": "DRONE-CAM-4K-BK",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "SkyTech",
+      "resolution": "4K"
+    }
   },
   {
     "name": "VR Headset Standalone",
@@ -1318,10 +1447,12 @@
     "category": "Electronics",
     "inventory": 30,
     "type": "Electronics",
-    "brand": "VRTech",
-    "warranty": "1 year",
-    "resolution": "1832x1920",
-    "sku": "VR-HEADSET-STAND"
+    "sku": "VR-HEADSET-STAND",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "VRTech",
+      "resolution": "1832x1920"
+    }
   },
   {
     "name": "E-Reader 7 inch",
@@ -1330,10 +1461,12 @@
     "category": "Electronics",
     "inventory": 60,
     "type": "Electronics",
-    "brand": "ReadTech",
-    "warranty": "1 year",
-    "screenSize": "7 inch",
-    "sku": "EREADER-7IN-BK"
+    "sku": "EREADER-7IN-BK",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "ReadTech",
+      "screenSize": "7 inch"
+    }
   },
   {
     "name": "Action Camera 4K Waterproof",
@@ -1342,10 +1475,12 @@
     "category": "Electronics",
     "inventory": 45,
     "type": "Electronics",
-    "brand": "ActionPro",
-    "warranty": "1 year",
-    "resolution": "4K",
-    "sku": "CAMERA-ACTION-4K"
+    "sku": "CAMERA-ACTION-4K",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "ActionPro",
+      "resolution": "4K"
+    }
   },
   {
     "name": "Digital Photo Frame 10 inch",
@@ -1354,9 +1489,1534 @@
     "category": "Electronics",
     "inventory": 55,
     "type": "Electronics",
-    "brand": "PhotoTech",
-    "warranty": "1 year",
-    "screenSize": "10 inch",
-    "sku": "FRAME-PHOTO-10IN"
+    "sku": "FRAME-PHOTO-10IN",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "PhotoTech",
+      "screenSize": "10 inch"
+    }
+  },
+  {
+    "name": "4K Monitor 27-inch",
+    "description": "Professional 4K UHD monitor with stunning 27-inch display. IPS panel delivers accurate colors and wide viewing angles. 3840x2160 resolution for crisp, detailed images. HDR10 support for enhanced contrast. Multiple ports including HDMI 2.0, DisplayPort 1.4, and USB-C. Perfect for content creation, gaming, and professional work.",
+    "price": 449.99,
+    "category": "Electronics",
+    "inventory": 40,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "3 years",
+      "brand": "ViewMaster",
+      "screenSize": "27 inch",
+      "resolution": "3840x2160"
+    },
+    "sku": "MON-4K-27-VM"
+  },
+  {
+    "name": "Webcam HD Pro",
+    "description": "Professional 1080p HD webcam with autofocus and dual microphones. Crystal-clear video calls and streaming. Wide-angle 90-degree field of view. Built-in ring light with adjustable brightness. USB plug-and-play, no drivers needed. Compatible with Zoom, Teams, Skype. Perfect for remote work and content creation.",
+    "price": 79.99,
+    "category": "Electronics",
+    "inventory": 120,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "StreamTech",
+      "resolution": "1920x1080"
+    },
+    "sku": "CAM-HD-PRO-ST"
+  },
+  {
+    "name": "External Hard Drive 4TB",
+    "description": "Reliable 4TB external hard drive for backup and storage. USB 3.0 for fast data transfer up to 5Gbps. Automatic backup software included. Compact, portable design. Password protection and hardware encryption. Compatible with Windows and macOS. Perfect for photographers, videographers, and data hoarders.",
+    "price": 119.99,
+    "category": "Electronics",
+    "inventory": 85,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "DataVault",
+      "capacity": "4TB"
+    },
+    "sku": "HDD-EXT-4TB-DV"
+  },
+  {
+    "name": "Bluetooth Speaker Portable",
+    "description": "Powerful portable Bluetooth speaker with 360-degree sound. 20W output delivers room-filling audio. IPX7 waterproof rating for pool and beach. 24-hour battery life for all-day music. Built-in microphone for hands-free calls. Pairs with two devices simultaneously. Compact design with carabiner clip.",
+    "price": 89.99,
+    "category": "Electronics",
+    "inventory": 95,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "SoundWave"
+    },
+    "sku": "SPK-BT-PORT-SW"
+  },
+  {
+    "name": "Gaming Mouse RGB",
+    "description": "High-precision gaming mouse with 16000 DPI optical sensor. Customizable RGB lighting with 16.8 million colors. 8 programmable buttons with on-board memory. Ergonomic right-handed design. Braided cable and gold-plated USB connector. Adjustable weight system. Perfect for FPS, MOBA, and MMO games.",
+    "price": 59.99,
+    "category": "Electronics",
+    "inventory": 110,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "GamePro"
+    },
+    "sku": "MOUSE-GAME-RGB-GP"
+  },
+  {
+    "name": "USB Hub 7-Port",
+    "description": "Powered 7-port USB 3.0 hub with individual power switches. Transfer data at up to 5Gbps. LED indicators show port status. Includes 12V power adapter for charging tablets and smartphones. Compact design saves desk space. Compatible with Windows, macOS, and Linux. Plug-and-play installation.",
+    "price": 34.99,
+    "category": "Electronics",
+    "inventory": 150,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "TechCorp"
+    },
+    "sku": "HUB-USB-7P-TC"
+  },
+  {
+    "name": "Tablet 10-inch Android",
+    "description": "Versatile 10.1-inch Android tablet for entertainment and productivity. Full HD display with vibrant colors. Octa-core processor, 4GB RAM, 64GB storage (expandable). Dual cameras for photos and video calls. Long-lasting 7000mAh battery. Lightweight aluminum body. Perfect for reading, browsing, and media consumption.",
+    "price": 249.99,
+    "category": "Electronics",
+    "inventory": 60,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "TabletMax",
+      "screenSize": "10.1 inch",
+      "weight": "0.5 kg"
+    },
+    "sku": "TAB-10-AND-TM"
+  },
+  {
+    "name": "Power Bank 20000mAh",
+    "description": "High-capacity 20000mAh power bank charges phones multiple times. Dual USB-A outputs and USB-C input/output. Fast charging support up to 18W. LED display shows remaining battery percentage. Compact size fits in bags and pockets. Built-in safety features prevent overcharging. Perfect for travel and emergencies.",
+    "price": 44.99,
+    "category": "Electronics",
+    "inventory": 200,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "PowerCell",
+      "capacity": "20000mAh"
+    },
+    "sku": "PWR-BANK-20K-PC"
+  },
+  {
+    "name": "Wireless Earbuds Pro 1",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 69.99,
+    "category": "Electronics",
+    "inventory": 55,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "ViewMaster"
+    },
+    "sku": "EAR-WL-PRO1-VI"
+  },
+  {
+    "name": "Wireless Earbuds Pro 2",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 79.99,
+    "category": "Electronics",
+    "inventory": 60,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "StreamTech"
+    },
+    "sku": "EAR-WL-PRO2-ST"
+  },
+  {
+    "name": "Wireless Earbuds Pro 3",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 89.99,
+    "category": "Electronics",
+    "inventory": 65,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "DataVault"
+    },
+    "sku": "EAR-WL-PRO3-DA"
+  },
+  {
+    "name": "Wireless Earbuds Pro 4",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 99.99,
+    "category": "Electronics",
+    "inventory": 70,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "SoundWave"
+    },
+    "sku": "EAR-WL-PRO4-SO"
+  },
+  {
+    "name": "Wireless Earbuds Pro 5",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 109.99,
+    "category": "Electronics",
+    "inventory": 75,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "GamePro"
+    },
+    "sku": "EAR-WL-PRO5-GA"
+  },
+  {
+    "name": "Wireless Earbuds Pro 6",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 119.99,
+    "category": "Electronics",
+    "inventory": 80,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "TabletMax"
+    },
+    "sku": "EAR-WL-PRO6-TA"
+  },
+  {
+    "name": "Wireless Earbuds Pro 7",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 129.99,
+    "category": "Electronics",
+    "inventory": 85,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "PowerCell"
+    },
+    "sku": "EAR-WL-PRO7-PO"
+  },
+  {
+    "name": "Wireless Earbuds Pro 8",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 139.99,
+    "category": "Electronics",
+    "inventory": 90,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "EliteTech"
+    },
+    "sku": "EAR-WL-PRO8-EL"
+  },
+  {
+    "name": "Wireless Earbuds Pro 9",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 149.99,
+    "category": "Electronics",
+    "inventory": 95,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "SmartGear"
+    },
+    "sku": "EAR-WL-PRO9-SM"
+  },
+  {
+    "name": "Wireless Earbuds Pro 10",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 159.99,
+    "category": "Electronics",
+    "inventory": 100,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "TechCorp"
+    },
+    "sku": "EAR-WL-PRO10-TE"
+  },
+  {
+    "name": "Wireless Earbuds Pro 11",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 169.99,
+    "category": "Electronics",
+    "inventory": 105,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "ViewMaster"
+    },
+    "sku": "EAR-WL-PRO11-VI"
+  },
+  {
+    "name": "Wireless Earbuds Pro 12",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 179.99,
+    "category": "Electronics",
+    "inventory": 110,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "StreamTech"
+    },
+    "sku": "EAR-WL-PRO12-ST"
+  },
+  {
+    "name": "Wireless Earbuds Pro 13",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 189.99,
+    "category": "Electronics",
+    "inventory": 115,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "DataVault"
+    },
+    "sku": "EAR-WL-PRO13-DA"
+  },
+  {
+    "name": "Wireless Earbuds Pro 14",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 199.99,
+    "category": "Electronics",
+    "inventory": 120,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "SoundWave"
+    },
+    "sku": "EAR-WL-PRO14-SO"
+  },
+  {
+    "name": "Wireless Earbuds Pro 15",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 209.99,
+    "category": "Electronics",
+    "inventory": 125,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "GamePro"
+    },
+    "sku": "EAR-WL-PRO15-GA"
+  },
+  {
+    "name": "Wireless Earbuds Pro 16",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 219.99,
+    "category": "Electronics",
+    "inventory": 130,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "TabletMax"
+    },
+    "sku": "EAR-WL-PRO16-TA"
+  },
+  {
+    "name": "Wireless Earbuds Pro 17",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 229.99,
+    "category": "Electronics",
+    "inventory": 135,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "PowerCell"
+    },
+    "sku": "EAR-WL-PRO17-PO"
+  },
+  {
+    "name": "Wireless Earbuds Pro 18",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 239.99,
+    "category": "Electronics",
+    "inventory": 140,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "EliteTech"
+    },
+    "sku": "EAR-WL-PRO18-EL"
+  },
+  {
+    "name": "Wireless Earbuds Pro 19",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 249.99,
+    "category": "Electronics",
+    "inventory": 145,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "SmartGear"
+    },
+    "sku": "EAR-WL-PRO19-SM"
+  },
+  {
+    "name": "Wireless Earbuds Pro 20",
+    "description": "Premium true wireless earbuds with active noise cancellation. Premium sound quality with deep bass and clear highs. Touch controls for music and calls. Water-resistant design (IPX4). Includes charging case with wireless charging. Long battery life up to 8 hours per charge.",
+    "price": 259.99,
+    "category": "Electronics",
+    "inventory": 150,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "TechCorp"
+    },
+    "sku": "EAR-WL-PRO20-TE"
+  },
+  {
+    "name": "Premium White Shirt 1",
+    "description": "Stylish white shirt made from high-quality polyester. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 37.99,
+    "category": "Clothing",
+    "inventory": 82,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "S",
+      "color": "White",
+      "material": "Polyester"
+    },
+    "sku": "SHIRT-WHI-S-1"
+  },
+  {
+    "name": "Premium Blue Shirt 2",
+    "description": "Stylish blue shirt made from high-quality wool. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 40.99,
+    "category": "Clothing",
+    "inventory": 84,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Blue",
+      "material": "Wool"
+    },
+    "sku": "SHIRT-BLU-M-2"
+  },
+  {
+    "name": "Premium Red Shirt 3",
+    "description": "Stylish red shirt made from high-quality denim. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 43.99,
+    "category": "Clothing",
+    "inventory": 86,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "L",
+      "color": "Red",
+      "material": "Denim"
+    },
+    "sku": "SHIRT-RED-L-3"
+  },
+  {
+    "name": "Premium Gray Shirt 4",
+    "description": "Stylish gray shirt made from high-quality leather. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 46.99,
+    "category": "Clothing",
+    "inventory": 88,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "XL",
+      "color": "Gray",
+      "material": "Leather"
+    },
+    "sku": "SHIRT-GRA-XL-4"
+  },
+  {
+    "name": "Premium Silver Shirt 5",
+    "description": "Stylish silver shirt made from high-quality nylon. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 49.99,
+    "category": "Clothing",
+    "inventory": 90,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "XXL",
+      "color": "Silver",
+      "material": "Nylon"
+    },
+    "sku": "SHIRT-SIL-XXL-5"
+  },
+  {
+    "name": "Premium Green Shirt 6",
+    "description": "Stylish green shirt made from high-quality 100% cotton. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 52.99,
+    "category": "Clothing",
+    "inventory": 92,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "XS",
+      "color": "Green",
+      "material": "100% Cotton"
+    },
+    "sku": "SHIRT-GRE-XS-6"
+  },
+  {
+    "name": "Premium Navy Shirt 7",
+    "description": "Stylish navy shirt made from high-quality cotton-polyester blend. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 55.99,
+    "category": "Clothing",
+    "inventory": 94,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "S",
+      "color": "Navy",
+      "material": "Cotton-Polyester Blend"
+    },
+    "sku": "SHIRT-NAV-S-7"
+  },
+  {
+    "name": "Premium Charcoal Shirt 8",
+    "description": "Stylish charcoal shirt made from high-quality cotton. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 58.99,
+    "category": "Clothing",
+    "inventory": 96,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Charcoal",
+      "material": "Cotton"
+    },
+    "sku": "SHIRT-CHA-M-8"
+  },
+  {
+    "name": "Premium Black Shirt 9",
+    "description": "Stylish black shirt made from high-quality polyester. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 61.99,
+    "category": "Clothing",
+    "inventory": 98,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "L",
+      "color": "Black",
+      "material": "Polyester"
+    },
+    "sku": "SHIRT-BLA-L-9"
+  },
+  {
+    "name": "Premium White Shirt 10",
+    "description": "Stylish white shirt made from high-quality wool. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 64.99,
+    "category": "Clothing",
+    "inventory": 100,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "XL",
+      "color": "White",
+      "material": "Wool"
+    },
+    "sku": "SHIRT-WHI-XL-10"
+  },
+  {
+    "name": "Premium Blue Shirt 11",
+    "description": "Stylish blue shirt made from high-quality denim. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 67.99,
+    "category": "Clothing",
+    "inventory": 102,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "XXL",
+      "color": "Blue",
+      "material": "Denim"
+    },
+    "sku": "SHIRT-BLU-XXL-11"
+  },
+  {
+    "name": "Premium Red Shirt 12",
+    "description": "Stylish red shirt made from high-quality leather. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 70.99,
+    "category": "Clothing",
+    "inventory": 104,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "XS",
+      "color": "Red",
+      "material": "Leather"
+    },
+    "sku": "SHIRT-RED-XS-12"
+  },
+  {
+    "name": "Premium Gray Shirt 13",
+    "description": "Stylish gray shirt made from high-quality nylon. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 73.99,
+    "category": "Clothing",
+    "inventory": 106,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "S",
+      "color": "Gray",
+      "material": "Nylon"
+    },
+    "sku": "SHIRT-GRA-S-13"
+  },
+  {
+    "name": "Premium Silver Shirt 14",
+    "description": "Stylish silver shirt made from high-quality 100% cotton. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 76.99,
+    "category": "Clothing",
+    "inventory": 108,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Silver",
+      "material": "100% Cotton"
+    },
+    "sku": "SHIRT-SIL-M-14"
+  },
+  {
+    "name": "Premium Green Shirt 15",
+    "description": "Stylish green shirt made from high-quality cotton-polyester blend. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 79.99,
+    "category": "Clothing",
+    "inventory": 110,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "L",
+      "color": "Green",
+      "material": "Cotton-Polyester Blend"
+    },
+    "sku": "SHIRT-GRE-L-15"
+  },
+  {
+    "name": "Premium Navy Shirt 16",
+    "description": "Stylish navy shirt made from high-quality cotton. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 82.99,
+    "category": "Clothing",
+    "inventory": 112,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "XL",
+      "color": "Navy",
+      "material": "Cotton"
+    },
+    "sku": "SHIRT-NAV-XL-16"
+  },
+  {
+    "name": "Premium Charcoal Shirt 17",
+    "description": "Stylish charcoal shirt made from high-quality polyester. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 85.99,
+    "category": "Clothing",
+    "inventory": 114,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "XXL",
+      "color": "Charcoal",
+      "material": "Polyester"
+    },
+    "sku": "SHIRT-CHA-XXL-17"
+  },
+  {
+    "name": "Premium Black Shirt 18",
+    "description": "Stylish black shirt made from high-quality wool. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 88.99,
+    "category": "Clothing",
+    "inventory": 116,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "XS",
+      "color": "Black",
+      "material": "Wool"
+    },
+    "sku": "SHIRT-BLA-XS-18"
+  },
+  {
+    "name": "Premium White Shirt 19",
+    "description": "Stylish white shirt made from high-quality denim. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 91.99,
+    "category": "Clothing",
+    "inventory": 118,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "S",
+      "color": "White",
+      "material": "Denim"
+    },
+    "sku": "SHIRT-WHI-S-19"
+  },
+  {
+    "name": "Premium Blue Shirt 20",
+    "description": "Stylish blue shirt made from high-quality leather. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 94.99,
+    "category": "Clothing",
+    "inventory": 120,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Blue",
+      "material": "Leather"
+    },
+    "sku": "SHIRT-BLU-M-20"
+  },
+  {
+    "name": "Premium Red Shirt 21",
+    "description": "Stylish red shirt made from high-quality nylon. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 97.99,
+    "category": "Clothing",
+    "inventory": 122,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "L",
+      "color": "Red",
+      "material": "Nylon"
+    },
+    "sku": "SHIRT-RED-L-21"
+  },
+  {
+    "name": "Premium Gray Shirt 22",
+    "description": "Stylish gray shirt made from high-quality 100% cotton. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 100.99,
+    "category": "Clothing",
+    "inventory": 124,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "XL",
+      "color": "Gray",
+      "material": "100% Cotton"
+    },
+    "sku": "SHIRT-GRA-XL-22"
+  },
+  {
+    "name": "Premium Silver Shirt 23",
+    "description": "Stylish silver shirt made from high-quality cotton-polyester blend. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 103.99,
+    "category": "Clothing",
+    "inventory": 126,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "XXL",
+      "color": "Silver",
+      "material": "Cotton-Polyester Blend"
+    },
+    "sku": "SHIRT-SIL-XXL-23"
+  },
+  {
+    "name": "Premium Green Shirt 24",
+    "description": "Stylish green shirt made from high-quality cotton. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 106.99,
+    "category": "Clothing",
+    "inventory": 128,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "XS",
+      "color": "Green",
+      "material": "Cotton"
+    },
+    "sku": "SHIRT-GRE-XS-24"
+  },
+  {
+    "name": "Premium Navy Shirt 25",
+    "description": "Stylish navy shirt made from high-quality polyester. Comfortable fit perfect for casual or business casual wear. Machine washable and wrinkle-resistant. Classic design that never goes out of style.",
+    "price": 109.99,
+    "category": "Clothing",
+    "inventory": 130,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "S",
+      "color": "Navy",
+      "material": "Polyester"
+    },
+    "sku": "SHIRT-NAV-S-25"
+  },
+  {
+    "name": "Python Complete Guide 1",
+    "description": "Comprehensive guide to mastering Python. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 46.99,
+    "category": "Books",
+    "inventory": 43,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 1",
+      "isbn": "978-1001-2001-3001",
+      "pages": 310,
+      "publisher": "WebDev Press",
+      "language": "English"
+    },
+    "sku": "BOOK-PYTHON-1"
+  },
+  {
+    "name": "React Complete Guide 2",
+    "description": "Comprehensive guide to mastering React. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 48.99,
+    "category": "Books",
+    "inventory": 46,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 2",
+      "isbn": "978-1002-2002-3002",
+      "pages": 320,
+      "publisher": "CodeCraft Publishing",
+      "language": "English"
+    },
+    "sku": "BOOK-REACT-2"
+  },
+  {
+    "name": "Docker Complete Guide 3",
+    "description": "Comprehensive guide to mastering Docker. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 50.99,
+    "category": "Books",
+    "inventory": 49,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 3",
+      "isbn": "978-1003-2003-3003",
+      "pages": 330,
+      "publisher": "Learn Press",
+      "language": "English"
+    },
+    "sku": "BOOK-DOCKER-3"
+  },
+  {
+    "name": "Kubernetes Complete Guide 4",
+    "description": "Comprehensive guide to mastering Kubernetes. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 52.99,
+    "category": "Books",
+    "inventory": 52,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 4",
+      "isbn": "978-1004-2004-3004",
+      "pages": 340,
+      "publisher": "Dev Masters",
+      "language": "English"
+    },
+    "sku": "BOOK-KUBERN-4"
+  },
+  {
+    "name": "AWS Complete Guide 5",
+    "description": "Comprehensive guide to mastering AWS. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 54.99,
+    "category": "Books",
+    "inventory": 55,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 5",
+      "isbn": "978-1005-2005-3005",
+      "pages": 350,
+      "publisher": "Programming Elite",
+      "language": "English"
+    },
+    "sku": "BOOK-AWS-5"
+  },
+  {
+    "name": "Azure Complete Guide 6",
+    "description": "Comprehensive guide to mastering Azure. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 56.99,
+    "category": "Books",
+    "inventory": 58,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 6",
+      "isbn": "978-1006-2006-3006",
+      "pages": 360,
+      "publisher": "TechBooks Publishing",
+      "language": "English"
+    },
+    "sku": "BOOK-AZURE-6"
+  },
+  {
+    "name": "DevOps Complete Guide 7",
+    "description": "Comprehensive guide to mastering DevOps. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 58.99,
+    "category": "Books",
+    "inventory": 61,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 7",
+      "isbn": "978-1007-2007-3007",
+      "pages": 370,
+      "publisher": "WebDev Press",
+      "language": "English"
+    },
+    "sku": "BOOK-DEVOPS-7"
+  },
+  {
+    "name": "Machine Learning Complete Guide 8",
+    "description": "Comprehensive guide to mastering Machine Learning. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 60.99,
+    "category": "Books",
+    "inventory": 64,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 8",
+      "isbn": "978-1008-2008-3008",
+      "pages": 380,
+      "publisher": "CodeCraft Publishing",
+      "language": "English"
+    },
+    "sku": "BOOK-MACHIN-8"
+  },
+  {
+    "name": "Data Science Complete Guide 9",
+    "description": "Comprehensive guide to mastering Data Science. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 62.99,
+    "category": "Books",
+    "inventory": 67,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 9",
+      "isbn": "978-1009-2009-3009",
+      "pages": 390,
+      "publisher": "Learn Press",
+      "language": "English"
+    },
+    "sku": "BOOK-DATA S-9"
+  },
+  {
+    "name": "TypeScript Complete Guide 10",
+    "description": "Comprehensive guide to mastering TypeScript. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 64.99,
+    "category": "Books",
+    "inventory": 70,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 10",
+      "isbn": "978-1010-2010-3010",
+      "pages": 400,
+      "publisher": "Dev Masters",
+      "language": "English"
+    },
+    "sku": "BOOK-TYPESC-10"
+  },
+  {
+    "name": "Vue.js Complete Guide 11",
+    "description": "Comprehensive guide to mastering Vue.js. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 66.99,
+    "category": "Books",
+    "inventory": 73,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 11",
+      "isbn": "978-1011-2011-3011",
+      "pages": 410,
+      "publisher": "Programming Elite",
+      "language": "English"
+    },
+    "sku": "BOOK-VUEJS-11"
+  },
+  {
+    "name": "Angular Complete Guide 12",
+    "description": "Comprehensive guide to mastering Angular. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 68.99,
+    "category": "Books",
+    "inventory": 76,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 12",
+      "isbn": "978-1012-2012-3012",
+      "pages": 420,
+      "publisher": "TechBooks Publishing",
+      "language": "English"
+    },
+    "sku": "BOOK-ANGULA-12"
+  },
+  {
+    "name": "Node.js Complete Guide 13",
+    "description": "Comprehensive guide to mastering Node.js. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 70.99,
+    "category": "Books",
+    "inventory": 79,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 13",
+      "isbn": "978-1013-2013-3013",
+      "pages": 430,
+      "publisher": "WebDev Press",
+      "language": "English"
+    },
+    "sku": "BOOK-NODEJS-13"
+  },
+  {
+    "name": "Go Complete Guide 14",
+    "description": "Comprehensive guide to mastering Go. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 72.99,
+    "category": "Books",
+    "inventory": 82,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 14",
+      "isbn": "978-1014-2014-3014",
+      "pages": 440,
+      "publisher": "CodeCraft Publishing",
+      "language": "English"
+    },
+    "sku": "BOOK-GO-14"
+  },
+  {
+    "name": "Java Complete Guide 15",
+    "description": "Comprehensive guide to mastering Java. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 74.99,
+    "category": "Books",
+    "inventory": 85,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 15",
+      "isbn": "978-1015-2015-3015",
+      "pages": 450,
+      "publisher": "Learn Press",
+      "language": "English"
+    },
+    "sku": "BOOK-JAVA-15"
+  },
+  {
+    "name": "Python Complete Guide 16",
+    "description": "Comprehensive guide to mastering Python. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 76.99,
+    "category": "Books",
+    "inventory": 88,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 16",
+      "isbn": "978-1016-2016-3016",
+      "pages": 460,
+      "publisher": "Dev Masters",
+      "language": "English"
+    },
+    "sku": "BOOK-PYTHON-16"
+  },
+  {
+    "name": "React Complete Guide 17",
+    "description": "Comprehensive guide to mastering React. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 78.99,
+    "category": "Books",
+    "inventory": 91,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 17",
+      "isbn": "978-1017-2017-3017",
+      "pages": 470,
+      "publisher": "Programming Elite",
+      "language": "English"
+    },
+    "sku": "BOOK-REACT-17"
+  },
+  {
+    "name": "Docker Complete Guide 18",
+    "description": "Comprehensive guide to mastering Docker. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 80.99,
+    "category": "Books",
+    "inventory": 94,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 18",
+      "isbn": "978-1018-2018-3018",
+      "pages": 480,
+      "publisher": "TechBooks Publishing",
+      "language": "English"
+    },
+    "sku": "BOOK-DOCKER-18"
+  },
+  {
+    "name": "Kubernetes Complete Guide 19",
+    "description": "Comprehensive guide to mastering Kubernetes. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 82.99,
+    "category": "Books",
+    "inventory": 97,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 19",
+      "isbn": "978-1019-2019-3019",
+      "pages": 490,
+      "publisher": "WebDev Press",
+      "language": "English"
+    },
+    "sku": "BOOK-KUBERN-19"
+  },
+  {
+    "name": "AWS Complete Guide 20",
+    "description": "Comprehensive guide to mastering AWS. Learn from basics to advanced concepts with practical examples. Includes hands-on projects and real-world applications. Perfect for beginners and intermediate developers. Updated with latest best practices.",
+    "price": 84.99,
+    "category": "Books",
+    "inventory": 100,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Expert Author 20",
+      "isbn": "978-1020-2020-3020",
+      "pages": 500,
+      "publisher": "CodeCraft Publishing",
+      "language": "English"
+    },
+    "sku": "BOOK-AWS-20"
+  },
+  {
+    "name": "Charger ViewMaster 1",
+    "description": "Fast wall charger with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 34.99,
+    "category": "Electronics",
+    "inventory": 64,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "ViewMaster"
+    },
+    "sku": "CHA-VIE-1"
+  },
+  {
+    "name": "Adapter StreamTech 2",
+    "description": "Universal travel adapter with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 34.99,
+    "category": "Electronics",
+    "inventory": 68,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "StreamTech"
+    },
+    "sku": "ADA-STR-2"
+  },
+  {
+    "name": "Cable HDMI DataVault 3",
+    "description": "Premium HDMI cable with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 34.99,
+    "category": "Electronics",
+    "inventory": 72,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "3 years",
+      "brand": "DataVault"
+    },
+    "sku": "CAB-DAT-3"
+  },
+  {
+    "name": "Stand SoundWave 4",
+    "description": "Adjustable laptop stand with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 59.99,
+    "category": "Electronics",
+    "inventory": 76,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "SoundWave"
+    },
+    "sku": "STA-SOU-4"
+  },
+  {
+    "name": "Light GamePro 5",
+    "description": "LED desk lamp with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 69.99,
+    "category": "Electronics",
+    "inventory": 80,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "GamePro"
+    },
+    "sku": "LIG-GAM-5"
+  },
+  {
+    "name": "Mic TabletMax 6",
+    "description": "USB condenser microphone with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 119.99,
+    "category": "Electronics",
+    "inventory": 84,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "3 years",
+      "brand": "TabletMax"
+    },
+    "sku": "MIC-TAB-6"
+  },
+  {
+    "name": "Cam PowerCell 7",
+    "description": "Security camera with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 104.99,
+    "category": "Electronics",
+    "inventory": 88,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "PowerCell"
+    },
+    "sku": "CAM-POW-7"
+  },
+  {
+    "name": "Router EliteTech 8",
+    "description": "High-speed Wi-Fi router with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 169.99,
+    "category": "Electronics",
+    "inventory": 92,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "EliteTech"
+    },
+    "sku": "ROU-ELI-8"
+  },
+  {
+    "name": "Charger SmartGear 9",
+    "description": "Fast wall charger with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 74.99,
+    "category": "Electronics",
+    "inventory": 96,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "3 years",
+      "brand": "SmartGear"
+    },
+    "sku": "CHA-SMA-9"
+  },
+  {
+    "name": "Adapter TechCorp 10",
+    "description": "Universal travel adapter with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 74.99,
+    "category": "Electronics",
+    "inventory": 100,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "TechCorp"
+    },
+    "sku": "ADA-TEC-10"
+  },
+  {
+    "name": "Cable HDMI ViewMaster 11",
+    "description": "Premium HDMI cable with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 74.99,
+    "category": "Electronics",
+    "inventory": 104,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "ViewMaster"
+    },
+    "sku": "CAB-VIE-11"
+  },
+  {
+    "name": "Stand StreamTech 12",
+    "description": "Adjustable laptop stand with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 99.99,
+    "category": "Electronics",
+    "inventory": 108,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "3 years",
+      "brand": "StreamTech"
+    },
+    "sku": "STA-STR-12"
+  },
+  {
+    "name": "Light DataVault 13",
+    "description": "LED desk lamp with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 109.99,
+    "category": "Electronics",
+    "inventory": 112,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "DataVault"
+    },
+    "sku": "LIG-DAT-13"
+  },
+  {
+    "name": "Mic SoundWave 14",
+    "description": "USB condenser microphone with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 159.99,
+    "category": "Electronics",
+    "inventory": 116,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "SoundWave"
+    },
+    "sku": "MIC-SOU-14"
+  },
+  {
+    "name": "Cam GamePro 15",
+    "description": "Security camera with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 144.99,
+    "category": "Electronics",
+    "inventory": 120,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "3 years",
+      "brand": "GamePro"
+    },
+    "sku": "CAM-GAM-15"
+  },
+  {
+    "name": "Router TabletMax 16",
+    "description": "High-speed Wi-Fi router with premium quality and reliability. Perfect for home or office use. Easy setup and user-friendly design. Compatible with most devices and systems.",
+    "price": 209.99,
+    "category": "Electronics",
+    "inventory": 124,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "TabletMax"
+    },
+    "sku": "ROU-TAB-16"
+  },
+  {
+    "name": "Mouse Pad Pro 1",
+    "description": "Extended gaming mouse pad with premium quality materials. Durable construction built to last. Modern design fits any workspace or lifestyle. Great value for money.",
+    "price": 21.99,
+    "category": "Accessories",
+    "inventory": 110,
+    "type": "General",
+    "sku": "GEN-MOUSE-PA-1"
+  },
+  {
+    "name": "Phone Stand Pro 2",
+    "description": "Adjustable phone holder with premium quality materials. Durable construction built to last. Modern design fits any workspace or lifestyle. Great value for money.",
+    "price": 18.99,
+    "category": "Accessories",
+    "inventory": 120,
+    "type": "General",
+    "sku": "GEN-PHONE-ST-2"
+  },
+  {
+    "name": "Cable Clips Pro 3",
+    "description": "Cable management clips set with premium quality materials. Durable construction built to last. Modern design fits any workspace or lifestyle. Great value for money.",
+    "price": 15.99,
+    "category": "Accessories",
+    "inventory": 130,
+    "type": "General",
+    "sku": "GEN-CABLE-CL-3"
+  },
+  {
+    "name": "Screen Cleaner Pro 4",
+    "description": "Electronic device cleaning kit with premium quality materials. Durable construction built to last. Modern design fits any workspace or lifestyle. Great value for money.",
+    "price": 20.99,
+    "category": "Accessories",
+    "inventory": 140,
+    "type": "General",
+    "sku": "GEN-SCREEN-C-4"
+  },
+  {
+    "name": "Wrist Rest Pro 5",
+    "description": "Ergonomic keyboard wrist rest with premium quality materials. Durable construction built to last. Modern design fits any workspace or lifestyle. Great value for money.",
+    "price": 26.99,
+    "category": "Accessories",
+    "inventory": 150,
+    "type": "General",
+    "sku": "GEN-WRIST-RE-5"
+  },
+  {
+    "name": "Laptop Sleeve Pro 6",
+    "description": "Protective laptop sleeve with premium quality materials. Durable construction built to last. Modern design fits any workspace or lifestyle. Great value for money.",
+    "price": 41.99,
+    "category": "Accessories",
+    "inventory": 160,
+    "type": "General",
+    "sku": "GEN-LAPTOP-S-6"
+  },
+  {
+    "name": "Pen Holder Pro 7",
+    "description": "Bamboo pen holder with premium quality materials. Durable construction built to last. Modern design fits any workspace or lifestyle. Great value for money.",
+    "price": 25.99,
+    "category": "Accessories",
+    "inventory": 170,
+    "type": "General",
+    "sku": "GEN-PEN-HOLD-7"
+  },
+  {
+    "name": "Notebook Pro 8",
+    "description": "Premium hardcover notebook with premium quality materials. Durable construction built to last. Modern design fits any workspace or lifestyle. Great value for money.",
+    "price": 34.99,
+    "category": "Accessories",
+    "inventory": 180,
+    "type": "General",
+    "sku": "GEN-NOTEBOOK-8"
+  },
+  {
+    "name": "Water Bottle Pro 9",
+    "description": "Insulated stainless steel bottle with premium quality materials. Durable construction built to last. Modern design fits any workspace or lifestyle. Great value for money.",
+    "price": 42.99,
+    "category": "Accessories",
+    "inventory": 190,
+    "type": "General",
+    "sku": "GEN-WATER-BO-9"
+  },
+  {
+    "name": "Tote Bag Pro 10",
+    "description": "Canvas tote bag with premium quality materials. Durable construction built to last. Modern design fits any workspace or lifestyle. Great value for money.",
+    "price": 39.99,
+    "category": "Accessories",
+    "inventory": 200,
+    "type": "General",
+    "sku": "GEN-TOTE-BAG-10"
+  },
+  {
+    "name": "Desk Organizer Pro 11",
+    "description": "Multi-compartment desk organizer with premium quality materials. Durable construction built to last. Modern design fits any workspace or lifestyle. Great value for money.",
+    "price": 46.99,
+    "category": "Accessories",
+    "inventory": 210,
+    "type": "General",
+    "sku": "GEN-DESK-ORG-11"
+  },
+  {
+    "name": "Drone Camera HD",
+    "description": "Quadcopter drone with 1080p HD camera. GPS-assisted flight with auto-return home. 20-minute flight time. Foldable design for portability. Includes remote controller and spare batteries. Perfect for aerial photography and videography.",
+    "price": 399.99,
+    "category": "Electronics",
+    "inventory": 30,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "SkyView",
+      "resolution": "1920x1080"
+    },
+    "sku": "DRONE-HD-SV-001"
+  },
+  {
+    "name": "E-Reader 7-inch",
+    "description": "Dedicated e-reader with 7-inch glare-free display. Perfect for reading in bright sunlight. Weeks of battery life on a single charge. Stores thousands of books. Built-in adjustable warm light. Waterproof design (IPX8). Access to millions of titles.",
+    "price": 139.99,
+    "category": "Electronics",
+    "inventory": 55,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "1 year",
+      "brand": "ReadMax",
+      "screenSize": "7 inch"
+    },
+    "sku": "EREADER-7-RM-001"
+  },
+  {
+    "name": "Graphics Tablet Pro",
+    "description": "Professional graphics drawing tablet with pressure-sensitive pen. 8192 levels of pressure sensitivity. 10x6 inch active area. Battery-free stylus with tilt support. Compatible with Adobe Photoshop, Illustrator, and other creative software. Perfect for digital artists and designers.",
+    "price": 189.99,
+    "category": "Electronics",
+    "inventory": 40,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "ArtTech"
+    },
+    "sku": "TAB-GFX-PRO-AT-001"
+  },
+  {
+    "name": "Smart Doorbell Camera",
+    "description": "Wi-Fi enabled video doorbell with HD camera and two-way audio. Motion detection with instant mobile notifications. Night vision for 24/7 monitoring. Cloud storage and local recording options. Easy installation. Works with Alexa and Google Assistant.",
+    "price": 149.99,
+    "category": "Electronics",
+    "inventory": 65,
+    "type": "Electronics",
+    "electronicsDetails": {
+      "warranty": "2 years",
+      "brand": "HomeSafe",
+      "resolution": "1920x1080"
+    },
+    "sku": "DOORBELL-SMART-HS-001"
+  },
+  {
+    "name": "Winter Jacket Insulated",
+    "description": "Warm insulated winter jacket with water-resistant outer shell. Premium down insulation keeps you warm in cold weather. Adjustable hood with faux fur trim. Multiple pockets for storage. Durable zipper with storm flap. Available in various colors and sizes.",
+    "price": 149.99,
+    "category": "Clothing",
+    "inventory": 50,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "L",
+      "color": "Navy",
+      "material": "Polyester, Down"
+    },
+    "sku": "JACKET-WINTER-NAV-L"
+  },
+  {
+    "name": "Yoga Pants Athletic",
+    "description": "High-waisted yoga pants with four-way stretch fabric. Moisture-wicking material keeps you dry during workouts. Flattering fit with tummy control. Hidden pocket for keys or cards. Non-see-through fabric. Perfect for yoga, running, or casual wear.",
+    "price": 49.99,
+    "category": "Clothing",
+    "inventory": 120,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "M",
+      "color": "Black",
+      "material": "Polyester-Spandex Blend"
+    },
+    "sku": "PANTS-YOGA-BLK-M"
+  },
+  {
+    "name": "Dress Shirt Formal",
+    "description": "Classic formal dress shirt perfect for business or special occasions. Wrinkle-resistant fabric stays crisp all day. Tailored fit with modern cut. Button-down collar and long sleeves. Machine washable for easy care. Available in multiple sizes.",
+    "price": 59.99,
+    "category": "Clothing",
+    "inventory": 80,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "L",
+      "color": "White",
+      "material": "Cotton-Polyester Blend"
+    },
+    "sku": "SHIRT-DRESS-WHT-L"
+  },
+  {
+    "name": "Casual Shorts Summer",
+    "description": "Comfortable casual shorts perfect for summer. Lightweight breathable fabric. Elastic waistband with drawstring. Multiple pockets including zippered back pocket. Quick-dry material. Perfect for beach, sports, or lounging.",
+    "price": 34.99,
+    "category": "Clothing",
+    "inventory": 100,
+    "type": "Clothing",
+    "clothingDetails": {
+      "size": "L",
+      "color": "Khaki",
+      "material": "Cotton-Nylon Blend"
+    },
+    "sku": "SHORTS-SUM-KHK-L"
+  },
+  {
+    "name": "System Design Interview Guide",
+    "description": "Essential guide for acing system design interviews at top tech companies. Learn how to design scalable distributed systems. Covers load balancing, caching, databases, and microservices. Includes real interview questions and solutions. Perfect for software engineers preparing for FAANG interviews.",
+    "price": 64.99,
+    "category": "Books",
+    "inventory": 45,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Alex System",
+      "isbn": "978-1111-2222-3333",
+      "pages": 420,
+      "publisher": "Tech Interview Press",
+      "language": "English"
+    },
+    "sku": "BOOK-SYSDES-INT-001"
+  },
+  {
+    "name": "Cloud Architecture Patterns",
+    "description": "Comprehensive guide to cloud architecture patterns and best practices. Learn AWS, Azure, and GCP services. Covers serverless, containers, and infrastructure as code. Includes case studies and real-world examples. Perfect for cloud architects and DevOps engineers.",
+    "price": 69.99,
+    "category": "Books",
+    "inventory": 40,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Sarah Cloud",
+      "isbn": "978-4444-5555-6666",
+      "pages": 480,
+      "publisher": "Cloud Masters",
+      "language": "English"
+    },
+    "sku": "BOOK-CLOUD-ARCH-001"
+  },
+  {
+    "name": "Cybersecurity Fundamentals",
+    "description": "Essential cybersecurity concepts and practices. Learn about network security, encryption, and threat detection. Covers ethical hacking and penetration testing. Includes hands-on labs and exercises. Perfect for IT professionals and security enthusiasts.",
+    "price": 59.99,
+    "category": "Books",
+    "inventory": 50,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Mike Security",
+      "isbn": "978-7777-8888-9999",
+      "pages": 390,
+      "publisher": "SecureBooks Publishing",
+      "language": "English"
+    },
+    "sku": "BOOK-CYBER-SEC-001"
+  },
+  {
+    "name": "Data Structures Algorithms",
+    "description": "Complete guide to data structures and algorithms. Learn arrays, linked lists, trees, graphs, and more. Covers sorting, searching, and dynamic programming. Includes code examples in multiple languages. Perfect for computer science students and interview prep.",
+    "price": 54.99,
+    "category": "Books",
+    "inventory": 60,
+    "type": "Book",
+    "bookDetails": {
+      "author": "Dr. Algorithm",
+      "isbn": "978-1010-2020-3030",
+      "pages": 450,
+      "publisher": "Algorithm Press",
+      "language": "English"
+    },
+    "sku": "BOOK-DSA-ALG-001"
   }
 ]

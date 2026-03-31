@@ -72,65 +72,71 @@ public class MongoSchemaValidation implements CommandLineRunner {
 
     /**
      * Set up schema validation for the products collection.
-     * 
-     * Validates:
-     * - name: required, non-empty string
-     * - description: required, non-empty string
-     * - price: required, positive number
-     * - category: required, non-empty string
-     * - inventory: required, non-negative integer
+     *
+     * 🎯 DEMONSTRATES: POLYMORPHIC PATTERN with COMPOSITION + JSON Schema Validation
+     *
+     * This validation uses MongoDB's `oneOf` to enforce type-specific validation:
+     * - Electronics products MUST have electronicsDetails with warranty and brand
+     * - Clothing products MUST have clothingDetails with size, color, and material
+     * - Book products MUST have bookDetails with author, isbn, and pages
+     *
+     * Benefits:
+     * - Server-side validation ensures data integrity
+     * - Type-specific fields are validated based on product type
+     * - Prevents invalid product documents from being stored
+     * - Complements application-layer validation (Strategy Pattern)
      */
     private void setupProductValidation() {
         MongoDatabase database = mongoTemplate.getDb();
-        
+
         // Check if collection exists
         boolean collectionExists = database.listCollectionNames()
                 .into(new java.util.ArrayList<>())
                 .contains("products");
-        
+
         if (collectionExists) {
             // Drop and recreate with validation
             logger.info("Updating products collection with schema validation...");
             database.getCollection("products").drop();
         }
-        
-        // Create validation schema using JSON Schema
-        Document validator = new Document("$jsonSchema", new Document()
+
+        // Define common fields that all products must have
+        Document commonProperties = new Document()
+            .append("name", new Document()
+                .append("bsonType", "string")
+                .append("minLength", 1)
+                .append("description", "Product name is required"))
+            .append("description", new Document()
+                .append("bsonType", "string")
+                .append("minLength", 1)
+                .append("description", "Product description is required"))
+            .append("price", new Document()
+                .append("bsonType", java.util.Arrays.asList("double", "decimal"))
+                .append("minimum", 0.01)
+                .append("description", "Product price must be positive"))
+            .append("category", new Document()
+                .append("bsonType", "string")
+                .append("minLength", 1))
+            .append("inventory", new Document()
+                .append("bsonType", "int")
+                .append("minimum", 0))
+            .append("sku", new Document()
+                .append("bsonType", "string")
+                .append("minLength", 1));
+
+        // Define electronicsDetails schema
+        Document electronicsDetailsSchema = new Document()
             .append("bsonType", "object")
-            .append("required", java.util.Arrays.asList("name", "description", "price", "category", "inventory", "sku"))
+            .append("required", java.util.Arrays.asList("warranty", "brand"))
             .append("properties", new Document()
-                .append("name", new Document()
-                    .append("bsonType", "string")
-                    .append("minLength", 1)
-                    .append("description", "Product name is required and must be a non-empty string"))
-                .append("description", new Document()
-                    .append("bsonType", "string")
-                    .append("minLength", 1)
-                    .append("description", "Product description is required and must be a non-empty string"))
-                .append("price", new Document()
-                    .append("bsonType", java.util.Arrays.asList("double", "decimal"))
-                    .append("minimum", 0.01)
-                    .append("description", "Product price is required and must be a positive number"))
-                .append("category", new Document()
-                    .append("bsonType", "string")
-                    .append("minLength", 1)
-                    .append("description", "Product category is required and must be a non-empty string"))
-                .append("inventory", new Document()
-                    .append("bsonType", "int")
-                    .append("minimum", 0)
-                    .append("description", "Product inventory is required and must be a non-negative integer"))
-                .append("sku", new Document()
-                    .append("bsonType", "string")
-                    .append("minLength", 1)
-                    .append("description", "Product SKU is required and must be a non-empty string"))
-                .append("type", new Document()
-                    .append("bsonType", "string")
-                    .append("description", "Product type (for Polymorphic Pattern)"))
-                // Electronics-specific fields (optional)
-                .append("brand", new Document()
-                    .append("bsonType", "string"))
                 .append("warranty", new Document()
-                    .append("bsonType", "string"))
+                    .append("bsonType", "string")
+                    .append("minLength", 1)
+                    .append("description", "Warranty is required for electronics (e.g., '1 year', '2 years')"))
+                .append("brand", new Document()
+                    .append("bsonType", "string")
+                    .append("minLength", 1)
+                    .append("description", "Brand is required for electronics"))
                 .append("weight", new Document()
                     .append("bsonType", "string"))
                 .append("screenSize", new Document()
@@ -139,25 +145,91 @@ public class MongoSchemaValidation implements CommandLineRunner {
                     .append("bsonType", "string"))
                 .append("capacity", new Document()
                     .append("bsonType", "string"))
-                // Clothing-specific fields (optional)
+            );
+
+        // Define clothingDetails schema
+        Document clothingDetailsSchema = new Document()
+            .append("bsonType", "object")
+            .append("required", java.util.Arrays.asList("size", "color", "material"))
+            .append("properties", new Document()
                 .append("size", new Document()
-                    .append("bsonType", "string"))
+                    .append("bsonType", "string")
+                    .append("minLength", 1)
+                    .append("description", "Size is required for clothing"))
                 .append("color", new Document()
-                    .append("bsonType", "string"))
+                    .append("bsonType", "string")
+                    .append("minLength", 1)
+                    .append("description", "Color is required for clothing"))
                 .append("material", new Document()
-                    .append("bsonType", "string"))
-                // Book-specific fields (optional)
+                    .append("bsonType", "string")
+                    .append("minLength", 1)
+                    .append("description", "Material is required for clothing"))
+            );
+
+        // Define bookDetails schema
+        Document bookDetailsSchema = new Document()
+            .append("bsonType", "object")
+            .append("required", java.util.Arrays.asList("author", "isbn", "pages"))
+            .append("properties", new Document()
                 .append("author", new Document()
-                    .append("bsonType", "string"))
+                    .append("bsonType", "string")
+                    .append("minLength", 1)
+                    .append("description", "Author is required for books"))
                 .append("isbn", new Document()
-                    .append("bsonType", "string"))
+                    .append("bsonType", "string")
+                    .append("minLength", 1)
+                    .append("description", "ISBN is required for books"))
                 .append("pages", new Document()
-                    .append("bsonType", "int"))
+                    .append("bsonType", "int")
+                    .append("minimum", 1)
+                    .append("description", "Page count is required for books"))
                 .append("publisher", new Document()
                     .append("bsonType", "string"))
                 .append("language", new Document()
                     .append("bsonType", "string"))
+            );
+
+        // Create polymorphic validation using oneOf
+        // This ensures that based on the "type" field, the appropriate detail object is required
+        // SUPPORTS: Electronics, Clothing, Book (with detail objects), and General (without detail objects)
+        Document validator = new Document("$jsonSchema", new Document()
+            .append("bsonType", "object")
+            .append("required", java.util.Arrays.asList("name", "description", "price", "category", "inventory", "sku"))
+            .append("properties", commonProperties
+                .append("type", new Document()
+                    .append("bsonType", "string")
+                    .append("enum", java.util.Arrays.asList("Electronics", "Clothing", "Book", "General"))
+                    .append("description", "Product type must be Electronics, Clothing, Book, or General"))
+                .append("electronicsDetails", electronicsDetailsSchema)
+                .append("clothingDetails", clothingDetailsSchema)
+                .append("bookDetails", bookDetailsSchema)
+                .append("descriptionEmbedding", new Document()
+                    .append("bsonType", "array")
+                    .append("description", "Vector embedding for hybrid search"))
             )
+            // Use oneOf to enforce type-specific validation
+            .append("oneOf", java.util.Arrays.asList(
+                // Electronics: type=Electronics AND electronicsDetails exists
+                new Document()
+                    .append("properties", new Document()
+                        .append("type", new Document().append("enum", java.util.Arrays.asList("Electronics"))))
+                    .append("required", java.util.Arrays.asList("electronicsDetails")),
+                // Clothing: type=Clothing AND clothingDetails exists
+                new Document()
+                    .append("properties", new Document()
+                        .append("type", new Document().append("enum", java.util.Arrays.asList("Clothing"))))
+                    .append("required", java.util.Arrays.asList("clothingDetails")),
+                // Book: type=Book AND bookDetails exists
+                new Document()
+                    .append("properties", new Document()
+                        .append("type", new Document().append("enum", java.util.Arrays.asList("Book"))))
+                    .append("required", java.util.Arrays.asList("bookDetails")),
+                // General: type=General AND no detail objects required
+                new Document()
+                    .append("properties", new Document()
+                        .append("type", new Document().append("enum", java.util.Arrays.asList("General"))))
+                    // No required detail objects for General products
+            ))
         );
 
         // Create collection with validation
@@ -170,7 +242,7 @@ public class MongoSchemaValidation implements CommandLineRunner {
             new com.mongodb.client.model.CreateCollectionOptions()
                 .validationOptions(validationOptions));
 
-        logger.info("✅ Products collection created with schema validation");
+        logger.info("✅ Products collection created with polymorphic schema validation (Composition Pattern)");
     }
 
     /**

@@ -35,12 +35,17 @@ With transactions, either everything succeeds or everything rolls back:
 
 ```
 START TRANSACTION
-├─ 1. Validate all products exist
-├─ 2. Check inventory availability
-├─ 3. Create order document
-├─ 4. Decrement inventory for all products
+├─ 1. Validate customer exists
+├─ 2. Validate all products exist
+├─ 3. Check inventory availability
+├─ 4. Create order document
+├─ 5. Decrement inventory for all products
 └─ COMMIT (if all succeed) or ROLLBACK (if any fail)
 ```
+
+**Applies to BOTH:**
+- ✅ **Standard Orders** (< 100 items) - via `OrderTransactionService`
+- ✅ **Large Orders** (100+ items) - via `OrderCreatorService` with Outlier Pattern 🆕
 
 ---
 
@@ -291,6 +296,62 @@ User Request: Create Order
 
 ---
 
+## 🔄 Large Orders with Outlier Pattern 🆕
+
+### **Transaction Support for 100+ Items**
+
+Large orders using the **Outlier/Bucket Pattern** now have complete ACID transaction support with the same validation rigor as standard orders.
+
+**Transaction Flow for Large Orders:**
+```
+START TRANSACTION
+├─ 1. Validate customer exists (CustomerRepository)
+├─ 2. Validate all products exist (ProductRepository)
+├─ 3. Check inventory availability for all products
+├─ 4. Create main order document (items = null)
+├─ 5. Create all bucket documents (50 items per bucket)
+├─ 6. Decrement inventory for all products
+└─ COMMIT (if all succeed) or ROLLBACK (if any fail)
+```
+
+**Implementation:**
+- `OrderCreatorService.createLargeOrderWithBuckets()` is annotated with `@Transactional`
+- Uses `ApplicationContext` pattern to call through Spring proxy
+- Ensures transaction aspect is properly woven
+
+**Example: Create Large Order (150 items)**
+```bash
+curl -X POST http://localhost:8080/orders \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customerId": "valid-customer-id",
+    "customerName": "Alice Johnson",
+    "items": [
+      ... 150 items ...
+    ]
+  }'
+```
+
+**Result:**
+- ✅ Customer validated
+- ✅ All 150 products validated
+- ✅ All 150 inventory levels checked
+- ✅ 1 order document + 3 bucket documents created
+- ✅ Inventory decremented for all 150 products
+- ✅ All within a single ACID transaction
+
+**Error Handling:**
+```json
+{
+  "success": false,
+  "message": "Customer not found with ID: invalid-id"
+}
+```
+
+**See [OUTLIER_PATTERN_GUIDE.md](OUTLIER_PATTERN_GUIDE.md) for complete documentation.**
+
+---
+
 ## 🚀 Next Steps
 
 1. **Start MongoDB with replica set:**
@@ -314,7 +375,13 @@ User Request: Create Order
    ./test-transactions.sh
    ```
 
+5. **Test large orders:**
+   - Use the Interactive Web Interface at http://localhost:8080
+   - Click "🎲 Generate Large Order (150 items)"
+   - Replace customer ID with a real one from your database
+   - Observe transactional behavior with validation
+
 ---
 
-**MongoDB Transactions ensure your order system is reliable and consistent! 🎉**
+**MongoDB Transactions ensure your order system is reliable and consistent - for BOTH standard and large orders! 🎉**
 

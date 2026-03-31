@@ -37,7 +37,7 @@ This project demonstrates:
 
 ## 🤖 AI Order Assistant 🆕
 
-**Create orders using natural language with intelligent inventory validation!** Powered by LangGraph + Grove API (OpenAI GPT-5.4):
+**Create orders using natural language with intelligent inventory validation!** Powered by LangGraph + Grove API (OpenAI GPT-5.4) + **MongoDB Hybrid Search** 🚀:
 
 ```bash
 curl -X POST http://localhost:8080/ai/order \
@@ -66,13 +66,21 @@ curl -X POST http://localhost:8080/ai/order \
 **Features:**
 - 🧠 Natural language processing with GPT-5.4
 - 🔄 LangGraph state machine orchestration
-- 🔍 Fuzzy product matching
+- 🔍 **MongoDB Hybrid Search** 🆕 - Vector + Text search with Voyage AI embeddings
+- 🎯 **Semantic product matching** 🆕 - "running shoes" finds "athletic sneakers"
 - 👤 Automatic customer resolution
 - 📦 **Inventory validation with transactions** 🆕
 - 💬 **Intelligent error messages** 🆕
 - 📊 All 8 MongoDB patterns in action
 
+**Hybrid Search Benefits:**
+- ✅ Understands meaning, not just keywords
+- ✅ "comfortable running shoes" → "Athletic Sneakers"
+- ✅ "gift for developer" → "MongoDB Guide" book
+- ✅ Fallback to fuzzy matching if embeddings not available
+
 See **[AI_AGENT_GUIDE.md](AI_AGENT_GUIDE.md)** for complete documentation.
+See **[MONGODB_HYBRID_SEARCH_SETUP.md](MONGODB_HYBRID_SEARCH_SETUP.md)** for setup instructions.
 
 ## 🌐 Interactive Web Interface
 
@@ -339,7 +347,7 @@ curl -X POST http://localhost:8080/ai/order \
 
 ## 🔄 Transaction Features 🆕
 
-This application demonstrates **MongoDB ACID transactions** for inventory management:
+This application demonstrates **MongoDB ACID transactions** for inventory management across **ALL order types**:
 
 ### **What Transactions Provide**
 - ✅ **Atomicity** - Order creation + inventory updates succeed or fail together
@@ -347,21 +355,37 @@ This application demonstrates **MongoDB ACID transactions** for inventory manage
 - ✅ **Isolation** - Concurrent orders don't interfere
 - ✅ **Durability** - Committed changes are permanent
 
-### **Use Case: Order Creation**
+### **Use Case: Standard Order Creation**
 ```
 START TRANSACTION
-├─ 1. Validate all products exist
-├─ 2. Check inventory availability
-├─ 3. Create order document
-├─ 4. Decrement inventory for all products
+├─ 1. Validate customer exists
+├─ 2. Validate all products exist
+├─ 3. Check inventory availability
+├─ 4. Create order document
+├─ 5. Decrement inventory for all products
+└─ COMMIT (if all succeed) or ROLLBACK (if any fail)
+```
+
+### **Use Case: Large Order Creation (100+ items)** 🆕
+```
+START TRANSACTION
+├─ 1. Validate customer exists
+├─ 2. Validate all products exist
+├─ 3. Check inventory availability
+├─ 4. Create order document (items = null)
+├─ 5. Create all bucket documents
+├─ 6. Decrement inventory for all products
 └─ COMMIT (if all succeed) or ROLLBACK (if any fail)
 ```
 
 ### **Benefits**
 - 🛡️ **No Overselling** - Can't sell more than available
+- 👤 **Referential Integrity** - Orders can't reference non-existent customers
+- 📦 **Product Validation** - All products must exist before order creation
 - 🔄 **Automatic Rollback** - Failed operations don't leave partial data
 - 🏃 **Race Condition Prevention** - Concurrent orders handled correctly
 - 💬 **Clear Error Messages** - Users know exactly what went wrong
+- ⚖️ **Consistent Validation** - Same checks for standard AND large orders
 
 **See [TRANSACTIONS_GUIDE.md](TRANSACTIONS_GUIDE.md) for complete documentation.**
 

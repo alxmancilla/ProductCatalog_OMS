@@ -80,6 +80,29 @@ grove.api.max-tokens=1000
 grove.api.timeout-seconds=30
 
 # ============================================================================
+# VOYAGE AI CONFIGURATION (Embeddings for Hybrid Search)
+# ============================================================================
+
+# Voyage AI API key (required for vector embeddings)
+# Get your API key from https://www.voyageai.com/
+voyage.ai.key=YOUR_VOYAGE_AI_KEY_HERE
+
+# Voyage AI API URL (MongoDB Atlas endpoint for Voyage AI)
+voyage.ai.url=https://api.voyageai.com/v1
+
+# Embedding model to use (voyage-4-large is optimized for retrieval)
+voyage.ai.model=voyage-4-large
+
+# Input type for embeddings (document for indexing, query for searching)
+voyage.ai.input-type=document
+
+# Timeout in seconds
+voyage.ai.timeout-seconds=30
+
+# Generate embeddings for existing products on startup (set to true once, then false)
+generate.embeddings.enabled=false
+
+# ============================================================================
 # NOTES
 # ============================================================================
 #

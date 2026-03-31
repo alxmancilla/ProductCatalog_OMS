@@ -1,6 +1,6 @@
 # MongoDB Schema Design Patterns in This Demo
 
-This demo showcases **EIGHT MongoDB Schema Design Patterns** (including the Transaction Pattern) that solve real-world data modeling challenges.
+This demo showcases **TEN MongoDB Schema Design Patterns** that solve real-world data modeling challenges, including advanced patterns for handling polymorphic data and transactions.
 
 ---
 
@@ -175,6 +175,557 @@ public class Product {
 
 ---
 
+## 🧩 Pattern 2a: Composition Pattern
+
+### What Is It?
+
+Group type-specific fields into embedded objects (nested documents) to create clear, organized, and type-safe structures for polymorphic data.
+
+### Where We Use It
+
+**Product Type-Specific Details** - `Product.java` with `ElectronicsDetails`, `ClothingDetails`, `BookDetails`
+
+### The Problem
+
+**Before Composition (Flat/Optional Fields):**
+```java
+public class Product {
+    // All fields mixed together - confusing!
+    private String warranty;      // Only for Electronics
+    private String brand;         // Only for Electronics
+    private String screenSize;    // Only for Electronics
+    private String size;          // Only for Clothing
+    private String color;         // Only for Clothing
+    private String material;      // Only for Clothing
+    private String author;        // Only for Books
+    private String isbn;          // Only for Books
+    private Integer pages;        // Only for Books
+}
+```
+
+**Problems:**
+- ❌ Cluttered class with 50+ optional fields
+- ❌ Unclear which fields belong to which product type
+- ❌ Many null fields per document
+- ❌ Hard to validate (all fields optional)
+- ❌ Difficult to maintain
+- ❌ No clear boundaries
+
+### Our Solution
+
+**Group related fields into embedded objects:**
+
+```java
+// Separate classes for type-specific fields
+public class ElectronicsDetails {
+    private String warranty;
+    private String brand;
+    private String screenSize;
+    private String resolution;
+    private String capacity;
+}
+
+public class ClothingDetails {
+    private String size;
+    private String color;
+    private String material;
+}
+
+public class BookDetails {
+    private String author;
+    private String isbn;
+    private Integer pages;
+    private String publisher;
+    private String language;
+}
+
+// Clean Product class
+public class Product {
+    private String type;  // "Electronics", "Clothing", "Book"
+
+    // Common fields
+    private String name;
+    private BigDecimal price;
+
+    // Type-specific embedded objects (only one is non-null)
+    private ElectronicsDetails electronicsDetails;
+    private ClothingDetails clothingDetails;
+    private BookDetails bookDetails;
+}
+```
+
+### Example Documents
+
+**Electronics Product:**
+```json
+{
+  "_id": "prod1",
+  "type": "Electronics",
+  "name": "Samsung Galaxy S21",
+  "price": 799.99,
+  "electronicsDetails": {
+    "warranty": "2 years",
+    "brand": "Samsung",
+    "screenSize": "6.2 inches",
+    "resolution": "1080x2400",
+    "capacity": "128GB"
+  },
+  "clothingDetails": null,
+  "bookDetails": null
+}
+```
+
+**Clothing Product:**
+```json
+{
+  "_id": "prod2",
+  "type": "Clothing",
+  "name": "Nike Running Shoes",
+  "price": 129.99,
+  "electronicsDetails": null,
+  "clothingDetails": {
+    "size": "10",
+    "color": "Black",
+    "material": "Synthetic mesh"
+  },
+  "bookDetails": null
+}
+```
+
+**Book Product:**
+```json
+{
+  "_id": "prod3",
+  "type": "Book",
+  "name": "MongoDB: The Definitive Guide",
+  "price": 49.99,
+  "electronicsDetails": null,
+  "clothingDetails": null,
+  "bookDetails": {
+    "author": "Shannon Bradshaw",
+    "isbn": "978-1491954461",
+    "pages": 514,
+    "publisher": "O'Reilly Media",
+    "language": "English"
+  }
+}
+```
+
+### Queries
+
+```javascript
+// Find all Samsung electronics
+db.products.find({
+  "type": "Electronics",
+  "electronicsDetails.brand": "Samsung"
+})
+
+// Find large clothing items
+db.products.find({
+  "type": "Clothing",
+  "clothingDetails.size": "L"
+})
+
+// Find books by author
+db.products.find({
+  "type": "Book",
+  "bookDetails.author": /Shannon/
+})
+```
+
+### Indexes
+
+```javascript
+// Type-specific indexes
+db.products.createIndex({ "electronicsDetails.brand": 1 })
+db.products.createIndex({ "clothingDetails.size": 1 })
+db.products.createIndex({ "bookDetails.author": 1 })
+```
+
+### Integration with Strategy Pattern
+
+**Composition Pattern + Strategy Pattern = Clean Validation:**
+
+```java
+// Strategy interface
+public interface ProductValidator {
+    void validate(Product product);
+    String getSupportedType();
+}
+
+// Electronics validator
+@Component
+public class ElectronicsValidator implements ProductValidator {
+    public void validate(Product product) {
+        ElectronicsDetails details = product.getElectronicsDetails();
+
+        if (details == null) {
+            throw new ValidationException("Electronics must have electronicsDetails");
+        }
+        if (details.getWarranty() == null) {
+            throw new ValidationException("Warranty is required");
+        }
+        if (details.getBrand() == null) {
+            throw new ValidationException("Brand is required");
+        }
+    }
+
+    public String getSupportedType() {
+        return "Electronics";
+    }
+}
+```
+
+### MongoDB JSON Schema Validation (oneOf)
+
+```java
+// Polymorphic validation using oneOf
+Document validator = new Document("$jsonSchema", new Document()
+    .append("oneOf", Arrays.asList(
+        // Electronics: type=Electronics AND electronicsDetails required
+        new Document()
+            .append("properties", new Document()
+                .append("type", new Document().append("enum", Arrays.asList("Electronics"))))
+            .append("required", Arrays.asList("electronicsDetails")),
+
+        // Clothing: type=Clothing AND clothingDetails required
+        new Document()
+            .append("properties", new Document()
+                .append("type", new Document().append("enum", Arrays.asList("Clothing"))))
+            .append("required", Arrays.asList("clothingDetails")),
+
+        // Book: type=Book AND bookDetails required
+        new Document()
+            .append("properties", new Document()
+                .append("type", new Document().append("enum", Arrays.asList("Book"))))
+            .append("required", Arrays.asList("bookDetails"))
+    ))
+);
+```
+
+**This ensures:** IF `type = "Electronics"` THEN `electronicsDetails` MUST exist!
+
+### Benefits
+
+✅ **Clear Structure** - Each type's fields are grouped together
+✅ **Type Safety** - Java classes provide compile-time validation
+✅ **Self-Documenting** - Code is easy to understand
+✅ **Easy Validation** - Strategy Pattern validates type-specific objects
+✅ **IDE Support** - Autocomplete works perfectly
+✅ **Maintainable** - Adding fields to a type is straightforward
+✅ **Database Validation** - MongoDB JSON Schema enforces structure
+✅ **Better Organization** - Clear ownership of fields
+
+### When to Use
+
+✅ **Well-defined product types** (3-20 types)
+✅ **Known schema at design time**
+✅ **Type-specific business logic needed**
+✅ **Strong typing requirements** (Java, TypeScript, etc.)
+✅ **Clear validation rules per type**
+✅ **Developer experience is priority**
+✅ **Educational/demo projects** (shows best practices)
+
+### When NOT to Use
+
+❌ **Hundreds of product types** (index explosion risk)
+❌ **User-defined custom attributes** (too rigid)
+❌ **Unpredictable/rare attributes** (sparse data inefficiency)
+❌ **Frequent schema changes** (requires code updates)
+❌ **Marketplace with dynamic types** (like Amazon, eBay)
+
+---
+
+## 🔑 Pattern 2b: Attribute Pattern
+
+### What Is It?
+
+Store variable attributes as an array of key-value pairs to handle unpredictable, sparse, or user-defined fields efficiently.
+
+### Where We Could Use It
+
+**Custom Product Attributes** - For marketplace scenarios or user-defined fields
+
+### The Problem
+
+**Scenario:** E-commerce marketplace with thousands of product types:
+- Electronics might have: warranty, brand, screenSize, resolution, capacity, weight, color, voltage, wattage...
+- Clothing might have: size, color, material, washCare, neckline, sleeveLength, fit, season...
+- Books might have: author, isbn, pages, publisher, language, edition, format, dimensions...
+- **AND** sellers can add custom attributes!
+
+**With Composition Pattern:**
+```java
+// This becomes unmanageable with 1000s of fields!
+public class ElectronicsDetails {
+    private String warranty;
+    private String brand;
+    // ... 100 more fields
+}
+
+// Index explosion!
+db.products.createIndex({ "electronicsDetails.warranty": 1 })
+db.products.createIndex({ "electronicsDetails.brand": 1 })
+// ... 1000 more indexes
+```
+
+### The Solution
+
+**Convert fields to key-value pairs:**
+
+```java
+public class AttributeKeyValue {
+    private String k;  // key
+    private String v;  // value
+    private String u;  // unit (optional)
+}
+
+public class Product {
+    private String type;
+    private String name;
+    private BigDecimal price;
+
+    // All type-specific attributes as key-value pairs
+    private List<AttributeKeyValue> attributes;
+}
+```
+
+### Example Documents
+
+**Electronics Product:**
+```json
+{
+  "_id": "prod1",
+  "type": "Electronics",
+  "name": "Samsung Galaxy S21",
+  "price": 799.99,
+  "attributes": [
+    { "k": "warranty", "v": "2 years" },
+    { "k": "brand", "v": "Samsung" },
+    { "k": "screenSize", "v": "6.2", "u": "inches" },
+    { "k": "resolution", "v": "1080x2400" },
+    { "k": "capacity", "v": "128", "u": "GB" },
+    { "k": "5G", "v": "true" },
+    { "k": "weight", "v": "169", "u": "grams" }
+  ]
+}
+```
+
+**Clothing Product:**
+```json
+{
+  "_id": "prod2",
+  "type": "Clothing",
+  "name": "Nike Running Shoes",
+  "price": 129.99,
+  "attributes": [
+    { "k": "size", "v": "10" },
+    { "k": "color", "v": "Black" },
+    { "k": "material", "v": "Synthetic mesh" },
+    { "k": "waterproof", "v": "true" },
+    { "k": "weight", "v": "280", "u": "grams" }
+  ]
+}
+```
+
+**Book Product with Custom Attributes:**
+```json
+{
+  "_id": "prod3",
+  "type": "Book",
+  "name": "MongoDB: The Definitive Guide",
+  "price": 49.99,
+  "attributes": [
+    { "k": "author", "v": "Shannon Bradshaw" },
+    { "k": "isbn", "v": "978-1491954461" },
+    { "k": "pages", "v": "514" },
+    { "k": "publisher", "v": "O'Reilly Media" },
+    { "k": "language", "v": "English" },
+    { "k": "signed", "v": "true" },
+    { "k": "condition", "v": "Like New" }
+  ]
+}
+```
+
+### Queries
+
+```javascript
+// Find Samsung products (works for ANY attribute!)
+db.products.find({
+  "attributes": {
+    "$elemMatch": { "k": "brand", "v": "Samsung" }
+  }
+})
+
+// Find products with warranty of 2 years
+db.products.find({
+  "attributes": {
+    "$elemMatch": { "k": "warranty", "v": "2 years" }
+  }
+})
+
+// Find products with screenSize > 6 inches (requires aggregation)
+db.products.aggregate([
+  { "$unwind": "$attributes" },
+  { "$match": {
+      "attributes.k": "screenSize",
+      "attributes.v": { "$gte": "6" }
+  }}
+])
+
+// Multiple attribute search
+db.products.find({
+  "$and": [
+    { "attributes": { "$elemMatch": { "k": "brand", "v": "Samsung" } } },
+    { "attributes": { "$elemMatch": { "k": "5G", "v": "true" } } }
+  ]
+})
+```
+
+### Indexes
+
+**One compound index handles ALL attributes!**
+
+```javascript
+// Single index for all key-value pairs
+db.products.createIndex({ "attributes.k": 1, "attributes.v": 1 })
+
+// This ONE index supports queries on:
+// - warranty, brand, screenSize (Electronics)
+// - size, color, material (Clothing)
+// - author, isbn, publisher (Books)
+// - ANY custom attribute!
+```
+
+### Implementation with Helper Methods
+
+```java
+public class Product {
+    private List<AttributeKeyValue> attributes = new ArrayList<>();
+
+    // Helper method to get attribute value
+    public String getAttribute(String key) {
+        return attributes.stream()
+            .filter(attr -> attr.getK().equals(key))
+            .map(AttributeKeyValue::getV)
+            .findFirst()
+            .orElse(null);
+    }
+
+    // Helper method to set attribute
+    public void setAttribute(String key, String value, String unit) {
+        // Remove existing
+        attributes.removeIf(attr -> attr.getK().equals(key));
+        // Add new
+        attributes.add(new AttributeKeyValue(key, value, unit));
+    }
+
+    // Helper to check if attribute exists
+    public boolean hasAttribute(String key) {
+        return attributes.stream()
+            .anyMatch(attr -> attr.getK().equals(key));
+    }
+}
+
+// Usage
+product.setAttribute("warranty", "2 years", null);
+String warranty = product.getAttribute("warranty");  // "2 years"
+```
+
+### Benefits
+
+✅ **Ultimate Flexibility** - Add new attributes without code changes
+✅ **Efficient Indexing** - One index for ALL attributes
+✅ **No Index Explosion** - Scales to thousands of attributes
+✅ **Sparse Data** - Only store attributes that exist
+✅ **User-Defined Fields** - Perfect for marketplaces
+✅ **Qualifiers** - Support units, languages, metadata
+✅ **Easy Internationalization** - Add `lang` field to attributes
+✅ **Dynamic Schema** - No migrations needed
+
+### When to Use
+
+✅ **Hundreds of product types** (Amazon, eBay scale)
+✅ **User-defined custom attributes**
+✅ **Unpredictable/rare attributes** (many fields used by <1% of products)
+✅ **Frequent attribute additions** (new features weekly)
+✅ **Marketplace scenarios** (sellers define their own fields)
+✅ **Faceted search** (filter by any of 100+ attributes)
+✅ **Internationalization** (same attribute in multiple languages)
+
+### When NOT to Use
+
+❌ **Well-defined, stable schema** (use Composition instead)
+❌ **Strong typing requirements** (everything becomes strings)
+❌ **Complex validation rules** (harder to enforce)
+❌ **Simple catalogs** (3-10 product types - use Composition)
+❌ **Heavy sorting/aggregation** (array traversal is slower)
+
+### Challenges
+
+⚠️ **Type Safety Loss** - Everything is a string (or needs encoding)
+⚠️ **Query Complexity** - `$elemMatch` is verbose
+⚠️ **Validation** - Custom logic needed for each attribute
+⚠️ **Application Code** - Need helper methods for access
+⚠️ **Debugging** - Harder to visualize data
+⚠️ **Performance** - Array traversal slower than direct field access
+
+### Hybrid Approach (Best of Both Worlds!)
+
+**Combine Composition + Attribute for optimal results:**
+
+```java
+public class Product {
+    // Common fields
+    private String type;
+    private String name;
+    private BigDecimal price;
+
+    // Core type-specific fields (Composition Pattern)
+    private ElectronicsDetails electronicsDetails;  // warranty, brand
+
+    // Extended/custom attributes (Attribute Pattern)
+    private List<AttributeKeyValue> customAttributes;  // user-defined
+
+    // Search facets (Attribute Pattern for filtering)
+    private List<SearchFacet> facets;  // optimized for search UI
+}
+```
+
+**Example:**
+```json
+{
+  "_id": "prod1",
+  "type": "Electronics",
+  "name": "Samsung Galaxy S21",
+  "price": 799.99,
+
+  "electronicsDetails": {
+    "warranty": "2 years",
+    "brand": "Samsung"
+  },
+
+  "customAttributes": [
+    { "k": "certified_refurbished", "v": "true" },
+    { "k": "seller_note", "v": "Excellent condition" }
+  ],
+
+  "facets": [
+    { "name": "Brand", "value": "Samsung" },
+    { "name": "5G", "value": "Yes" },
+    { "name": "Screen Size", "value": "6-7 inches" }
+  ]
+}
+```
+
+**Benefits of Hybrid:**
+✅ Core fields: Type-safe (Composition)
+✅ Custom fields: Flexible (Attribute)
+✅ Search: Optimized (Attribute facets)
+✅ Future-proof: Can extend without breaking changes
+
+---
+
 ## 📋 Pattern 3: Document Versioning
 
 ### What Is It?
@@ -314,6 +865,65 @@ if (order.getSchemaVersion() == null || order.getSchemaVersion() == 1) {
 | **Computed** | Pre-calculate values | Expensive calculations, frequent reads | Fast queries |
 | **Polymorphic** | Variable fields per type | Multiple entity types in one collection | Schema flexibility |
 | **Document Versioning** | Track schema changes | Schema evolution, gradual migration | Safe updates |
+
+---
+
+## 🔍 Polymorphic Product Implementation Comparison
+
+This table compares three approaches to handling polymorphic products with type-specific fields:
+
+| Aspect | **Flat/Optional Fields** | **Composition Pattern** (Current ✅) | **Attribute Pattern** |
+|--------|--------------------------|-------------------------------------|----------------------|
+| **Structure** | All fields in Product class | Embedded detail objects | Array of key-value pairs |
+| **Example** | `warranty`, `brand`, `size` (all optional) | `electronicsDetails: {warranty, brand}` | `attributes: [{k:"warranty", v:"2 years"}]` |
+| **Type Safety** | ⚠️ Moderate (nullable fields) | ✅ Excellent (typed classes) | ❌ Poor (everything is string) |
+| **Code Clarity** | ❌ Cluttered (all types mixed) | ✅ Excellent (clear separation) | ⚠️ Moderate (generic structure) |
+| **Schema Complexity** | ✅ Simple (flat structure) | ⚠️ Moderate (nested objects) | ⚠️ Moderate (array structure) |
+| **Null Fields** | ❌ Many nulls per document | ✅ Only one null object | ✅ No nulls (sparse array) |
+| **Flexibility** | ❌ Poor (code change needed) | ⚠️ Moderate (new class needed) | ✅ Excellent (no code change) |
+| **Query Complexity** | ✅ Simple (`{warranty: "2 years"}`) | ⚠️ Nested (`{electronicsDetails.warranty: "2 years"}`) | ❌ Complex (`{attributes: {$elemMatch: {k:"warranty", v:"2 years"}}}`) |
+| **Index Efficiency** | ❌ Index explosion risk | ⚠️ Can explode with many types | ✅ Single compound index |
+| **Validation** | ⚠️ Hard (all fields optional) | ✅ Excellent (Strategy + JSON Schema) | ⚠️ Complex (custom logic) |
+| **IDE Support** | ✅ Good autocomplete | ✅ Excellent autocomplete | ❌ No autocomplete |
+| **Maintenance** | ❌ Confusing (unclear ownership) | ✅ Clean (clear boundaries) | ⚠️ Moderate (helper methods) |
+| **Performance** | ✅ Fast (direct field access) | ✅ Fast (direct nested access) | ⚠️ Slower (array traversal) |
+| **Best For** | Small prototypes | **Well-defined types** ✅ | Dynamic/unpredictable catalogs |
+| **Your Project** | ❌ Don't use | **✅ Perfect fit!** | Consider for custom attributes |
+
+### **Evolution Path (What We Did):**
+
+```
+v1: Flat/Optional Fields → v2: Composition Pattern → Future: Hybrid (Composition + Attribute)
+      (Messy, unclear)        (Clean, type-safe)         (Best of both worlds)
+```
+
+### **Recommended Hybrid Approach:**
+
+```java
+public class Product {
+    // Common fields
+    private String type;
+    private String name;
+    private BigDecimal price;
+
+    // Core type-specific fields (Composition Pattern) ✅
+    private ElectronicsDetails electronicsDetails;
+    private ClothingDetails clothingDetails;
+    private BookDetails bookDetails;
+
+    // Extended/custom attributes (Attribute Pattern) 🆕
+    private List<AttributeKeyValue> customAttributes;
+
+    // Search facets (Attribute Pattern for filtering) 🆕
+    private List<SearchFacet> facets;
+}
+```
+
+**Why Hybrid?**
+- ✅ Core attributes: Strong typing (Composition)
+- ✅ Custom/rare attributes: Flexibility (Attribute)
+- ✅ Search optimization: Efficient indexing (Attribute facets)
+- ✅ Future-proof: Can extend without breaking changes
 
 ---
 
@@ -685,9 +1295,11 @@ Even a single-node replica set works for development!
 3. **Reference Pattern** = Link between collections when needed
 4. **Computed Pattern** = Calculate once, read many times
 5. **Polymorphic Pattern** = One collection, flexible schema
-6. **Document Versioning** = Safe schema evolution
-7. **Outlier Pattern** = Optimize for common case, handle outliers gracefully
-8. **Transaction Pattern** 🆕 = ACID guarantees for multi-document operations
+6. **Composition Pattern** = Group type-specific fields into embedded objects for clarity and type safety
+7. **Attribute Pattern** = Store variable attributes as key-value pairs for ultimate flexibility
+8. **Document Versioning** = Safe schema evolution
+9. **Outlier Pattern** = Optimize for common case, handle outliers gracefully
+10. **Transaction Pattern** 🆕 = ACID guarantees for multi-document operations
 
 These patterns solve real-world problems and showcase MongoDB's flexibility and power! 🚀
 

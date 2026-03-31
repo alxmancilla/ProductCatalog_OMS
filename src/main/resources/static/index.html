@@ -13,7 +13,7 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #001E2B 0%, #00684A 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -28,7 +28,7 @@
         }
         
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #001E2B 0%, #00684A 100%);
             color: white;
             padding: 30px;
             text-align: center;
@@ -70,11 +70,11 @@
         }
         
         .nav-section h3 {
-            color: #667eea;
+            color: #00684A;
             font-size: 1.1em;
             margin-bottom: 12px;
             padding-bottom: 8px;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 2px solid #00684A;
         }
         
         .nav-button {
@@ -93,15 +93,15 @@
         }
         
         .nav-button:hover {
-            border-color: #667eea;
-            background: #f0f4ff;
+            border-color: #00684A;
+            background: #E3FCF7;
             transform: translateX(5px);
         }
         
         .nav-button.active {
-            background: #667eea;
+            background: #00684A;
             color: white;
-            border-color: #667eea;
+            border-color: #00684A;
         }
         
         .method-badge {
@@ -133,7 +133,7 @@
         }
         
         .endpoint-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #001E2B 0%, #00684A 100%);
             color: white;
             padding: 20px;
             border-radius: 10px;
@@ -178,7 +178,7 @@
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #00684A;
         }
 
         .form-group textarea {
@@ -197,13 +197,13 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #001E2B 0%, #00684A 100%);
             color: white;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 15px rgba(0, 104, 74, 0.4);
         }
 
         .btn-secondary {
@@ -303,7 +303,7 @@
 
         .pattern-badge {
             display: inline-block;
-            background: #667eea;
+            background: #00684A;
             color: white;
             padding: 4px 10px;
             border-radius: 12px;
@@ -441,8 +441,12 @@
                     </div>
 
                     <div class="info-box">
-                        <h4>📋 What This Does</h4>
-                        <p>Creates a new product. This is a basic product without type-specific fields.</p>
+                        <h4>📋 General Product Type</h4>
+                        <p>Creates a general product without type-specific detail objects. The <code>type: "General"</code> field indicates this is a generic product that doesn't require <code>electronicsDetails</code>, <code>clothingDetails</code>, or <code>bookDetails</code>.</p>
+                        <p style="margin-top: 8px;">The <code>description</code> field enables powerful fuzzy matching in the AI agent! 🤖</p>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">🎭 Polymorphic Pattern</span>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -453,6 +457,7 @@
   "price": 99.99,
   "category": "General",
   "inventory": 100,
+  "type": "General",
   "sku": "GEN-PROD-001"
 }</textarea>
                     </div>
@@ -509,11 +514,12 @@
                     </div>
 
                     <div class="info-box">
-                        <h4>📋 Polymorphic Pattern Example</h4>
-                        <p>Electronics products have unique fields: <code>type</code>, <code>warranty</code>, <code>brand</code>, <code>weight</code>, and <code>screenSize</code>.</p>
+                        <h4>📋 Composition Pattern Example</h4>
+                        <p>Electronics products use the <strong>Composition Pattern</strong> with nested <code>electronicsDetails</code> object containing: <code>warranty</code>, <code>brand</code>, <code>weight</code>, <code>screenSize</code>, <code>resolution</code>, and <code>capacity</code>.</p>
                         <p style="margin-top: 8px;">The <code>description</code> field enables powerful fuzzy matching in the AI agent! 🤖</p>
                         <div style="margin-top: 10px;">
                             <span class="pattern-badge">🎭 Polymorphic Pattern</span>
+                            <span class="pattern-badge">🧩 Composition Pattern</span>
                         </div>
                     </div>
 
@@ -526,10 +532,14 @@
   "category": "Electronics",
   "inventory": 50,
   "type": "Electronics",
-  "warranty": "2 years",
-  "brand": "TechCorp",
-  "weight": "1.8 kg",
-  "screenSize": "15.6 inch",
+  "electronicsDetails": {
+    "warranty": "2 years",
+    "brand": "TechCorp",
+    "weight": "1.8 kg",
+    "screenSize": "15.6 inch",
+    "resolution": "1920x1080",
+    "capacity": "512GB SSD"
+  },
   "sku": "LAPTOP-PRO15-SG"
 }</textarea>
                     </div>
@@ -558,11 +568,12 @@
                     </div>
 
                     <div class="info-box">
-                        <h4>📋 Polymorphic Pattern Example</h4>
-                        <p>Clothing products have unique fields: <code>type</code>, <code>size</code>, <code>color</code>, and <code>material</code>.</p>
+                        <h4>📋 Composition Pattern Example</h4>
+                        <p>Clothing products use the <strong>Composition Pattern</strong> with nested <code>clothingDetails</code> object containing: <code>size</code>, <code>color</code>, and <code>material</code>.</p>
                         <p style="margin-top: 8px;">The <code>description</code> field enables powerful fuzzy matching in the AI agent! 🤖</p>
                         <div style="margin-top: 10px;">
                             <span class="pattern-badge">🎭 Polymorphic Pattern</span>
+                            <span class="pattern-badge">🧩 Composition Pattern</span>
                         </div>
                     </div>
 
@@ -575,9 +586,11 @@
   "category": "Clothing",
   "inventory": 200,
   "type": "Clothing",
-  "size": "M",
-  "color": "Blue",
-  "material": "100% Cotton",
+  "clothingDetails": {
+    "size": "M",
+    "color": "Blue",
+    "material": "100% Cotton"
+  },
   "sku": "TSHIRT-COT-BL-M"
 }</textarea>
                     </div>
@@ -606,11 +619,12 @@
                     </div>
 
                     <div class="info-box">
-                        <h4>📋 Polymorphic Pattern Example</h4>
-                        <p>Book products have unique fields: <code>type</code>, <code>author</code>, <code>isbn</code>, <code>pages</code>, <code>publisher</code>, and <code>language</code>.</p>
+                        <h4>📋 Composition Pattern Example</h4>
+                        <p>Book products use the <strong>Composition Pattern</strong> with nested <code>bookDetails</code> object containing: <code>author</code>, <code>isbn</code>, <code>pages</code>, <code>publisher</code>, and <code>language</code>.</p>
                         <p style="margin-top: 8px;">The <code>description</code> field enables powerful fuzzy matching in the AI agent! 🤖</p>
                         <div style="margin-top: 10px;">
                             <span class="pattern-badge">🎭 Polymorphic Pattern</span>
+                            <span class="pattern-badge">🧩 Composition Pattern</span>
                         </div>
                     </div>
 
@@ -623,11 +637,13 @@
   "category": "Books",
   "inventory": 75,
   "type": "Book",
-  "author": "Jane Developer",
-  "isbn": "978-1234567890",
-  "pages": 350,
-  "publisher": "TechBooks Publishing",
-  "language": "English",
+  "bookDetails": {
+    "author": "Jane Developer",
+    "isbn": "978-1234567890",
+    "pages": 350,
+    "publisher": "TechBooks Publishing",
+    "language": "English"
+  },
   "sku": "BOOK-MONGO-PAT"
 }</textarea>
                     </div>
@@ -855,10 +871,10 @@
         // Default form values
         const defaultValues = {
             createCustomer: '{\n  "name": "John Doe",\n  "email": "john.doe@example.com",\n  "phone": "+1-555-0123"\n}',
-            createProduct: '{\n  "name": "Generic Product",\n  "description": "A versatile general-purpose product suitable for various applications. High-quality construction and reliable performance.",\n  "price": 99.99,\n  "category": "General",\n  "inventory": 100,\n  "sku": "GEN-PROD-001"\n}',
-            createElectronics: '{\n  "name": "Laptop Pro 15",\n  "description": "High-performance 15.6-inch laptop designed for professionals and power users. Features Intel Core i7 processor, 16GB RAM, and 512GB SSD for lightning-fast performance. Perfect for software development, video editing, and demanding applications.",\n  "price": 1299.99,\n  "category": "Electronics",\n  "inventory": 50,\n  "type": "Electronics",\n  "warranty": "2 years",\n  "brand": "TechCorp",\n  "weight": "1.8 kg",\n  "screenSize": "15.6 inch",\n  "sku": "LAPTOP-PRO15-SG"\n}',
-            createClothing: '{\n  "name": "Cotton T-Shirt",\n  "description": "Premium quality cotton t-shirt with a comfortable, relaxed fit. Made from 100% organic cotton for breathability and softness. Perfect for casual wear or layering. Machine washable and pre-shrunk for lasting fit.",\n  "price": 29.99,\n  "category": "Clothing",\n  "inventory": 200,\n  "type": "Clothing",\n  "size": "M",\n  "color": "Blue",\n  "material": "100% Cotton",\n  "sku": "TSHIRT-COT-BL-M"\n}',
-            createBook: '{\n  "name": "MongoDB Design Patterns",\n  "description": "Comprehensive guide to MongoDB schema design patterns and best practices. Learn the 7 essential patterns including Embedding, Subset, Polymorphic, Computed, and Outlier patterns. Includes real-world examples and performance optimization techniques. Perfect for developers building scalable applications.",\n  "price": 49.99,\n  "category": "Books",\n  "inventory": 75,\n  "type": "Book",\n  "author": "Jane Developer",\n  "isbn": "978-1234567890",\n  "pages": 350,\n  "publisher": "TechBooks Publishing",\n  "language": "English",\n  "sku": "BOOK-MONGO-PAT"\n}',
+            createProduct: '{\n  "name": "Generic Product",\n  "description": "A versatile general-purpose product suitable for various applications. High-quality construction and reliable performance.",\n  "price": 99.99,\n  "category": "General",\n  "inventory": 100,\n  "type": "General",\n  "sku": "GEN-PROD-001"\n}',
+            createElectronics: '{\n  "name": "Laptop Pro 15",\n  "description": "High-performance 15.6-inch laptop designed for professionals and power users. Features Intel Core i7 processor, 16GB RAM, and 512GB SSD for lightning-fast performance. Perfect for software development, video editing, and demanding applications.",\n  "price": 1299.99,\n  "category": "Electronics",\n  "inventory": 50,\n  "type": "Electronics",\n  "electronicsDetails": {\n    "warranty": "2 years",\n    "brand": "TechCorp",\n    "weight": "1.8 kg",\n    "screenSize": "15.6 inch",\n    "resolution": "1920x1080",\n    "capacity": "512GB SSD"\n  },\n  "sku": "LAPTOP-PRO15-SG"\n}',
+            createClothing: '{\n  "name": "Cotton T-Shirt",\n  "description": "Premium quality cotton t-shirt with a comfortable, relaxed fit. Made from 100% organic cotton for breathability and softness. Perfect for casual wear or layering. Machine washable and pre-shrunk for lasting fit.",\n  "price": 29.99,\n  "category": "Clothing",\n  "inventory": 200,\n  "type": "Clothing",\n  "clothingDetails": {\n    "size": "M",\n    "color": "Blue",\n    "material": "100% Cotton"\n  },\n  "sku": "TSHIRT-COT-BL-M"\n}',
+            createBook: '{\n  "name": "MongoDB Design Patterns",\n  "description": "Comprehensive guide to MongoDB schema design patterns and best practices. Learn the 7 essential patterns including Embedding, Subset, Polymorphic, Computed, and Outlier patterns. Includes real-world examples and performance optimization techniques. Perfect for developers building scalable applications.",\n  "price": 49.99,\n  "category": "Books",\n  "inventory": 75,\n  "type": "Book",\n  "bookDetails": {\n    "author": "Jane Developer",\n    "isbn": "978-1234567890",\n    "pages": 350,\n    "publisher": "TechBooks Publishing",\n    "language": "English"\n  },\n  "sku": "BOOK-MONGO-PAT"\n}',
             createOrder: '{\n  "customerId": "PASTE_CUSTOMER_ID_HERE",\n  "customerName": "John Doe",\n  "items": [\n    {\n      "productId": "PASTE_PRODUCT_ID_HERE",\n      "name": "Laptop Pro 15",\n      "price": 1299.99,\n      "quantity": 1\n    },\n    {\n      "productId": "PASTE_PRODUCT_ID_HERE",\n      "name": "Wireless Mouse",\n      "price": 29.99,\n      "quantity": 2\n    }\n  ]\n}',
             createLargeOrder: '{\n  "customerId": "PASTE_CUSTOMER_ID_HERE",\n  "customerName": "Alice Johnson",\n  "items": [\n    {"productId": "prod1", "name": "Item 1", "price": 10.00, "quantity": 1},\n    {"productId": "prod2", "name": "Item 2", "price": 10.00, "quantity": 1},\n    {"productId": "prod3", "name": "Item 3", "price": 10.00, "quantity": 1}\n  ]\n}'
         };

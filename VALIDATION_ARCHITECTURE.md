@@ -1,73 +1,104 @@
 # 🛡️ Validation Architecture - Defense in Depth
 
 ## Overview
-This project implements **two layers of validation** to ensure data quality:
-1. **Application Layer** - Spring Boot validation
-2. **Database Layer** - MongoDB schema validation
+
+This project demonstrates **three-layer validation** for polymorphic product data:
+
+1. **🎯 Layer 1: Basic Field Validation** - Spring Boot `@Valid` annotations
+2. **🏭 Layer 2: Strategy Pattern** - Type-specific business logic validation
+3. **📋 Layer 3: MongoDB JSON Schema** - Server-side polymorphic validation
 
 ---
 
-## 🏗️ Architecture Diagram
+## The Problem: Polymorphic Product Validation
+
+Products come in different types with unique required fields:
+
+| Product Type | Type-Specific Fields (Required) |
+|-------------|--------------------------------|
+| **Electronics** | `electronicsDetails`: warranty, brand |
+| **Clothing** | `clothingDetails`: size, color, material |
+| **Book** | `bookDetails`: author, isbn, pages |
+
+### Challenges:
+- ❌ How to validate type-specific fields without messy if/else chains?
+- ❌ How to ensure data integrity at both application and database levels?
+- ❌ How to make it easy to add new product types?
+- ❌ How to keep validation logic separate from the data model?
+
+---
+
+## The Solution: Three-Layer Validation Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                         User Request                             │
-│                    (POST /products)                              │
+│                    POST /products (JSON)                         │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                   LAYER 1: Spring Boot                           │
-│                   Application Validation                         │
+│  🎯 LAYER 1: Basic Field Validation (@Valid)                    │
 ├─────────────────────────────────────────────────────────────────┤
 │  ProductController.java                                          │
-│  ├─ @Valid annotation triggers validation                       │
-│  └─ Validates @RequestBody Product                              │
+│  └─ @Valid @RequestBody Product                                 │
 │                                                                  │
 │  Product.java                                                    │
-│  ├─ @NotBlank(message = "Product name is required")            │
-│  ├─ @NotBlank(message = "Product description is required")     │
-│  ├─ @NotNull + @Positive (price)                               │
-│  ├─ @NotBlank (category)                                       │
-│  └─ @NotNull + @PositiveOrZero (inventory)                     │
+│  ├─ @NotBlank name                                              │
+│  ├─ @NotBlank description                                       │
+│  ├─ @Positive price                                             │
+│  ├─ @NotBlank category                                          │
+│  ├─ @PositiveOrZero inventory                                   │
+│  └─ @NotBlank sku                                               │
 │                                                                  │
-│  GlobalExceptionHandler.java                                     │
-│  └─ Returns user-friendly JSON error messages                   │
+│  ✅ Validates: Common fields all products must have             │
 └────────────────────────────┬────────────────────────────────────┘
                              │
-                    ✅ Valid │ ❌ Invalid
-                             │    │
-                             │    └──────────────┐
-                             │                   ▼
-                             │         ┌──────────────────────┐
-                             │         │  400 Bad Request     │
-                             │         │  {                   │
-                             │         │    "success": false, │
-                             │         │    "errors": {...}   │
-                             │         │  }                   │
-                             │         └──────────────────────┘
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                   LAYER 2: MongoDB                               │
-│                   Schema Validation                              │
+│  🏭 LAYER 2: Strategy Pattern (Type-Specific Validation)        │
+├─────────────────────────────────────────────────────────────────┤
+│  ProductValidationService.java                                   │
+│  └─ Routes to correct validator based on product.type          │
+│                                                                  │
+│  ProductValidator Interface                                      │
+│  ├─ ElectronicsValidator.java                                   │
+│  │   └─ Validates electronicsDetails.warranty & brand          │
+│  ├─ ClothingValidator.java                                      │
+│  │   └─ Validates clothingDetails.size, color, material        │
+│  └─ BookValidator.java                                          │
+│      └─ Validates bookDetails.author, isbn, pages              │
+│                                                                  │
+│  ✅ Validates: Type-specific business rules                     │
+│  ✅ Easy to add new product types (just add new validator)     │
+│  ✅ Separation of concerns (validation ≠ data model)           │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  📋 LAYER 3: MongoDB JSON Schema (Polymorphic Validation)       │
 ├─────────────────────────────────────────────────────────────────┤
 │  MongoSchemaValidation.java                                      │
-│  ├─ Runs at application startup                                 │
-│  ├─ Creates collections with JSON Schema validation             │
-│  └─ Enforces rules at database level                            │
+│  └─ Sets up polymorphic JSON Schema using oneOf                │
 │                                                                  │
-│  JSON Schema Rules:                                              │
-│  {                                                               │
-│    "$jsonSchema": {                                              │
-│      "bsonType": "object",                                       │
-│      "required": ["name", "description", "price", ...],          │
-│      "properties": {                                             │
-│        "name": { "bsonType": "string", "minLength": 1 },        │
-│        "price": { "bsonType": "decimal", "minimum": 0.01 },     │
-│        ...                                                       │
-│      }                                                           │
-│    }                                                             │
-│  }                                                               │
+│  Common Fields (all products):                                   │
+│  ├─ name, description, price, category, inventory, sku          │
+│  └─ type: enum ["Electronics", "Clothing", "Book"]             │
+│                                                                  │
+│  Polymorphic Validation (oneOf):                                 │
+│  ├─ IF type = "Electronics"                                     │
+│  │   THEN electronicsDetails is REQUIRED                        │
+│  │        └─ warranty & brand are REQUIRED                      │
+│  ├─ IF type = "Clothing"                                        │
+│  │   THEN clothingDetails is REQUIRED                           │
+│  │        └─ size, color, material are REQUIRED                 │
+│  └─ IF type = "Book"                                            │
+│      THEN bookDetails is REQUIRED                               │
+│           └─ author, isbn, pages are REQUIRED                   │
+│                                                                  │
+│  ✅ Server-side polymorphic data integrity                      │
+│  ✅ Prevents bad data from other sources (scripts, imports)     │
+│  ✅ Last line of defense                                        │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                     ✅ Valid │ ❌ Invalid
@@ -85,7 +116,7 @@ This project implements **two layers of validation** to ensure data quality:
 │                    (product_catalog_oms)                         │
 ├─────────────────────────────────────────────────────────────────┤
 │  products collection                                             │
-│  ├─ All documents validated                                     │
+│  ├─ All documents validated (polymorphic)                       │
 │  ├─ Schema visible in MongoDB Compass                           │
 │  └─ Protected from all data sources                             │
 └─────────────────────────────────────────────────────────────────┘
@@ -233,46 +264,65 @@ db.products.insertOne({
 
 | File | Purpose |
 |------|---------|
-| `Product.java` | Model with `@NotBlank`, `@NotNull`, `@Positive` annotations |
-| `ProductController.java` | Controller with `@Valid` annotation |
-| `GlobalExceptionHandler.java` | Handles validation exceptions, returns JSON errors |
-| `MongoSchemaValidation.java` | Sets up MongoDB JSON Schema validation |
-| `pom.xml` | Includes `spring-boot-starter-validation` dependency |
+| `Product.java` | Model with `@NotBlank`, `@NotNull`, `@Positive` + embedded details |
+| `ElectronicsDetails.java` | Embedded electronics-specific fields |
+| `ClothingDetails.java` | Embedded clothing-specific fields |
+| `BookDetails.java` | Embedded book-specific fields |
+| `ProductValidator.java` | Strategy interface for type-specific validation |
+| `ElectronicsValidator.java` | Validates electronics products |
+| `ClothingValidator.java` | Validates clothing products |
+| `BookValidator.java` | Validates book products |
+| `ProductValidationService.java` | Orchestrates validators (Context) |
+| `ProductController.java` | Controller with `@Valid` + ValidationService |
+| `MongoSchemaValidation.java` | Sets up polymorphic JSON Schema (oneOf) |
+
+---
+
+## 🏭 Design Patterns Used
+
+| Pattern | Where | Purpose |
+|---------|-------|---------|
+| **Strategy Pattern** | ProductValidator + implementations | Type-specific validation logic |
+| **Composition Pattern** | Product + Detail classes | Group type-specific fields in embedded objects |
+| **Factory Pattern** | ProductValidationService | Auto-discover and route to correct validator |
+| **Polymorphic Pattern** | MongoDB oneOf schema | Database-level type-specific validation |
 
 ---
 
 ## 🎬 Demo Script for Presentation
 
-1. **Show Spring Boot validation**
-   - Try to create product without description via API
-   - Show user-friendly error message
+1. **Show Strategy Pattern in action**
+   - Try to create Electronics without warranty → ValidationException
+   - Try to create Clothing without size → ValidationException
+   - Show how easy it is to add a new product type
 
-2. **Show MongoDB validation**
+2. **Show MongoDB polymorphic validation**
    - Open mongosh
-   - Try to insert invalid document directly
-   - Show MongoDB rejection
+   - Try to insert Electronics without electronicsDetails → rejected
+   - Try to insert Clothing with electronicsDetails → rejected
 
-3. **Explain defense in depth**
-   - Two layers of protection
-   - Spring Boot for UX, MongoDB for integrity
-   - Best practice for production systems
+3. **Explain three-layer defense**
+   - Layer 1: @Valid for common fields
+   - Layer 2: Strategy Pattern for business logic
+   - Layer 3: MongoDB oneOf for data integrity
 
 4. **Show in MongoDB Compass**
    - Navigate to products collection
    - Click "Validation" tab
-   - Show JSON Schema rules
+   - Show polymorphic JSON Schema with oneOf
 
 ---
 
 ## ✅ Benefits for Your Presentation
 
-- **Professional Architecture** - Industry best practices
-- **Data Quality** - Multiple layers of protection
-- **MongoDB Features** - Showcase JSON Schema validation
-- **Real-World** - How production systems should work
+- **Professional Architecture** - Industry design patterns (Strategy + Composition)
+- **Maintainable Code** - Easy to add new product types
+- **Data Quality** - Three layers of validation protection
+- **MongoDB Features** - Polymorphic JSON Schema with oneOf
+- **Real-World** - How enterprise systems handle polymorphism
 - **Educational** - Clear separation of concerns
 
 ---
 
-**This architecture demonstrates enterprise-grade data quality enforcement! 🚀**
+**This architecture demonstrates enterprise-grade polymorphic data validation! 🚀**
 

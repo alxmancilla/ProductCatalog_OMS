@@ -101,6 +101,7 @@ Order Item Count:
 - ✅ Atomic updates (order + items together)
 - ✅ Simple code
 - ✅ Fast performance
+- ✅ **ACID transactions** for order + inventory updates 🆕
 
 ---
 
@@ -264,10 +265,11 @@ curl -X POST http://localhost:8080/orders \
 - Items embedded in Order document
 - `isLargeOrder = false`
 - Single document saved
+- **ACID transaction:** Customer validated, products validated, inventory decremented 🆕
 
 ---
 
-### Creating a Large Order (100+ items)
+### Creating a Large Order (100+ items) 🆕
 
 ```bash
 curl -X POST http://localhost:8080/orders \
@@ -287,6 +289,12 @@ curl -X POST http://localhost:8080/orders \
 - `totalItemCount = 150`
 - `bucketCount = 3`
 - 3 bucket documents created in `order_item_buckets` collection
+- **ACID transaction ensures:**
+  - ✅ Customer ID is validated (must exist in `customers` collection)
+  - ✅ All products are validated (must exist in `products` collection)
+  - ✅ Inventory is checked (must have sufficient stock)
+  - ✅ Order + all buckets + inventory updates committed atomically
+  - ✅ Rollback if any validation or operation fails
 
 ---
 
@@ -401,8 +409,50 @@ db.order_item_buckets.aggregate([
 
 ---
 
+## 🔒 Transaction Support for Large Orders 🆕
+
+### Complete ACID Guarantees
+
+Large orders (100+ items) using the Outlier Pattern now have the same rigorous validation and transaction support as standard orders:
+
+**Transaction Flow:**
+```
+START TRANSACTION
+├─ 1. Validate customer exists in customers collection
+├─ 2. Validate all products exist in products collection
+├─ 3. Check inventory availability for all products
+├─ 4. Create main order document (items = null)
+├─ 5. Create all bucket documents (3 buckets for 150 items)
+├─ 6. Decrement inventory for all products
+└─ COMMIT (if all succeed) or ROLLBACK (if any fail)
+```
+
+### Implementation Details
+
+The `OrderCreatorService` uses Spring's `@Transactional` annotation and the `ApplicationContext` pattern to ensure transactions work for internal method calls:
+
+```java
+@Transactional
+public Order createLargeOrderWithBuckets(Order order, List<OrderItem> allItems) {
+    // All operations within this method are atomic
+    // Rollback occurs if any exception is thrown
+}
+```
+
+**Key Features:**
+- ✅ Manual customer ID validation (foreign key enforcement)
+- ✅ Manual product existence validation
+- ✅ Manual inventory availability checking
+- ✅ Atomic saves across multiple documents
+- ✅ Automatic rollback on any failure
+
+**See [TRANSACTIONS_GUIDE.md](TRANSACTIONS_GUIDE.md) for complete transaction documentation.**
+
+---
+
 **This pattern is demonstrated in:**
 - `src/main/java/com/example/store/model/Order.java` - Order model with outlier fields
 - `src/main/java/com/example/store/model/OrderItemBucket.java` - Bucket model
-- `src/main/java/com/example/store/controller/OrderController.java` - Bucketing logic
+- `src/main/java/com/example/store/ai/service/OrderCreatorService.java` - Bucketing logic with transactions 🆕
+- `src/main/java/com/example/store/controller/OrderController.java` - Order creation endpoints
 

@@ -79,5 +79,20 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+
+    /**
+     * Handle customer not found errors.
+     */
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleCustomerNotFoundException(
+            CustomerNotFoundException ex) {
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", false);
+        response.put("message", ex.getMessage());
+        response.put("customerId", ex.getCustomerId());
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
 }
 

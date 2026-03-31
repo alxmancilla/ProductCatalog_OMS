@@ -3,6 +3,7 @@
 # ============================================================================
 # Application properties with database credentials
 *.properties
+src/main/resources/application.properties
 src/main/resources/application-*.properties
 
 # Environment files

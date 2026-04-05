@@ -5,8 +5,8 @@ import com.example.store.dto.PopularProductDTO;
 import com.example.store.dto.RevenueByStatusDTO;
 import com.example.store.dto.TopCustomerDTO;
 import com.example.store.model.OrderStatus;
+import lombok.RequiredArgsConstructor;
 import org.bson.Document;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
@@ -57,10 +57,10 @@ import java.util.stream.Collectors;
  * - Results can be materialized to collections with $merge or $out
  */
 @Service
+@RequiredArgsConstructor
 public class OrderAnalyticsService {
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
 
     /**
      * Get revenue breakdown by order status.

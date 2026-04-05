@@ -1,7 +1,6 @@
 package com.example.store.service;
 
 import com.example.store.exception.OrderNotFoundException;
-import com.example.store.exception.ProductNotFoundException;
 import com.example.store.model.Order;
 import com.example.store.model.OrderItem;
 import com.example.store.model.OrderItemBucket;
@@ -10,8 +9,11 @@ import com.example.store.model.StatusChange;
 import com.example.store.model.Product;
 import com.example.store.repository.OrderRepository;
 import com.example.store.repository.OrderItemBucketRepository;
-import com.example.store.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,16 +54,12 @@ import java.util.Map;
  * IMPORTANT: Requires MongoDB to be running as a replica set!
  */
 @Service
+@RequiredArgsConstructor
 public class OrderCancellationService {
 
-    @Autowired
-    private OrderRepository orderRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private OrderItemBucketRepository orderItemBucketRepository;
+    private final OrderRepository orderRepository;
+    private final OrderItemBucketRepository orderItemBucketRepository;
+    private final MongoTemplate mongoTemplate;
 
     /**
      * Cancel an order and restore inventory atomically.
@@ -114,14 +112,12 @@ public class OrderCancellationService {
         List<OrderItem> items = getOrderItems(order);  // Handle Outlier Pattern
 
         for (OrderItem item : items) {
-            Product product = productRepository.findById(item.getProductId())
-                .orElseThrow(() -> new ProductNotFoundException(item.getProductId()));
-
-            // Restore inventory (ADD back what was decremented during order creation)
-            int restoredInventory = product.getInventory() + item.getQuantity();
-            product.setInventory(restoredInventory);
-
-            productRepository.save(product);
+            // Atomically restore inventory using $inc (no read needed, safe to always add back)
+            mongoTemplate.updateFirst(
+                Query.query(Criteria.where("_id").is(item.getProductId())),
+                new Update().inc("inventory", item.getQuantity()),
+                Product.class
+            );
         }
 
         // ═══════════════════════════════════════════════════════════════════

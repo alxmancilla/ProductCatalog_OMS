@@ -3,9 +3,9 @@ package com.example.store.util;
 import com.example.store.ai.service.VoyageAiService;
 import com.example.store.model.Product;
 import com.example.store.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
@@ -28,19 +28,14 @@ import java.util.List;
  */
 @Component
 @ConditionalOnProperty(name = "generate.embeddings.enabled", havingValue = "true")
+@RequiredArgsConstructor
 public class EmbeddingGenerator implements CommandLineRunner {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(EmbeddingGenerator.class);
     private static final int BATCH_SIZE = 10; // Process 10 products at a time
-    
+
     private final ProductRepository productRepository;
     private final VoyageAiService voyageAiService;
-    
-    @Autowired
-    public EmbeddingGenerator(ProductRepository productRepository, VoyageAiService voyageAiService) {
-        this.productRepository = productRepository;
-        this.voyageAiService = voyageAiService;
-    }
     
     @Override
     public void run(String... args) {

@@ -13,7 +13,10 @@ import com.example.store.service.OrderCancellationService;
 import com.example.store.service.OrderStatusService;
 import com.example.store.service.OrderTransactionService;
 import com.example.store.service.OrderUpdateService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,25 +49,15 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/orders")
+@RequiredArgsConstructor
 public class OrderController {
 
-    @Autowired
-    private OrderRepository orderRepository;
-
-    @Autowired
-    private OrderItemBucketRepository orderItemBucketRepository;
-
-    @Autowired
-    private OrderTransactionService orderTransactionService;
-
-    @Autowired
-    private OrderStatusService orderStatusService;
-
-    @Autowired
-    private OrderCancellationService orderCancellationService;
-
-    @Autowired
-    private OrderUpdateService orderUpdateService;
+    private final OrderRepository orderRepository;
+    private final OrderItemBucketRepository orderItemBucketRepository;
+    private final OrderTransactionService orderTransactionService;
+    private final OrderStatusService orderStatusService;
+    private final OrderCancellationService orderCancellationService;
+    private final OrderUpdateService orderUpdateService;
 
     /**
      * Create a new order with inventory validation and updates.
@@ -128,9 +121,9 @@ public class OrderController {
      * Create a large order with bucketing (100+ items).
      *
      * 🎯 OUTLIER PATTERN: Bucketing Strategy
-     * - Splits items into buckets of 50 items each
-     * - Stores buckets in separate collection
-     * - Main order document contains metadata only
+     * - Validates inventory and saves order header inside a transaction
+     * - Splits items into buckets of 50 items each (stored separately)
+     * - Main order document contains metadata only (no embedded items)
      */
     private ResponseEntity<Order> createLargeOrder(Order order) {
         final int BUCKET_SIZE = 50;
@@ -141,10 +134,11 @@ public class OrderController {
         // Update order metadata
         order.setTotalItemCount(totalItems);
         order.setBucketCount(bucketCount);
-        order.setItems(null);  // Don't embed items for large orders
+        order.setItems(null);  // Items go into buckets, not the order document
 
-        // Save the main order document (without items)
-        Order savedOrder = orderRepository.save(order);
+        // Save the order header + validate/decrement inventory — all in one transaction.
+        // allItems is passed separately because order.items is now null.
+        Order savedOrder = orderTransactionService.createLargeOrderWithInventoryUpdate(order, allItems);
 
         // Create and save buckets
         for (int i = 0; i < bucketCount; i++) {
@@ -198,26 +192,31 @@ public class OrderController {
     }
 
     /**
-     * Get all orders (or filtered by query parameters).
-     * GET /orders
-     * GET /orders?customerId=xxx
-     * GET /orders?status=PENDING (handled by separate endpoint)
+     * Get orders with optional customer filter and pagination.
+     * GET /orders?page=0&size=20
+     * GET /orders?customerId=xxx&page=0&size=20
+     *
+     * 🎯 PAGINATION: page=0 is the first page, size controls results per page (max 100).
+     * Default: page 0, 20 results, sorted newest-first.
      *
      * Note: For large orders, items are stored in separate buckets.
      * Use GET /orders/{id} to retrieve full order details with all items.
      */
     @GetMapping
     public ResponseEntity<List<Order>> getAllOrders(
-            @RequestParam(required = false) String customerId) {
+            @RequestParam(required = false) String customerId,
+            @RequestParam(defaultValue = "0")  int page,
+            @RequestParam(defaultValue = "20") int size) {
+
+        // Cap page size to prevent accidental full-collection scans in demos
+        size = Math.min(size, 100);
 
         List<Order> orders;
-
         if (customerId != null && !customerId.trim().isEmpty()) {
-            // Filter by customer
             orders = orderRepository.findByCustomerIdOrderByOrderDateDesc(customerId);
         } else {
-            // Get all orders
-            orders = orderRepository.findAll();
+            var pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "orderDate"));
+            orders = orderRepository.findAll(pageable).getContent();
         }
 
         return ResponseEntity.ok(orders);
@@ -233,11 +232,8 @@ public class OrderController {
      */
     @GetMapping("/{id}/items")
     public ResponseEntity<List<OrderItem>> getOrderItems(@PathVariable String id) {
-        Order order = orderRepository.findById(id).orElse(null);
-
-        if (order == null) {
-            return ResponseEntity.notFound().build();
-        }
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new com.example.store.exception.OrderNotFoundException(id));
 
         // Normal order: items are embedded
         if (!order.getIsLargeOrder() || order.getItems() != null) {
@@ -493,6 +489,7 @@ public class OrderController {
             id,
             request.getItems(),
             request.getUpdatedBy(),
+            request.getReason(),
             request.getMetadata()
         );
 

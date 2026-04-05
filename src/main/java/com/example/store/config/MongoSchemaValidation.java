@@ -6,9 +6,9 @@ import com.mongodb.client.model.ValidationAction;
 import com.mongodb.client.model.ValidationLevel;
 import com.mongodb.client.model.ValidationOptions;
 import org.bson.Document;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
@@ -46,12 +46,12 @@ import org.springframework.stereotype.Component;
  * This sets up validation rules before any data operations occur.
  */
 @Component
+@RequiredArgsConstructor
 public class MongoSchemaValidation implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(MongoSchemaValidation.class);
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
 
     @Override
     public void run(String... args) {

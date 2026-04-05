@@ -1,11 +1,11 @@
 package com.example.store.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.index.Index;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Configuration class for creating MongoDB indexes on the orders collection.
@@ -29,10 +29,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * - Existing indexes are not recreated (idempotent)
  */
 @Configuration
+@RequiredArgsConstructor
 public class OrderIndexConfiguration {
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
 
     /**
      * Create indexes after application context is initialized.

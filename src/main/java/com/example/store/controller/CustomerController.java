@@ -4,7 +4,7 @@ import com.example.store.model.Customer;
 import com.example.store.model.Order;
 import com.example.store.repository.CustomerRepository;
 import com.example.store.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +17,11 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/customers")
+@RequiredArgsConstructor
 public class CustomerController {
 
-    @Autowired
-    private CustomerRepository customerRepository;
-
-    @Autowired
-    private OrderRepository orderRepository;
+    private final CustomerRepository customerRepository;
+    private final OrderRepository orderRepository;
 
     /**
      * Create a new customer.

@@ -5,7 +5,7 @@ import com.example.store.dto.PopularProductDTO;
 import com.example.store.dto.RevenueByStatusDTO;
 import com.example.store.dto.TopCustomerDTO;
 import com.example.store.service.OrderAnalyticsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,10 +44,10 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/analytics/orders")
+@RequiredArgsConstructor
 public class OrderAnalyticsController {
 
-    @Autowired
-    private OrderAnalyticsService analyticsService;
+    private final OrderAnalyticsService analyticsService;
 
     /**
      * Get revenue breakdown by order status.

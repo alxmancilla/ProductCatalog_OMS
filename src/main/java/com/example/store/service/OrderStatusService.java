@@ -5,7 +5,7 @@ import com.example.store.model.Order;
 import com.example.store.model.OrderStatus;
 import com.example.store.model.StatusChange;
 import com.example.store.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,10 +37,10 @@ import java.util.Map;
  * - Single document update = atomic operation!
  */
 @Service
+@RequiredArgsConstructor
 public class OrderStatusService {
 
-    @Autowired
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
     /**
      * Update order status with validation and history tracking.

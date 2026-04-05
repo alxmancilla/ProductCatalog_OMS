@@ -253,42 +253,5 @@ public class Product {
      */
     private BookDetails bookDetails;
 
-    // ═══════════════════════════════════════════════════════════════════════
-    // DEPRECATED FIELDS (kept for backward compatibility with existing data)
-    // ═══════════════════════════════════════════════════════════════════════
-    // These fields are from the old flat structure. They are kept to support
-    // existing products in the database that haven't been migrated yet.
-    // New products should use the detail objects above.
-
-    @Deprecated
-    private String warranty;             // Use electronicsDetails.warranty instead
-    @Deprecated
-    private String brand;                // Use electronicsDetails.brand instead
-    @Deprecated
-    private String weight;               // Use electronicsDetails.weight instead
-    @Deprecated
-    private String resolution;           // Use electronicsDetails.resolution instead
-    @Deprecated
-    private String capacity;             // Use electronicsDetails.capacity instead
-    @Deprecated
-    private String screenSize;           // Use electronicsDetails.screenSize instead
-
-    @Deprecated
-    private String size;                 // Use clothingDetails.size instead
-    @Deprecated
-    private String color;                // Use clothingDetails.color instead
-    @Deprecated
-    private String material;             // Use clothingDetails.material instead
-
-    @Deprecated
-    private String author;               // Use bookDetails.author instead
-    @Deprecated
-    private String isbn;                 // Use bookDetails.isbn instead
-    @Deprecated
-    private Integer pages;               // Use bookDetails.pages instead
-    @Deprecated
-    private String publisher;            // Use bookDetails.publisher instead
-    @Deprecated
-    private String language;             // Use bookDetails.language instead
 }
 

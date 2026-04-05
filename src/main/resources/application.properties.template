@@ -15,7 +15,7 @@
 
 # MongoDB Atlas Connection String
 # Replace <db_username> and <db_password> with your actual credentials
-spring.data.mongodb.uri=mongodb+srv://<db_username>:<db_password>@democluster.elz1q.mongodb.net/?retryWrites=true&w=majority&appName=Demo-PC-OMS
+spring.data.mongodb.uri=${MONGODB_URI:mongodb+srv://democluster.elz1q.mongodb.net/?retryWrites=true&w=majority&appName=Demo-PC-OMS}
 
 # Database name
 spring.data.mongodb.database=demo_pc_oms

@@ -5,7 +5,7 @@ import com.example.store.repository.ProductRepository;
 import com.example.store.service.ProductValidationService;
 import com.example.store.validation.ProductValidationException;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +28,11 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/products")
+@RequiredArgsConstructor
 public class ProductController {
 
-    @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private ProductValidationService productValidationService;
+    private final ProductRepository productRepository;
+    private final ProductValidationService productValidationService;
 
     /**
      * Create a new product.

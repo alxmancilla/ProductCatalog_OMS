@@ -14,7 +14,12 @@ import com.example.store.model.StatusChange;
 import com.example.store.repository.OrderRepository;
 import com.example.store.repository.OrderItemBucketRepository;
 import com.example.store.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mongodb.client.result.UpdateResult;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,16 +79,13 @@ import java.util.stream.Collectors;
  * IMPORTANT: Requires MongoDB to be running as a replica set!
  */
 @Service
+@RequiredArgsConstructor
 public class OrderUpdateService {
 
-    @Autowired
-    private OrderRepository orderRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
-    private OrderItemBucketRepository orderItemBucketRepository;
+    private final OrderRepository orderRepository;
+    private final ProductRepository productRepository;
+    private final OrderItemBucketRepository orderItemBucketRepository;
+    private final MongoTemplate mongoTemplate;
 
     /**
      * Update order items and adjust inventory atomically.
@@ -99,16 +101,23 @@ public class OrderUpdateService {
      */
     @Transactional
     public Order updateOrderItems(String orderId, List<OrderItem> newItems, String updatedBy) {
-        return updateOrderItems(orderId, newItems, updatedBy, null);
+        return updateOrderItems(orderId, newItems, updatedBy, null, null);
+    }
+
+    @Transactional
+    public Order updateOrderItems(String orderId, List<OrderItem> newItems, String updatedBy,
+                                  Map<String, Object> metadata) {
+        return updateOrderItems(orderId, newItems, updatedBy, null, metadata);
     }
 
     /**
-     * Update order items and adjust inventory atomically with metadata.
+     * Update order items and adjust inventory atomically.
      *
-     * @param orderId The order ID to update
-     * @param newItems The new list of items (replaces old items)
+     * @param orderId   The order ID to update
+     * @param newItems  The new list of items (replaces old items)
      * @param updatedBy Who is updating the order
-     * @param metadata Optional metadata for the update
+     * @param reason    Optional reason for the update (recorded in audit history)
+     * @param metadata  Optional extra metadata
      * @return The updated order
      * @throws OrderNotFoundException if order not found
      * @throws InvalidOrderStateException if order is not in PENDING status
@@ -117,7 +126,7 @@ public class OrderUpdateService {
      */
     @Transactional
     public Order updateOrderItems(String orderId, List<OrderItem> newItems, String updatedBy,
-                                  Map<String, Object> metadata) {
+                                  String reason, Map<String, Object> metadata) {
         // ═══════════════════════════════════════════════════════════════════
         // STEP 1: Validate order exists and is in PENDING status
         // ═══════════════════════════════════════════════════════════════════
@@ -151,52 +160,46 @@ public class OrderUpdateService {
         Map<String, Integer> inventoryDeltas = calculateInventoryDeltas(oldItems, filteredNewItems);
 
         // ═══════════════════════════════════════════════════════════════════
-        // STEP 3: Validate inventory availability for increases
+        // STEP 3: Validate inventory for increases, then apply all deltas atomically
         // ═══════════════════════════════════════════════════════════════════
+        // Delta > 0: Quantity increased → decrement inventory (conditional atomic $inc)
+        // Delta < 0: Quantity decreased → restore inventory  (unconditional atomic $inc)
+        //
+        // For increases, we use a conditional filter (.and("inventory").gte(delta)) so the
+        // update only succeeds if inventory is still sufficient — catching concurrent races.
+        // For decreases, restoration is always safe (no condition needed).
         Map<String, InventoryInfo> insufficientProducts = new HashMap<>();
 
         for (Map.Entry<String, Integer> entry : inventoryDeltas.entrySet()) {
             String productId = entry.getKey();
             int delta = entry.getValue();
 
-            Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new ProductNotFoundException(productId));
-
-            // Positive delta means quantity increased (need more inventory)
-            if (delta > 0 && product.getInventory() < delta) {
-                insufficientProducts.put(
-                    productId,
-                    new InventoryInfo(
-                        product.getName(),
-                        delta,
-                        product.getInventory()
-                    )
+            if (delta > 0) {
+                // Need more units — decrement with atomic guard
+                Query query = Query.query(
+                    Criteria.where("_id").is(productId).and("inventory").gte(delta)
+                );
+                UpdateResult result = mongoTemplate.updateFirst(
+                    query, new Update().inc("inventory", -delta), Product.class
+                );
+                if (result.getMatchedCount() == 0) {
+                    Product product = productRepository.findById(productId)
+                        .orElseThrow(() -> new ProductNotFoundException(productId));
+                    insufficientProducts.put(productId, new InventoryInfo(
+                        product.getName(), delta, product.getInventory()));
+                }
+            } else {
+                // Returning units — always safe to restore
+                mongoTemplate.updateFirst(
+                    Query.query(Criteria.where("_id").is(productId)),
+                    new Update().inc("inventory", -delta),   // delta is negative, so -delta > 0
+                    Product.class
                 );
             }
         }
 
-        // If any products have insufficient inventory, throw exception
         if (!insufficientProducts.isEmpty()) {
             throw new InsufficientInventoryException(insufficientProducts);
-        }
-
-        // ═══════════════════════════════════════════════════════════════════
-        // STEP 4: Apply inventory changes
-        // ═══════════════════════════════════════════════════════════════════
-        // Delta > 0: Quantity increased → Decrement inventory
-        // Delta < 0: Quantity decreased → Restore inventory
-        for (Map.Entry<String, Integer> entry : inventoryDeltas.entrySet()) {
-            String productId = entry.getKey();
-            int delta = entry.getValue();
-
-            Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new ProductNotFoundException(productId));
-
-            // Apply delta: subtract from inventory (positive delta = more items needed)
-            int newInventory = product.getInventory() - delta;
-            product.setInventory(newInventory);
-
-            productRepository.save(product);
         }
 
         // ═══════════════════════════════════════════════════════════════════
@@ -225,7 +228,7 @@ public class OrderUpdateService {
         change.setToStatus(order.getStatus());  // Status stays PENDING
         change.setChangedAt(LocalDateTime.now());
         change.setChangedBy(updatedBy);
-        change.setReason("Order items modified");
+        change.setReason(reason != null ? reason : "Order items modified");
 
         Map<String, Object> changeMetadata = new HashMap<>();
         changeMetadata.put("action", "items_updated");

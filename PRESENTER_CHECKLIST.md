@@ -65,12 +65,27 @@ mvn spring-boot:run
 chmod +x demo-commands.sh
 ```
 
-### 7. Test the Complete Flow
+### 7. Import the Product Dataset
+```bash
+# Make script executable (first time only)
+chmod +x import-products.sh
+
+# Load all 222 products — idempotent, safe to re-run
+./import-products.sh
+
+# Expected response:
+# { "imported": 222, "skipped": 0, "errors": [] }
+
+# Or via the web UI: Products → Import Dataset → upload products-dataset.json
+```
+
+### 8. Test the Complete Flow
 ```bash
 # In Terminal 2: Start app
 mvn spring-boot:run
 
-# In Terminal 3: Run demo script
+# In Terminal 3: Import dataset, then run demo script
+./import-products.sh
 ./demo-commands.sh
 
 # In Terminal 1: Verify in MongoDB
@@ -79,7 +94,7 @@ db.products.find().pretty()
 db.orders.find().pretty()
 ```
 
-### 8. Clean the Database (for fresh demo)
+### 9. Clean the Database (for fresh demo)
 ```bash
 # In mongosh
 use product_catalog_oms
@@ -87,14 +102,14 @@ db.products.deleteMany({})
 db.orders.deleteMany({})
 ```
 
-### 9. Screen Sharing Setup
+### 10. Screen Sharing Setup
 - [ ] Close unnecessary applications
 - [ ] Increase terminal font size (16-18pt recommended)
 - [ ] Increase IDE font size (14-16pt recommended)
 - [ ] Test screen sharing with a colleague
 - [ ] Have presentation slides ready (if any)
 
-### 10. Backup Plan
+### 11. Backup Plan
 - [ ] Have product IDs pre-copied in a text file
 - [ ] Have curl commands ready (see DEMO_GUIDE.md or use the Web Interface)
 - [ ] Know how to restart MongoDB if needed
@@ -228,6 +243,11 @@ docker rm mongodb
 ```bash
 docker-compose up -d
 mvn spring-boot:run
+```
+
+### Import Product Dataset
+```bash
+./import-products.sh
 ```
 
 ### Test Everything

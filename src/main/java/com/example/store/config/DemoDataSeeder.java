@@ -21,21 +21,28 @@ import java.util.List;
  * 🎯 PURPOSE: Make the DOCUMENT VERSIONING PATTERN tangible in the demo
  * ═══════════════════════════════════════════════════════════════════════════
  *
- * After seeding you can run these in mongosh / Compass to see all four
- * product schema versions and all four order schema versions living side-by-side:
+ * Legacy documents are written to SEPARATE unvalidated collections
+ * (products_legacy, orders_legacy) so they don't conflict with the JSON
+ * Schema validation rules on the live collections — and so the demo user
+ * doesn't need elevated Atlas privileges (bypassDocumentValidation requires
+ * dbAdmin or higher).
  *
- *   db.products.find({}, {name:1, schemaVersion:1}).sort({schemaVersion:1})
- *   db.orders.find({}, {customerName:1, schemaVersion:1, status:1}).sort({schemaVersion:1})
+ * After startup, run these in mongosh / Compass to see all schema versions:
+ *
+ *   // Products: v1 (no schemaVersion) → v2 (added inventory/sku/description)
+ *   db.products_legacy.find({}, {name:1, schemaVersion:1}).sort({schemaVersion:1})
+ *
+ *   // Orders: v1 (customer string) → v2 (Subset) → v3 (Outlier) → v4 (Status)
+ *   db.orders_legacy.find({}, {schemaVersion:1}).sort({schemaVersion:1})
  *
  * Key teaching points:
  * - v1 documents have NO schemaVersion field (field is absent / null)
- * - v2 documents added inventory + sku + description
- * - Orders evolved from a plain customerName string → customerId reference
- *   → Outlier Pattern flag → full Status Management with audit trail
- * - The application handles all versions transparently
+ * - The shape of the document changed significantly across versions
+ * - Current live documents (in products / orders) are always v2 / v4
+ * - Schema validation enforces the CURRENT schema — legacy docs would be
+ *   rejected if inserted into the live collection (that's by design!)
  *
- * This seeder runs ONCE: it checks for a sentinel document in a
- * "demo_meta" collection before inserting, so restarts are safe.
+ * This seeder runs ONCE: idempotent via a sentinel in the demo_meta collection.
  */
 @Component
 @Order(2)   // Run after MongoSchemaValidation (which is @Order(1) by default)
@@ -43,8 +50,12 @@ import java.util.List;
 public class DemoDataSeeder implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(DemoDataSeeder.class);
-    private static final String META_COLLECTION = "demo_meta";
-    private static final String SEED_KEY = "legacy_schema_versions_seeded";
+    private static final String META_COLLECTION  = "demo_meta";
+    private static final String SEED_KEY         = "legacy_schema_versions_seeded_v2";
+
+    // Separate collections — no JSON Schema validation applied, no elevated privileges needed
+    private static final String PRODUCTS_LEGACY = "products_legacy";
+    private static final String ORDERS_LEGACY   = "orders_legacy";
 
     private final MongoTemplate mongoTemplate;
 
@@ -62,52 +73,68 @@ public class DemoDataSeeder implements CommandLineRunner {
         markSeeded();
 
         logger.info("✅ Legacy seed documents inserted.");
-        logger.info("   Run in mongosh:  db.products.find({},{name:1,schemaVersion:1}).sort({schemaVersion:1})");
-        logger.info("   Run in mongosh:  db.orders.find({},{customerName:1,schemaVersion:1}).sort({schemaVersion:1})");
+        logger.info("   Products (v1→v2):  db.products_legacy.find({},{name:1,schemaVersion:1}).sort({schemaVersion:1})");
+        logger.info("   Orders  (v1→v4):   db.orders_legacy.find({},{schemaVersion:1}).sort({schemaVersion:1})");
     }
 
     // ═══════════════════════════════════════════════════════════════════════
-    // PRODUCT SCHEMA VERSIONS
+    // PRODUCT SCHEMA VERSIONS  (written to products_legacy)
     // ═══════════════════════════════════════════════════════════════════════
 
     private void seedLegacyProducts() {
         // ── Version 1 ──────────────────────────────────────────────────────
-        // Original schema: only name, price, category. No inventory, no sku,
-        // no description, no schemaVersion field.
-        // This is what the products collection looked like at launch.
+        // Original schema: only name, price, category.
+        // No inventory, no sku, no description, no schemaVersion field.
+        // Teaching point: this would FAIL the current JSON Schema validation
+        // on the live products collection — that's the evolution story!
         Document productV1 = new Document()
             .append("_id", "legacy-prod-v1-001")
-            .append("name", "Laptop Pro 15 [v1 Legacy]")
+            .append("name", "Laptop Pro 15")
             .append("price", 1299.99)
             .append("category", "Electronics");
-        // Note: no schemaVersion, no inventory, no sku, no description
+        // Intentionally missing: schemaVersion, inventory, sku, description
 
         // ── Version 2 ──────────────────────────────────────────────────────
         // Added inventory tracking, SKU, and description.
-        // Products now support the AI search features.
+        // This matches what the current products collection requires.
         Document productV2 = new Document()
             .append("_id", "legacy-prod-v2-001")
             .append("schemaVersion", 2)
-            .append("name", "Laptop Pro 15 [v2 Legacy]")
+            .append("name", "Laptop Pro 15")
             .append("description", "High-performance laptop for professionals")
             .append("price", 1299.99)
             .append("category", "Electronics")
             .append("inventory", 50)
             .append("sku", "LAPTOP-V2-001");
 
-        // ── Version 2 with Polymorphic Details (current) ───────────────────
-        // Type-specific fields moved into nested detail objects.
-        // This is the current default for new products.
-        // (Already created via the API — this is just for completeness.)
+        // ── Version 2 with Polymorphic Details (current shape) ─────────────
+        // Type-specific fields now grouped into nested detail objects.
+        // New products look like this in the live collection.
+        Document productV2Polymorphic = new Document()
+            .append("_id", "legacy-prod-v2-poly-001")
+            .append("schemaVersion", 2)
+            .append("type", "Electronics")
+            .append("name", "Laptop Pro 15")
+            .append("description", "High-performance laptop for professionals")
+            .append("price", 1299.99)
+            .append("category", "Electronics")
+            .append("inventory", 50)
+            .append("sku", "LAPTOP-POLY-001")
+            .append("electronicsDetails", new Document()
+                .append("warranty", "2 years")
+                .append("brand", "TechCorp")
+                .append("weight", "1.8 kg")
+                .append("screenSize", "15.6 inch"));
 
-        insertIfAbsent("products", productV1, "legacy-prod-v1-001");
-        insertIfAbsent("products", productV2, "legacy-prod-v2-001");
+        insertIfAbsent(PRODUCTS_LEGACY, productV1,          "legacy-prod-v1-001");
+        insertIfAbsent(PRODUCTS_LEGACY, productV2,          "legacy-prod-v2-001");
+        insertIfAbsent(PRODUCTS_LEGACY, productV2Polymorphic, "legacy-prod-v2-poly-001");
 
-        logger.info("   Inserted product v1 (no schemaVersion field) and v2 (schemaVersion: 2)");
+        logger.info("   products_legacy: v1 (bare schema), v2 (+ inventory/sku), v2-poly (+ nested details)");
     }
 
     // ═══════════════════════════════════════════════════════════════════════
-    // ORDER SCHEMA VERSIONS
+    // ORDER SCHEMA VERSIONS  (written to orders_legacy)
     // ═══════════════════════════════════════════════════════════════════════
 
     private void seedLegacyOrders() {
@@ -115,25 +142,28 @@ public class DemoDataSeeder implements CommandLineRunner {
 
         // ── Version 1 ──────────────────────────────────────────────────────
         // Customer stored as a plain string — no reference, no ID.
-        // Simple embedding of items.
+        // Teaching point: changing price in the products collection wouldn't
+        // affect old orders, but there's no way to look up the customer record.
         Document orderV1 = new Document()
             .append("_id", "legacy-order-v1-001")
-            .append("customer", "John Doe")                // v1: plain string, no customerId
+            .append("customer", "John Doe")            // v1: plain string (no customerId)
             .append("orderDate", now)
             .append("items", List.of(
-                new Document("name", "Laptop Pro 15").append("price", 1299.99).append("quantity", 1)
+                new Document("name", "Laptop Pro 15")
+                    .append("price", 1299.99)
+                    .append("quantity", 1)
             ))
             .append("total", 1299.99);
-        // Note: no schemaVersion, no customerId, customer is a string
+        // No schemaVersion, no customerId, customer is a bare string
 
         // ── Version 2 ──────────────────────────────────────────────────────
-        // Introduced the Subset Pattern: store customerId (reference) AND
-        // customerName (denormalized copy) for fast display.
+        // Subset Pattern introduced: customerId (reference) + customerName
+        // (denormalized copy). Fast reads without a join, full data via ID.
         Document orderV2 = new Document()
             .append("_id", "legacy-order-v2-001")
             .append("schemaVersion", 2)
-            .append("customerId", "cust-legacy-001")       // v2: reference added
-            .append("customerName", "Jane Smith")           // v2: Subset Pattern — copy for fast reads
+            .append("customerId", "cust-legacy-001")   // v2: reference to Customer doc
+            .append("customerName", "Jane Smith")       // v2: Subset Pattern — copy for fast reads
             .append("orderDate", now)
             .append("items", List.of(
                 new Document("productId", "prod-001")
@@ -144,8 +174,8 @@ public class DemoDataSeeder implements CommandLineRunner {
             .append("total", 1299.99);
 
         // ── Version 3 ──────────────────────────────────────────────────────
-        // Added the Outlier Pattern: isLargeOrder flag to handle orders
-        // with 50+ items without hitting MongoDB's 16 MB document limit.
+        // Outlier Pattern introduced: isLargeOrder flag.
+        // Orders with 50+ items can now be flagged; 100+ items use buckets.
         Document orderV3 = new Document()
             .append("_id", "legacy-order-v3-001")
             .append("schemaVersion", 3)
@@ -158,20 +188,20 @@ public class DemoDataSeeder implements CommandLineRunner {
                     .append("price", 1299.99)
                     .append("quantity", 2)
             ))
-            .append("isLargeOrder", false)                 // v3: Outlier Pattern flag added
+            .append("isLargeOrder", false)             // v3: Outlier Pattern flag
             .append("total", 2599.98);
 
         // ── Version 4 (current) ────────────────────────────────────────────
-        // Added full Order Status Management: status field + statusHistory
-        // array for a complete, embedded audit trail.
+        // Status Management added: status field (denormalized) + statusHistory
+        // array (embedded audit trail). Single-document update = atomic.
         Document orderV4 = new Document()
             .append("_id", "legacy-order-v4-001")
             .append("schemaVersion", 4)
             .append("customerId", "cust-legacy-003")
             .append("customerName", "Bob Smith")
             .append("orderDate", now)
-            .append("status", "PENDING")                   // v4: current status (denormalized)
-            .append("statusHistory", List.of(              // v4: embedded audit trail
+            .append("status", "PENDING")               // v4: denormalized current status
+            .append("statusHistory", List.of(          // v4: embedded audit trail
                 new Document("fromStatus", null)
                     .append("toStatus", "PENDING")
                     .append("changedAt", now)
@@ -187,13 +217,12 @@ public class DemoDataSeeder implements CommandLineRunner {
             .append("isLargeOrder", false)
             .append("total", 1299.99);
 
-        insertIfAbsent("orders", orderV1, "legacy-order-v1-001");
-        insertIfAbsent("orders", orderV2, "legacy-order-v2-001");
-        insertIfAbsent("orders", orderV3, "legacy-order-v3-001");
-        insertIfAbsent("orders", orderV4, "legacy-order-v4-001");
+        insertIfAbsent(ORDERS_LEGACY, orderV1, "legacy-order-v1-001");
+        insertIfAbsent(ORDERS_LEGACY, orderV2, "legacy-order-v2-001");
+        insertIfAbsent(ORDERS_LEGACY, orderV3, "legacy-order-v3-001");
+        insertIfAbsent(ORDERS_LEGACY, orderV4, "legacy-order-v4-001");
 
-        logger.info("   Inserted order v1 (customer string), v2 (Subset Pattern),");
-        logger.info("   v3 (Outlier Pattern flag), and v4 (Status Management)");
+        logger.info("   orders_legacy: v1 (customer string), v2 (Subset), v3 (Outlier flag), v4 (Status)");
     }
 
     // ═══════════════════════════════════════════════════════════════════════

@@ -49,6 +49,7 @@ You'll see a beautiful, interactive API tester! 🎉
 - ✅ Get All Customers (GET)
 
 #### 📦 Products
+- ✅ Import Dataset (POST) - Bulk load `products-dataset.json` via file upload
 - ✅ Create Product (POST)
 - ✅ Get All Products (GET)
 - ✅ Create Electronics (POST) - Polymorphic Pattern
@@ -64,6 +65,16 @@ You'll see a beautiful, interactive API tester! 🎉
 ---
 
 ## 📖 How to Use
+
+### Step 0: Import the Product Dataset
+
+1. Click **"Import Dataset"** in the Products sidebar section
+2. Click **Choose File** and select `products-dataset.json` (included in the project root)
+3. Click **"🚀 Upload & Import"**
+4. You'll see `{ "imported": 222, "skipped": 0, "errors": [] }` — all 222 products loaded!
+
+> **Tip:** The import is idempotent — running it again reports the same products as `skipped` instead of creating duplicates.
+> **CLI alternative:** `./import-products.sh` does the same thing from the terminal.
 
 ### Step 1: Create a Customer
 
@@ -199,7 +210,7 @@ This web interface is **ideal for webinars and demos** because:
 
 1. **Start simple**: Create customers and products
 2. **See patterns**: Notice how data is structured
-3. **Create orders**: See embedding and subset patterns
+3. **Create orders**: See the embedding and subset patterns in action
 4. **Test polymorphism**: Create different product types
 5. **Try large orders**: Experience the Outlier Pattern
 6. **Explore responses**: Understand MongoDB document structure

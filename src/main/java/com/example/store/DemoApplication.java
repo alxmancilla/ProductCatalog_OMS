@@ -18,9 +18,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *   7. Outlier Pattern        — large orders (100+ items) split into buckets
  *   8. Transaction Pattern    — ACID transactions for inventory management
  *
- * Additional features: MongoDB Aggregation Framework analytics, AI-powered
- * natural language order creation (Grove API + LangGraph), and vector/hybrid
- * search via Voyage AI embeddings.
+ * Additional features: MongoDB Aggregation Framework analytics with the
+ * Aggregation Pipeline, and bulk product import via REST API.
  *
  * Entry point: http://localhost:8080 — opens the interactive web demo UI.
  */

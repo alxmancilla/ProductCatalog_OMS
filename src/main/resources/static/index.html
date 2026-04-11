@@ -350,6 +350,9 @@
                     <button class="nav-button" onclick="showEndpoint('createBook')">
                         <span class="method-badge method-post">POST</span> Create Book
                     </button>
+                    <button class="nav-button" onclick="showEndpoint('importProducts')">
+                        <span class="method-badge method-post">POST</span> Import Dataset
+                    </button>
                 </div>
 
                 <div class="nav-section">
@@ -491,7 +494,7 @@
                     <div class="info-box">
                         <h4>📋 General Product Type</h4>
                         <p>Creates a general product without type-specific detail objects. The <code>type: "General"</code> field indicates this is a generic product that doesn't require <code>electronicsDetails</code>, <code>clothingDetails</code>, or <code>bookDetails</code>.</p>
-                        <p style="margin-top: 8px;">The <code>description</code> field enables powerful fuzzy matching in the AI agent! 🤖</p>
+                        <p style="margin-top: 8px;">The <code>description</code> field is used for full-text search and product matching.</p>
                         <div style="margin-top: 10px;">
                             <span class="pattern-badge">🎭 Polymorphic Pattern</span>
                         </div>
@@ -564,7 +567,7 @@
                     <div class="info-box">
                         <h4>📋 Composition Pattern Example</h4>
                         <p>Electronics products use the <strong>Composition Pattern</strong> with nested <code>electronicsDetails</code> object containing: <code>warranty</code>, <code>brand</code>, <code>weight</code>, <code>screenSize</code>, <code>resolution</code>, and <code>capacity</code>.</p>
-                        <p style="margin-top: 8px;">The <code>description</code> field enables powerful fuzzy matching in the AI agent! 🤖</p>
+                        <p style="margin-top: 8px;">The <code>description</code> field is used for full-text search and product matching.</p>
                         <div style="margin-top: 10px;">
                             <span class="pattern-badge">🎭 Polymorphic Pattern</span>
                             <span class="pattern-badge">🧩 Composition Pattern</span>
@@ -618,7 +621,7 @@
                     <div class="info-box">
                         <h4>📋 Composition Pattern Example</h4>
                         <p>Clothing products use the <strong>Composition Pattern</strong> with nested <code>clothingDetails</code> object containing: <code>size</code>, <code>color</code>, and <code>material</code>.</p>
-                        <p style="margin-top: 8px;">The <code>description</code> field enables powerful fuzzy matching in the AI agent! 🤖</p>
+                        <p style="margin-top: 8px;">The <code>description</code> field is used for full-text search and product matching.</p>
                         <div style="margin-top: 10px;">
                             <span class="pattern-badge">🎭 Polymorphic Pattern</span>
                             <span class="pattern-badge">🧩 Composition Pattern</span>
@@ -669,7 +672,7 @@
                     <div class="info-box">
                         <h4>📋 Composition Pattern Example</h4>
                         <p>Book products use the <strong>Composition Pattern</strong> with nested <code>bookDetails</code> object containing: <code>author</code>, <code>isbn</code>, <code>pages</code>, <code>publisher</code>, and <code>language</code>.</p>
-                        <p style="margin-top: 8px;">The <code>description</code> field enables powerful fuzzy matching in the AI agent! 🤖</p>
+                        <p style="margin-top: 8px;">The <code>description</code> field is used for full-text search and product matching.</p>
                         <div style="margin-top: 10px;">
                             <span class="pattern-badge">🎭 Polymorphic Pattern</span>
                             <span class="pattern-badge">🧩 Composition Pattern</span>
@@ -709,6 +712,38 @@
                             <span id="createBookStatus" class="status-badge"></span>
                         </div>
                         <div id="createBookBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Import Products Dataset -->
+                <div id="importProducts" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-post">POST</span> Import Products Dataset</h2>
+                        <div class="endpoint-url">POST /products/import</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📂 Bulk Import from JSON File</h4>
+                        <p>Upload a JSON file containing an array of product objects. Products whose SKU already exists in the database are skipped automatically (idempotent — safe to run multiple times).</p>
+                        <p style="margin-top: 8px;">Accepts the same format as <code>products-dataset.json</code> (222 products included in this project).</p>
+                        <p style="margin-top: 8px;"><strong>CLI equivalent:</strong> <code>./import-products.sh</code></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Select JSON file:</label>
+                        <input type="file" id="importProductsFile" accept=".json" style="margin-top: 8px; padding: 8px; border: 1px solid #dee2e6; border-radius: 6px; width: 100%; cursor: pointer;">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="importProductsFromFile()">
+                        🚀 Upload &amp; Import
+                    </button>
+
+                    <div id="importProductsResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="importProductsStatus" class="status-badge"></span>
+                        </div>
+                        <div id="importProductsBody_response" class="response-body"></div>
                     </div>
                 </div>
 
@@ -1584,6 +1619,50 @@
             } catch (error) {
                 console.error('Error generating large order:', error);
                 alert('Error generating large order: ' + error.message);
+            }
+        }
+
+        // Import products from a JSON file via multipart upload
+        async function importProductsFromFile() {
+            const fileInput = document.getElementById('importProductsFile');
+            const responseSection = document.getElementById('importProductsResponse');
+            const statusBadge = document.getElementById('importProductsStatus');
+            const responseBody = document.getElementById('importProductsBody_response');
+
+            if (!fileInput.files || fileInput.files.length === 0) {
+                alert('Please select a JSON file first.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            responseSection.classList.add('show');
+            statusBadge.textContent = 'Loading...';
+            statusBadge.className = 'status-badge';
+            responseBody.textContent = 'Uploading and importing...';
+
+            try {
+                const response = await fetch(`${API_BASE}/products/import`, {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    statusBadge.textContent = `${response.status} ${response.statusText}`;
+                    statusBadge.className = 'status-badge status-success';
+                } else {
+                    statusBadge.textContent = `${response.status} ${response.statusText}`;
+                    statusBadge.className = 'status-badge status-error';
+                }
+
+                responseBody.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                responseSection.classList.add('show');
+                statusBadge.textContent = 'Error';
+                statusBadge.className = 'status-badge status-error';
+                responseBody.textContent = `Error: ${error.message}\n\nMake sure the Spring Boot application is running on ${API_BASE}`;
             }
         }
 

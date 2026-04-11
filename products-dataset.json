@@ -1,20 +1,5 @@
 [
   {
-    "name": "Laptop Pro 15",
-    "description": "High-performance 15.6-inch laptop designed for professionals and power users. Features Intel Core i7-13700H processor (14 cores, up to 5.0GHz), 16GB DDR5 RAM, and 512GB NVMe SSD for lightning-fast performance. Stunning Full HD display with anti-glare coating. Backlit keyboard, fingerprint reader, and all-day battery life. Perfect for software development, video editing, and demanding applications. Includes USB-C, HDMI, and Thunderbolt 4 ports.",
-    "price": 1299.99,
-    "category": "Electronics",
-    "inventory": 50,
-    "type": "Electronics",
-    "sku": "LAPTOP-PRO15-SG",
-    "electronicsDetails": {
-      "warranty": "2 years",
-      "brand": "TechCorp",
-      "weight": "1.8 kg",
-      "screenSize": "15.6 inch"
-    }
-  },
-  {
     "name": "Laptop Air 13",
     "description": "Ultra-portable 13.3-inch laptop perfect for students and mobile professionals. Weighs only 1.2kg with sleek aluminum design. Intel Core i5 processor, 8GB RAM, 256GB SSD. Crystal-clear Full HD display. Up to 12 hours battery life for all-day productivity. Fast charging, Wi-Fi 6, and Bluetooth 5.0. Ideal for everyday computing, web browsing, and office work.",
     "price": 899.99,

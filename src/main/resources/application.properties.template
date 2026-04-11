@@ -57,52 +57,6 @@ logging.level.org.springframework.data.mongodb=DEBUG
 spring.jackson.default-property-inclusion=non_null
 
 # ============================================================================
-# AI AGENT CONFIGURATION (Grove API for OpenAI)
-# ============================================================================
-
-# Grove API key (required for AI Order Assistant)
-# Get your API key from your Grove API dashboard
-grove.api.key=<YOUR_GROVE_API_KEY>
-
-# Grove API URL (default is production endpoint)
-grove.api.url=https://grove-gateway-prod.azure-api.net/grove-foundry-prod/openai/v1
-
-# Model to use (gpt-5.4 recommended)
-grove.api.model=gpt-5.4
-
-# Temperature (0.0-1.0, lower = more deterministic, higher = more creative)
-grove.api.temperature=0.7
-
-# Max tokens in response
-grove.api.max-tokens=1000
-
-# Timeout in seconds
-grove.api.timeout-seconds=30
-
-# ============================================================================
-# VOYAGE AI CONFIGURATION (Embeddings for Hybrid Search)
-# ============================================================================
-
-# Voyage AI API key (required for vector embeddings)
-# Get your API key from https://www.voyageai.com/
-voyage.ai.key=YOUR_VOYAGE_AI_KEY_HERE
-
-# Voyage AI API URL (MongoDB Atlas endpoint for Voyage AI)
-voyage.ai.url=https://api.voyageai.com/v1
-
-# Embedding model to use (voyage-4-large is optimized for retrieval)
-voyage.ai.model=voyage-4-large
-
-# Input type for embeddings (document for indexing, query for searching)
-voyage.ai.input-type=document
-
-# Timeout in seconds
-voyage.ai.timeout-seconds=30
-
-# Generate embeddings for existing products on startup (set to true once, then false)
-generate.embeddings.enabled=false
-
-# ============================================================================
 # NOTES
 # ============================================================================
 #

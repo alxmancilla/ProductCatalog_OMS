@@ -2,6 +2,7 @@ package com.example.store.controller;
 
 import com.example.store.model.Product;
 import com.example.store.repository.ProductRepository;
+import com.example.store.service.ProductImportService;
 import com.example.store.service.ProductValidationService;
 import com.example.store.validation.ProductValidationException;
 import jakarta.validation.Valid;
@@ -9,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +36,7 @@ public class ProductController {
 
     private final ProductRepository productRepository;
     private final ProductValidationService productValidationService;
+    private final ProductImportService productImportService;
 
     /**
      * Create a new product.
@@ -87,6 +91,43 @@ public class ProductController {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
     
+    /**
+     * Bulk-import products from a JSON file.
+     * POST /products/import
+     *
+     * Accepts a multipart/form-data request with a "file" field containing
+     * a JSON array of product objects (same format as products-dataset.json).
+     * Products whose SKU already exists in the database are skipped.
+     *
+     * Example (curl):
+     *   curl -X POST http://localhost:8080/products/import \
+     *        -F "file=@products-dataset.json"
+     *
+     * Response:
+     * {
+     *   "imported": 222,
+     *   "skipped": 0,
+     *   "errors": []
+     * }
+     */
+    @PostMapping("/import")
+    public ResponseEntity<Map<String, Object>> importProducts(@RequestParam MultipartFile file) {
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "File is empty"));
+        }
+        try {
+            ProductImportService.ImportResult result = productImportService.importProducts(file.getInputStream());
+            Map<String, Object> response = new HashMap<>();
+            response.put("imported", result.imported());
+            response.put("skipped", result.skipped());
+            response.put("errors", result.errors());
+            HttpStatus status = result.errors().isEmpty() ? HttpStatus.OK : HttpStatus.MULTI_STATUS;
+            return new ResponseEntity<>(response, status);
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Failed to parse JSON file: " + e.getMessage()));
+        }
+    }
+
     /**
      * Get all products.
      * GET /products

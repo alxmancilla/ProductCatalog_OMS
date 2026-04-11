@@ -511,9 +511,7 @@ curl -X POST http://localhost:8080/orders/ORDER_ID/cancel \
    - `SCHEMA_PATTERNS_GUIDE.md` - All 8 design patterns
 4. 🧪 Run the automated test suite: `./test-oms-p0-features.sh` 🆕
 5. 🔍 Verify MongoDB indexes: `./verify-mongodb-indexes.sh` 🆕
-6. 📊 Try the AI Order Assistant (natural language orders!)
-7. 🔍 Explore MongoDB Hybrid Search with vector embeddings
-8. 🎨 Study the 8 design patterns in the code
+6. 🎨 Study the 8 design patterns in the code
 9. 🚀 Test the complete order lifecycle (create → modify → cancel) 🆕
 10. 📈 Explore advanced search features (date ranges, price filters) 🆕
 
@@ -556,7 +554,6 @@ Before the webinar:
   - `OrderUpdateService.java` (delta calculation logic) 🆕
   - `Order.java` (design patterns + status history) 🆕
   - `OrderController.java` (all OMS endpoints) 🆕
-  - `OrderCreatorService.java` (large order bucketing)
 - [ ] Test screen sharing setup
 - [ ] Load sample data (products + customers)
 - [ ] Have backup customer/product IDs ready
@@ -836,22 +833,7 @@ curl -X POST http://localhost:8080/orders/$ORDER_ID/cancel ...
 
 ---
 
-### 4. AI Order Assistant Demo 🤖
-```bash
-# Natural language order processing!
-curl -X POST http://localhost:8080/ai/order \
-  -H "Content-Type: application/json" \
-  -d '{"message": "I want 2 laptops for John Doe"}'
-```
-
-**Highlights:**
-- ✅ GPT-5.4 powered natural language understanding
-- ✅ MongoDB Hybrid Search (vector + text search)
-- ✅ Automatic customer resolution
-- ✅ Intelligent product matching
-- ✅ Inventory validation with helpful error messages
-
-### 5. Large Order Demo (Outlier Pattern)
+### 4. Large Order Demo (Outlier Pattern)
 ```bash
 # Use the web interface "Generate Large Order" button
 # Creates 150 items → 3 buckets automatically
@@ -894,13 +876,4 @@ db.products.find({ "type": "Clothing" })     // Has size, color, material
 db.products.find({ "type": "Book" })         // Has author, isbn, pages
 ```
 
-### 10. MongoDB Hybrid Search Demo 🔍
-```bash
-# Semantic search - understands meaning, not just keywords
-curl -X POST http://localhost:8080/ai/order \
-  -H "Content-Type: application/json" \
-  -d '{"message": "I need comfortable running shoes for Alice"}'
-
-# Matches "Athletic Sneakers" even though query said "running shoes"!
-```
 

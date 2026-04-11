@@ -178,6 +178,11 @@ GET /customers
 
 ### Products API
 
+#### Import Full Dataset (Recommended First Step)
+```bash
+POST /products/import          # multipart/form-data, field: file
+```
+
 #### Create a Product
 ```bash
 POST /products
@@ -220,6 +225,30 @@ GET /orders
 ### Option 2: curl Commands (Traditional)
 
 If you prefer command-line testing, here are the curl commands:
+
+#### 0. Import the Full Product Dataset (222 products)
+
+The fastest way to populate the database — idempotent and safe to re-run:
+
+```bash
+./import-products.sh
+```
+
+Or with curl directly:
+
+```bash
+curl -X POST http://localhost:8080/products/import \
+  -F "file=@products-dataset.json"
+```
+
+**Response:**
+```json
+{ "imported": 222, "skipped": 0, "errors": [] }
+```
+
+Products whose SKU already exists are counted as `skipped` instead of duplicated.
+
+---
 
 #### 1. Create a Customer
 

@@ -1,6 +1,6 @@
 # Product Catalog + Order Management System
 
-A production-quality demo application built with **Java 21**, **Spring Boot 3**, and **MongoDB 8** showcasing **8 MongoDB design patterns**, **ACID transactions**, **complete OMS P0 features**, and **AI-powered order processing** with an interactive web interface.
+A production-quality demo application built with **Java 21**, **Spring Boot 3**, and **MongoDB 8** showcasing **8 MongoDB design patterns**, **ACID transactions**, and **complete OMS P0 features** with an interactive web interface.
 
 > **Perfect for:** 15-minute webinars, MongoDB workshops, and teaching document database concepts
 > **NEW:** Full Order Management System with status tracking, search, updates, and cancellation! 🎉
@@ -37,12 +37,41 @@ This project demonstrates:
   7. **Outlier Pattern** ⭐ - Handling large arrays (100+ items) with bucketing
   8. **Transaction Pattern** 🆕 - ACID transactions for multi-document updates
 
+## 📦 Product Dataset Import
+
+Load all 222 products from `products-dataset.json` in one step — idempotent (safe to run multiple times):
+
+**CLI:**
+```bash
+./import-products.sh                        # localhost:8080, products-dataset.json
+./import-products.sh http://host:8080       # custom host
+./import-products.sh http://host:8080 /path/to/products.json
+```
+
+**curl:**
+```bash
+curl -X POST http://localhost:8080/products/import \
+     -F "file=@products-dataset.json"
+```
+
+**Web UI:** Products → **Import Dataset** → pick file → Upload & Import
+
+**Response:**
+```json
+{ "imported": 222, "skipped": 0, "errors": [] }
+```
+
+Products whose SKU already exists are skipped automatically.
+
+---
+
 ## 🚀 Order Management System (OMS) Features
 
 All **Priority 0 (P0)** features are fully implemented and tested:
 
 | Feature | Status | Endpoint | Description |
 |---------|--------|----------|-------------|
+| ✅ **Dataset Import** | Complete | `POST /products/import` | Bulk-load products from JSON file (CLI + UI) |
 | ✅ **Order Creation** | Complete | `POST /orders` | Create orders with inventory validation |
 | ✅ **Status Management** | Complete | `PUT /orders/{id}/status` | Update status with audit trail |
 | ✅ **Get by ID** | Complete | `GET /orders/{id}` | Retrieve order with all items |
@@ -99,53 +128,6 @@ curl http://localhost:8080/analytics/orders/revenue-by-status
 
 **See [`OrderAnalyticsController.java`](src/main/java/com/example/store/controller/OrderAnalyticsController.java) for detailed examples.**
 
-## 🤖 AI Order Assistant 🆕
-
-**Create orders using natural language with intelligent inventory validation!** Powered by LangGraph + Grove API (OpenAI GPT-5.4) + **MongoDB Hybrid Search** 🚀:
-
-```bash
-curl -X POST http://localhost:8080/ai/order \
-  -H "Content-Type: application/json" \
-  -d '{"message": "I want 2 laptops for John Doe"}'
-```
-
-**Success Response:**
-```json
-{
-  "success": true,
-  "message": "✅ Order created! Order #12345 for John Doe with 2 items. Total: $2599.98. Thank you!",
-  "orderId": "12345",
-  "total": "2599.98"
-}
-```
-
-**Insufficient Inventory Response:**
-```json
-{
-  "success": false,
-  "message": "I'm sorry, but we only have 5 'Laptop Pro 15' in stock, but you requested 100. Would you like to order 5 instead?"
-}
-```
-
-**Features:**
-- 🧠 Natural language processing with GPT-5.4
-- 🔄 LangGraph state machine orchestration
-- 🔍 **MongoDB Hybrid Search** 🆕 - Vector + Text search with Voyage AI embeddings
-- 🎯 **Semantic product matching** 🆕 - "running shoes" finds "athletic sneakers"
-- 👤 Automatic customer resolution
-- 📦 **Inventory validation with transactions** 🆕
-- 💬 **Intelligent error messages** 🆕
-- 📊 All 8 MongoDB patterns in action
-
-**Hybrid Search Benefits:**
-- ✅ Understands meaning, not just keywords
-- ✅ "comfortable running shoes" → "Athletic Sneakers"
-- ✅ "gift for developer" → "MongoDB Guide" book
-- ✅ Fallback to fuzzy matching if embeddings not available
-
-See **[AI_AGENT_GUIDE.md](AI_AGENT_GUIDE.md)** for complete documentation.
-See **[MONGODB_HYBRID_SEARCH_SETUP.md](MONGODB_HYBRID_SEARCH_SETUP.md)** for setup instructions.
-
 ## 🌐 Interactive Web Interface
 
 **No curl commands needed!** This demo includes a beautiful web interface to test all API endpoints:
@@ -181,7 +163,6 @@ http://localhost:8080
 - **[TRANSACTIONS_GUIDE.md](TRANSACTIONS_GUIDE.md)** 🆕 - ACID transactions for inventory management
 - **[OUTLIER_PATTERN_GUIDE.md](OUTLIER_PATTERN_GUIDE.md)** - Handling large arrays (100+ items)
 - **[PRODUCT_SCHEMA_VERSIONING.md](PRODUCT_SCHEMA_VERSIONING.md)** 🆕 - Product schema evolution (v1 → v2)
-- **[AI_AGENT_GUIDE.md](AI_AGENT_GUIDE.md)** 🤖 - Natural language order processing
 - **[DATA_MODELING_PRINCIPLE.md](DATA_MODELING_PRINCIPLE.md)** - Deep dive into "data together" principle
 - **[VALIDATION_ARCHITECTURE.md](VALIDATION_ARCHITECTURE.md)** - Defense-in-depth validation
 - **Code files** - All model classes have beginner-friendly comments
@@ -191,6 +172,7 @@ http://localhost:8080
 - **[PRESENTER_CHECKLIST.md](PRESENTER_CHECKLIST.md)** - Pre-webinar setup checklist
 - **[demo-commands.sh](demo-commands.sh)** - Automated demo script
 - **[test-transactions.sh](test-transactions.sh)** 🆕 - Transaction testing script
+- **[import-products.sh](import-products.sh)** - Bulk import products-dataset.json via API
 
 ## 🚀 Quick Start
 
@@ -250,6 +232,14 @@ mvn spring-boot:run
 
 The application starts on `http://localhost:8080`
 
+### 4. Import the Product Dataset
+
+```bash
+./import-products.sh   # loads all 222 products into MongoDB
+```
+
+Or open `http://localhost:8080` → Products → **Import Dataset** and upload `products-dataset.json`.
+
 ### ⚠️ Connection Issues?
 
 If you see MongoDB connection timeout errors, see **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** for solutions.
@@ -259,9 +249,6 @@ If you see MongoDB connection timeout errors, see **[TROUBLESHOOTING.md](TROUBLE
 ## 📚 Complete Documentation
 
 This project includes comprehensive documentation:
-
-### 🤖 AI Agent
-- **[AI_AGENT_GUIDE.md](AI_AGENT_GUIDE.md)** 🆕 - Natural language order assistant with LangGraph
 
 ### 📖 Core Documentation
 - **[README.md](README.md)** (this file) - Quick start and overview
@@ -298,29 +285,19 @@ src/main/java/com/example/store/
 │   └── OrderItemBucket.java   # Outlier pattern for large orders
 ├── repository/
 │   ├── CustomerRepository.java
-│   ├── ProductRepository.java
+│   ├── ProductRepository.java  # findBySku() for idempotent import
 │   ├── OrderRepository.java
 │   └── OrderItemBucketRepository.java
 ├── service/
+│   ├── ProductImportService.java     # Bulk JSON import (skips existing SKUs)
 │   └── OrderTransactionService.java  # 🆕 Transaction service
 ├── exception/
 │   ├── InsufficientInventoryException.java  # 🆕 Inventory errors
 │   └── ProductNotFoundException.java        # 🆕 Product errors
 ├── controller/
 │   ├── CustomerController.java
-│   ├── ProductController.java
+│   ├── ProductController.java  # POST /products/import endpoint
 │   └── OrderController.java   # Uses transactions
-├── ai/                        # 🤖 AI Agent
-│   ├── graph/
-│   │   └── OrderAssistantGraph.java  # LangGraph state machine
-│   ├── service/
-│   │   ├── IntentParserService.java
-│   │   ├── CustomerResolverService.java
-│   │   ├── ProductMatcherService.java
-│   │   ├── OrderCreatorService.java  # Uses transactions
-│   │   └── ResponseGeneratorService.java
-│   └── controller/
-│       └── AIOrderController.java
 ├── config/
 │   ├── MongoConfig.java       # 🆕 Transaction manager
 │   └── MongoSchemaValidation.java
@@ -328,6 +305,15 @@ src/main/java/com/example/store/
 ```
 
 ## 🧪 Quick Test
+
+### Import the Full Product Dataset
+```bash
+# Loads all 222 products — idempotent, safe to re-run
+./import-products.sh
+
+# Expected response:
+# { "imported": 222, "skipped": 0, "errors": [] }
+```
 
 ### Test Basic CRUD
 ```bash
@@ -408,21 +394,12 @@ curl -X POST http://localhost:8080/orders \
 # Returns 400 Bad Request with inventory error details
 ```
 
-### Test AI Agent 🤖
-```bash
-# Natural language order with inventory validation
-curl -X POST http://localhost:8080/ai/order \
-  -H "Content-Type: application/json" \
-  -d '{"message": "I want 2 laptops for John Doe"}'
-```
-
 ## 📖 Key Technologies
 
 - **Java 21** - Latest LTS version
 - **Spring Boot 3.2** - Application framework
 - **Spring Data MongoDB** - MongoDB integration with transaction support
 - **MongoDB 8** - Document database with ACID transactions
-- **Grove API (OpenAI GPT-5.4)** 🆕 - AI-powered natural language processing
 - **Lombok** - Reduce boilerplate code
 - **Maven** - Build tool
 

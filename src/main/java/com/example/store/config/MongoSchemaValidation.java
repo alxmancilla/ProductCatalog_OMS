@@ -203,9 +203,6 @@ public class MongoSchemaValidation implements CommandLineRunner {
                 .append("electronicsDetails", electronicsDetailsSchema)
                 .append("clothingDetails", clothingDetailsSchema)
                 .append("bookDetails", bookDetailsSchema)
-                .append("descriptionEmbedding", new Document()
-                    .append("bsonType", "array")
-                    .append("description", "Vector embedding for hybrid search"))
             )
             // Use oneOf to enforce type-specific validation
             .append("oneOf", java.util.Arrays.asList(

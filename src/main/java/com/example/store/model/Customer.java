@@ -48,5 +48,34 @@ public class Customer {
     private String email;                // Customer's email address
 
     private String phone;                // Customer's phone number
+
+    private CustomerTier tier;           // Customer tier: STANDARD, GOLD, PLATINUM
+
+    private Address address;             // Customer's address (embedded)
+
+    private java.util.Map<String, Object> metadata;  // Additional customer metadata
+
+    /**
+     * Customer tier enum
+     */
+    public enum CustomerTier {
+        STANDARD,
+        GOLD,
+        PLATINUM
+    }
+
+    /**
+     * Embedded address class
+     */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Address {
+        private String street;
+        private String city;
+        private String state;
+        private String zipCode;
+        private String country;
+    }
 }
 

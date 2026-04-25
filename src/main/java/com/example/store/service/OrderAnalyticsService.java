@@ -1,5 +1,6 @@
 package com.example.store.service;
 
+import com.example.store.dto.CustomerLifetimeValueDTO;
 import com.example.store.dto.DailyRevenueDTO;
 import com.example.store.dto.PopularProductDTO;
 import com.example.store.dto.RevenueByStatusDTO;
@@ -275,6 +276,143 @@ public class OrderAnalyticsService {
      * - Date range filtering
      * - Time-series data aggregation
      */
+    /**
+     * Get Customer Lifetime Value (CLV) for top N customers.
+     *
+     * ═══════════════════════════════════════════════════════════════════════
+     * 🎯 KEY TEACHING POINT: $lookup — MongoDB's JOIN equivalent
+     * ═══════════════════════════════════════════════════════════════════════
+     *
+     * MongoDB Aggregation Pipeline:
+     * [
+     *   { $match: { status: { $ne: "CANCELLED" } } },
+     *   { $group: {
+     *       _id: "$customerId",
+     *       customerName:   { $first: "$customerName" },
+     *       totalSpent:     { $sum:   "$total" },
+     *       orderCount:     { $sum:   1 },
+     *       avgOrderValue:  { $avg:   "$total" },
+     *       firstOrderDate: { $min:   "$orderDate" },
+     *       lastOrderDate:  { $max:   "$orderDate" }
+     *   }},
+     *   { $lookup: {
+     *       from:         "customers",
+     *       localField:   "_id",           ← customerId after $group
+     *       foreignField: "_id",           ← customer document _id
+     *       as:           "customerDetails"
+     *   }},
+     *   { $addFields: { email: { $first: "$customerDetails.email" } } },
+     *   { $project:   { customerDetails: 0 } },
+     *   { $sort:      { totalSpent: -1 } },
+     *   { $limit:     limit }
+     * ]
+     *
+     * SQL Equivalent:
+     * SELECT o.customerId,
+     *        o.customerName,
+     *        c.email,
+     *        SUM(o.total)  AS totalSpent,
+     *        COUNT(*)      AS orderCount,
+     *        AVG(o.total)  AS avgOrderValue,
+     *        MIN(o.orderDate) AS firstOrderDate,
+     *        MAX(o.orderDate) AS lastOrderDate
+     * FROM orders  o
+     * JOIN customers c ON o.customerId = c._id
+     * WHERE o.status != 'CANCELLED'
+     * GROUP BY o.customerId, o.customerName, c.email
+     * ORDER BY totalSpent DESC
+     * LIMIT :limit
+     *
+     * Note: Because of the Subset Pattern (customerName is already stored in
+     * orders), the $group stage needs NO join to compute CLV.  The $lookup is
+     * only needed to add the customer's email — a great demonstration of how
+     * denormalization reduces join complexity.
+     */
+    public List<CustomerLifetimeValueDTO> getCustomerLifetimeValue(int limit) {
+        List<Document> pipeline = List.of(
+            // Stage 1: Exclude cancelled orders from lifetime value
+            new Document("$match", new Document("status",
+                new Document("$ne", "CANCELLED"))),
+
+            // Stage 2: Group by customer — accumulate CLV metrics
+            new Document("$group", new Document()
+                .append("_id", "$customerId")
+                .append("customerName",   new Document("$first", "$customerName"))
+                .append("totalSpent",     new Document("$sum",   "$total"))
+                .append("orderCount",     new Document("$sum",   1))
+                .append("avgOrderValue",  new Document("$avg",   "$total"))
+                .append("firstOrderDate", new Document("$min",   "$orderDate"))
+                .append("lastOrderDate",  new Document("$max",   "$orderDate"))
+            ),
+
+            // Stage 3: $lookup — join customers collection to get email
+            // localField "_id" is the customerId (renamed by $group)
+            new Document("$lookup", new Document()
+                .append("from",         "customers")
+                .append("localField",   "_id")
+                .append("foreignField", "_id")
+                .append("as",          "customerDetails")
+            ),
+
+            // Stage 4: Extract email from the joined array
+            new Document("$addFields", new Document()
+                .append("email", new Document("$first", "$customerDetails.email"))
+            ),
+
+            // Stage 5: Drop the full customerDetails array (keep only email)
+            new Document("$project", new Document("customerDetails", 0)),
+
+            // Stage 6: Sort by total lifetime spend descending
+            new Document("$sort", new Document("totalSpent", -1)),
+
+            // Stage 7: Limit to top N
+            new Document("$limit", limit)
+        );
+
+        List<Document> results = mongoTemplate.getCollection("orders")
+            .aggregate(pipeline)
+            .into(new java.util.ArrayList<>());
+
+        return results.stream()
+            .map(doc -> {
+                String customerId   = doc.getString("_id");
+                String customerName = doc.getString("customerName");
+                String email        = doc.getString("email");
+
+                Object spentObj = doc.get("totalSpent");
+                BigDecimal totalSpent = spentObj != null
+                    ? new BigDecimal(spentObj.toString()) : BigDecimal.ZERO;
+
+                Object avgObj = doc.get("avgOrderValue");
+                BigDecimal avgOrderValue = avgObj != null
+                    ? new BigDecimal(avgObj.toString()).setScale(2, RoundingMode.HALF_UP)
+                    : BigDecimal.ZERO;
+
+                Long orderCount = ((Number) doc.get("orderCount")).longValue();
+
+                // Convert Date → "YYYY-MM-DD" string for clean JSON output
+                java.util.Date firstDate = (java.util.Date) doc.get("firstOrderDate");
+                java.util.Date lastDate  = (java.util.Date) doc.get("lastOrderDate");
+                String firstOrderDate = firstDate != null
+                    ? firstDate.toInstant()
+                        .atZone(java.time.ZoneId.systemDefault())
+                        .toLocalDate().toString()
+                    : null;
+                String lastOrderDate = lastDate != null
+                    ? lastDate.toInstant()
+                        .atZone(java.time.ZoneId.systemDefault())
+                        .toLocalDate().toString()
+                    : null;
+
+                return new CustomerLifetimeValueDTO(
+                    customerId, customerName, email,
+                    totalSpent, orderCount, avgOrderValue,
+                    firstOrderDate, lastOrderDate
+                );
+            })
+            .collect(Collectors.toList());
+    }
+
     public List<DailyRevenueDTO> getDailyRevenueTrends(int days) {
         LocalDateTime startDate = LocalDateTime.now().minusDays(days);
 

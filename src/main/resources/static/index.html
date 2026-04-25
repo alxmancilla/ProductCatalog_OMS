@@ -404,6 +404,19 @@
                 </div>
 
                 <div class="nav-section">
+                    <h3>🔒 Inventory Reservations</h3>
+                    <button class="nav-button" onclick="showEndpoint('reserveInventory')">
+                        <span class="method-badge method-post">POST</span> Reserve Inventory
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('checkAvailability')">
+                        <span class="method-badge method-get">GET</span> Check Availability
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('releaseReservation')">
+                        <span class="method-badge method-delete">DELETE</span> Release Reservation
+                    </button>
+                </div>
+
+                <div class="nav-section">
                     <h3>📊 Analytics</h3>
                     <button class="nav-button" onclick="showEndpoint('revenueByStatus')">
                         <span class="method-badge method-get">GET</span> Revenue by Status
@@ -416,6 +429,9 @@
                     </button>
                     <button class="nav-button" onclick="showEndpoint('dailyRevenue')">
                         <span class="method-badge method-get">GET</span> Daily Revenue
+                    </button>
+                    <button class="nav-button" onclick="showEndpoint('customerLifetimeValue')">
+                        <span class="method-badge method-get">GET</span> Customer Lifetime Value
                     </button>
                 </div>
             </div>
@@ -1474,6 +1490,130 @@
                     </div>
                 </div>
 
+                <!-- ═══════════════════════════════════════════════════════ -->
+                <!-- INVENTORY RESERVATIONS                              -->
+                <!-- ═══════════════════════════════════════════════════ -->
+
+                <!-- Reserve Inventory -->
+                <div id="reserveInventory" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-post">POST</span> Reserve Inventory</h2>
+                        <div class="endpoint-url">POST /inventory/reserve</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>🔒 MongoDB TTL Index — Auto-Expiring Documents</h4>
+                        <p>Places a temporary hold on product stock. The reservation document is stored in <code>inventory_reservations</code> with an <code>expiresAt</code> timestamp. MongoDB's TTL index deletes it automatically when that time passes — <strong>no background job or cron needed</strong>.</p>
+                        <p style="margin-top: 8px;">This is impossible in SQL without a scheduled task. MongoDB makes it a native index feature.</p>
+                        <p style="margin-top: 8px;"><strong>Available inventory</strong> = <code>product.inventory</code> − <code>SUM(active reservation quantities)</code></p>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">⏰ TTL Index</span>
+                            <span class="pattern-badge">🔒 Inventory Hold</span>
+                        </div>
+                    </div>
+
+                    <div class="example-section">
+                        <h4>🔧 TTL Index Definition (MongoDB Shell)</h4>
+                        <pre style="background:#1e1e1e;color:#d4d4d4;padding:12px;border-radius:6px;font-size:12px;overflow-x:auto;">db.inventory_reservations.createIndex(
+  { "expiresAt": 1 },
+  { expireAfterSeconds: 0 }  // delete when expiresAt is reached
+)</pre>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Request Body (JSON):</label>
+                        <textarea id="reserveInventoryBody">{
+  "productId":    "PASTE_PRODUCT_ID_HERE",
+  "quantity":     2,
+  "customerId":   "optional-customer-id",
+  "customerName": "Alice Johnson",
+  "holdMinutes":  15
+}</textarea>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('reserveInventory')">
+                        🚀 Send Request
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetForm('reserveInventory')">
+                        🔄 Reset
+                    </button>
+
+                    <div id="reserveInventoryResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="reserveInventoryStatus" class="status-badge"></span>
+                        </div>
+                        <div id="reserveInventoryBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Check Availability -->
+                <div id="checkAvailability" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-get">GET</span> Check Availability</h2>
+                        <div class="endpoint-url">GET /inventory/{productId}/availability</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>📦 Real-Time Available Inventory</h4>
+                        <p>Returns the live available stock for a product, accounting for all active reservations. Expired reservations are automatically excluded because MongoDB's TTL index has already removed those documents.</p>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">⏰ TTL Index</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Product ID:</label>
+                        <input type="text" id="checkAvailabilityId" placeholder="Paste a product ID here">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('checkAvailability')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="checkAvailabilityResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="checkAvailabilityStatus" class="status-badge"></span>
+                        </div>
+                        <div id="checkAvailabilityBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
+                <!-- Release Reservation -->
+                <div id="releaseReservation" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-delete">DELETE</span> Release Reservation</h2>
+                        <div class="endpoint-url">DELETE /inventory/reservations/{id}</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>🔓 Explicit Early Release</h4>
+                        <p>Frees a hold immediately (e.g., customer cancels checkout). The TTL index would eventually delete it anyway, but explicit release makes the inventory available right away.</p>
+                        <p style="margin-top: 8px;">Returns <strong>204 No Content</strong> on success. Returns <strong>404</strong> if the reservation has already expired or been released.</p>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">⏰ TTL Index</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Reservation ID (from Reserve response):</label>
+                        <input type="text" id="releaseReservationId" placeholder="Paste reservationId here">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('releaseReservation')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="releaseReservationResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="releaseReservationStatus" class="status-badge"></span>
+                        </div>
+                        <div id="releaseReservationBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
                 <!-- Daily Revenue Analytics -->
                 <div id="dailyRevenue" class="endpoint-section">
                     <div class="endpoint-header">
@@ -1520,6 +1660,66 @@
                     </div>
                 </div>
 
+                <!-- Customer Lifetime Value Analytics -->
+                <div id="customerLifetimeValue" class="endpoint-section">
+                    <div class="endpoint-header">
+                        <h2><span class="method-badge method-get">GET</span> Customer Lifetime Value</h2>
+                        <div class="endpoint-url">GET /analytics/customers/lifetime-value?limit=10</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4>💰 CLV with $lookup — MongoDB's JOIN Equivalent</h4>
+                        <p>Calculates Customer Lifetime Value by aggregating order history, then enriches the result with customer email via <code>$lookup</code> — MongoDB's cross-collection join stage.</p>
+                        <p style="margin-top: 8px;"><strong>Key insight:</strong> Because the Subset Pattern stores <code>customerName</code> directly in orders, the <code>$group</code> stage computes CLV without any join. The <code>$lookup</code> is only needed for <code>email</code> — demonstrating how denormalization minimises join complexity.</p>
+                        <div style="margin-top: 10px;">
+                            <span class="pattern-badge">🔗 $lookup (JOIN)</span>
+                            <span class="pattern-badge">🧮 Computed Pattern</span>
+                            <span class="pattern-badge">🗂️ Subset Pattern</span>
+                        </div>
+                    </div>
+
+                    <div class="example-section">
+                        <h4>🔧 Aggregation Pipeline (MongoDB Shell)</h4>
+                        <pre style="background:#1e1e1e;color:#d4d4d4;padding:12px;border-radius:6px;font-size:12px;overflow-x:auto;">db.orders.aggregate([
+  { $match: { status: { $ne: "CANCELLED" } } },
+  { $group: {
+      _id:           "$customerId",
+      customerName:  { $first: "$customerName" },  // Subset Pattern!
+      totalSpent:    { $sum:   "$total" },
+      orderCount:    { $sum:   1 },
+      avgOrderValue: { $avg:   "$total" },
+      firstOrder:    { $min:   "$orderDate" },
+      lastOrder:     { $max:   "$orderDate" }
+  }},
+  { $lookup: {                    // JOIN customers → get email
+      from: "customers", localField: "_id",
+      foreignField: "_id", as: "customerDetails"
+  }},
+  { $addFields: { email: { $first: "$customerDetails.email" } } },
+  { $project: { customerDetails: 0 } },
+  { $sort: { totalSpent: -1 } },
+  { $limit: 10 }
+])</pre>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Number of customers to return (default: 10):</label>
+                        <input type="number" id="customerLifetimeValueLimit" value="10" placeholder="Limit">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="executeRequest('customerLifetimeValue')">
+                        🚀 Send Request
+                    </button>
+
+                    <div id="customerLifetimeValueResponse" class="response-section">
+                        <div class="response-header">
+                            <h3>Response</h3>
+                            <span id="customerLifetimeValueStatus" class="status-badge"></span>
+                        </div>
+                        <div id="customerLifetimeValueBody_response" class="response-body"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -1558,7 +1758,8 @@
             createLargeOrder: '{\n  "customerId": "PASTE_CUSTOMER_ID_HERE",\n  "customerName": "Alice Johnson",\n  "items": [\n    {"productId": "prod1", "name": "Item 1", "price": 10.00, "quantity": 1},\n    {"productId": "prod2", "name": "Item 2", "price": 10.00, "quantity": 1},\n    {"productId": "prod3", "name": "Item 3", "price": 10.00, "quantity": 1}\n  ]\n}',
             updateOrderStatus: '{\n  "newStatus": "CONFIRMED",\n  "changedBy": "admin@example.com",\n  "reason": "Payment confirmed",\n  "metadata": {\n    "paymentId": "pay_12345",\n    "paymentMethod": "credit_card",\n    "paymentAmount": 1329.98\n  }\n}',
             updateOrderItems: '{\n  "items": [\n    {\n      "productId": "PASTE_PRODUCT_ID_HERE",\n      "name": "Gaming Laptop Pro",\n      "price": 1599.99,\n      "quantity": 3\n    },\n    {\n      "productId": "PASTE_PRODUCT_ID_HERE",\n      "name": "Wireless Mouse",\n      "price": 29.99,\n      "quantity": 1\n    }\n  ],\n  "updatedBy": "customer@example.com",\n  "reason": "Customer modified order",\n  "metadata": {\n    "source": "web",\n    "changeType": "modify"\n  }\n}',
-            cancelOrder: '{\n  "cancelledBy": "customer@example.com",\n  "reason": "Customer requested cancellation",\n  "metadata": {\n    "refundId": "ref_12345",\n    "refundAmount": 1329.98,\n    "supportTicketId": "ticket_67890",\n    "refundMethod": "credit_card"\n  }\n}'
+            cancelOrder: '{\n  "cancelledBy": "customer@example.com",\n  "reason": "Customer requested cancellation",\n  "metadata": {\n    "refundId": "ref_12345",\n    "refundAmount": 1329.98,\n    "supportTicketId": "ticket_67890",\n    "refundMethod": "credit_card"\n  }\n}',
+            reserveInventory: '{\n  "productId":    "PASTE_PRODUCT_ID_HERE",\n  "quantity":     2,\n  "customerId":   "optional-customer-id",\n  "customerName": "Alice Johnson",\n  "holdMinutes":  15\n}'
         };
 
         // Reset form to default
@@ -1828,6 +2029,38 @@
                     method = 'GET';
                     break;
 
+                case 'customerLifetimeValue':
+                    const clvLimit = document.getElementById('customerLifetimeValueLimit').value || 10;
+                    url = `${API_BASE}/analytics/customers/lifetime-value?limit=${clvLimit}`;
+                    method = 'GET';
+                    break;
+
+                case 'reserveInventory':
+                    url = `${API_BASE}/inventory/reserve`;
+                    method = 'POST';
+                    body = document.getElementById('reserveInventoryBody').value;
+                    break;
+
+                case 'checkAvailability':
+                    const availabilityProductId = document.getElementById('checkAvailabilityId').value;
+                    if (!availabilityProductId) {
+                        alert('Please enter a Product ID');
+                        return;
+                    }
+                    url = `${API_BASE}/inventory/${availabilityProductId}/availability`;
+                    method = 'GET';
+                    break;
+
+                case 'releaseReservation':
+                    const releaseId = document.getElementById('releaseReservationId').value;
+                    if (!releaseId) {
+                        alert('Please enter a Reservation ID');
+                        return;
+                    }
+                    url = `${API_BASE}/inventory/reservations/${releaseId}`;
+                    method = 'DELETE';
+                    break;
+
                 default:
                     console.error('Unknown endpoint:', endpointId);
                     return;
@@ -1857,7 +2090,11 @@
                 }
 
                 const response = await fetch(url, options);
-                const data = await response.json();
+                // 204 No Content has no body — parse JSON only when content exists
+                const contentType = response.headers.get('content-type') || '';
+                const data = (response.status !== 204 && contentType.includes('application/json'))
+                    ? await response.json()
+                    : null;
 
                 // Update UI with response
                 if (response.ok) {
@@ -1868,7 +2105,9 @@
                     statusBadge.className = 'status-badge status-error';
                 }
 
-                responseBody.textContent = JSON.stringify(data, null, 2);
+                responseBody.textContent = data !== null
+                    ? JSON.stringify(data, null, 2)
+                    : '(empty response body)';
 
             } catch (error) {
                 const responseSection = document.getElementById(endpointId + 'Response');

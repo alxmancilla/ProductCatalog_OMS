@@ -1,0 +1,2144 @@
+[
+  {
+    "name": "MacBook Pro 16\" M3 Max",
+    "description": "Apple MacBook Pro 16\" M3 Max - Premium quality laptops",
+    "price": 3499.0,
+    "inventory": 189,
+    "sku": "LAP-0001",
+    "productType": "ELECTRONICS",
+    "category": "Laptops",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Apple",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Dell XPS 15 9530",
+    "description": "Dell Dell XPS 15 9530 - Premium quality laptops",
+    "price": 2799.0,
+    "inventory": 160,
+    "sku": "LAP-0002",
+    "productType": "ELECTRONICS",
+    "category": "Laptops",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Dell",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Lenovo ThinkPad X1 Carbon Gen 11",
+    "description": "Lenovo Lenovo ThinkPad X1 Carbon Gen 11 - Premium quality laptops",
+    "price": 1899.0,
+    "inventory": 169,
+    "sku": "LAP-0003",
+    "productType": "ELECTRONICS",
+    "category": "Laptops",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Lenovo",
+      "warranty": "36 months"
+    }
+  },
+  {
+    "name": "ASUS ROG Zephyrus G14",
+    "description": "ASUS ASUS ROG Zephyrus G14 - Premium quality laptops",
+    "price": 1699.0,
+    "inventory": 70,
+    "sku": "LAP-0004",
+    "productType": "ELECTRONICS",
+    "category": "Laptops",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "ASUS",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "HP Spectre x360 14",
+    "description": "HP HP Spectre x360 14 - Premium quality laptops",
+    "price": 1599.0,
+    "inventory": 41,
+    "sku": "LAP-0005",
+    "productType": "ELECTRONICS",
+    "category": "Laptops",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "HP",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Microsoft Surface Laptop 5",
+    "description": "Microsoft Microsoft Surface Laptop 5 - Premium quality laptops",
+    "price": 1299.0,
+    "inventory": 93,
+    "sku": "LAP-0006",
+    "productType": "ELECTRONICS",
+    "category": "Laptops",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Microsoft",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Acer Swift 3",
+    "description": "Acer Acer Swift 3 - Premium quality laptops",
+    "price": 799.0,
+    "inventory": 193,
+    "sku": "LAP-0007",
+    "productType": "ELECTRONICS",
+    "category": "Laptops",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Acer",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "LG Gram 17",
+    "description": "LG LG Gram 17 - Premium quality laptops",
+    "price": 1699.0,
+    "inventory": 195,
+    "sku": "LAP-0008",
+    "productType": "ELECTRONICS",
+    "category": "Laptops",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "LG",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "iPhone 15 Pro Max 256GB",
+    "description": "Apple iPhone 15 Pro Max 256GB - Premium quality smartphones",
+    "price": 1199.0,
+    "inventory": 175,
+    "sku": "SMA-0009",
+    "productType": "ELECTRONICS",
+    "category": "Smartphones",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Apple",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Samsung Galaxy S24 Ultra 512GB",
+    "description": "Samsung Samsung Galaxy S24 Ultra 512GB - Premium quality smartphones",
+    "price": 1299.0,
+    "inventory": 120,
+    "sku": "SMA-0010",
+    "productType": "ELECTRONICS",
+    "category": "Smartphones",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Samsung",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Google Pixel 8 Pro 256GB",
+    "description": "Google Google Pixel 8 Pro 256GB - Premium quality smartphones",
+    "price": 999.0,
+    "inventory": 34,
+    "sku": "SMA-0011",
+    "productType": "ELECTRONICS",
+    "category": "Smartphones",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Google",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "OnePlus 12 256GB",
+    "description": "OnePlus OnePlus 12 256GB - Premium quality smartphones",
+    "price": 799.0,
+    "inventory": 80,
+    "sku": "SMA-0012",
+    "productType": "ELECTRONICS",
+    "category": "Smartphones",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "OnePlus",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "iPhone 14 128GB",
+    "description": "Apple iPhone 14 128GB - Premium quality smartphones",
+    "price": 799.0,
+    "inventory": 100,
+    "sku": "SMA-0013",
+    "productType": "ELECTRONICS",
+    "category": "Smartphones",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Apple",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Samsung Galaxy A54",
+    "description": "Samsung Samsung Galaxy A54 - Premium quality smartphones",
+    "price": 449.0,
+    "inventory": 83,
+    "sku": "SMA-0014",
+    "productType": "ELECTRONICS",
+    "category": "Smartphones",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Samsung",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Motorola Edge 40",
+    "description": "Motorola Motorola Edge 40 - Premium quality smartphones",
+    "price": 599.0,
+    "inventory": 27,
+    "sku": "SMA-0015",
+    "productType": "ELECTRONICS",
+    "category": "Smartphones",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Motorola",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Xiaomi 13 Pro",
+    "description": "Xiaomi Xiaomi 13 Pro - Premium quality smartphones",
+    "price": 899.0,
+    "inventory": 35,
+    "sku": "SMA-0016",
+    "productType": "ELECTRONICS",
+    "category": "Smartphones",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Xiaomi",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "iPad Pro 12.9\" M2 256GB",
+    "description": "Apple iPad Pro 12.9\" M2 256GB - Premium quality tablets",
+    "price": 1099.0,
+    "inventory": 110,
+    "sku": "TAB-0017",
+    "productType": "ELECTRONICS",
+    "category": "Tablets",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Apple",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Samsung Galaxy Tab S9 Ultra",
+    "description": "Samsung Samsung Galaxy Tab S9 Ultra - Premium quality tablets",
+    "price": 1199.0,
+    "inventory": 146,
+    "sku": "TAB-0018",
+    "productType": "ELECTRONICS",
+    "category": "Tablets",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Samsung",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Microsoft Surface Pro 9",
+    "description": "Microsoft Microsoft Surface Pro 9 - Premium quality tablets",
+    "price": 1299.0,
+    "inventory": 129,
+    "sku": "TAB-0019",
+    "productType": "ELECTRONICS",
+    "category": "Tablets",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Microsoft",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "iPad Air M1 64GB",
+    "description": "Apple iPad Air M1 64GB - Premium quality tablets",
+    "price": 599.0,
+    "inventory": 129,
+    "sku": "TAB-0020",
+    "productType": "ELECTRONICS",
+    "category": "Tablets",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Apple",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Amazon Fire HD 10",
+    "description": "Amazon Amazon Fire HD 10 - Premium quality tablets",
+    "price": 149.0,
+    "inventory": 180,
+    "sku": "TAB-0021",
+    "productType": "ELECTRONICS",
+    "category": "Tablets",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Amazon",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Sony WH-1000XM5 Headphones",
+    "description": "Sony Sony WH-1000XM5 Headphones - Premium quality audio",
+    "price": 399.0,
+    "inventory": 129,
+    "sku": "AUD-0022",
+    "productType": "ELECTRONICS",
+    "category": "Audio",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Sony",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Bose QuietComfort Ultra",
+    "description": "Bose Bose QuietComfort Ultra - Premium quality audio",
+    "price": 429.0,
+    "inventory": 82,
+    "sku": "AUD-0023",
+    "productType": "ELECTRONICS",
+    "category": "Audio",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Bose",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "AirPods Pro 2nd Gen",
+    "description": "Apple AirPods Pro 2nd Gen - Premium quality audio",
+    "price": 249.0,
+    "inventory": 190,
+    "sku": "AUD-0024",
+    "productType": "ELECTRONICS",
+    "category": "Audio",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Apple",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Sennheiser Momentum 4",
+    "description": "Sennheiser Sennheiser Momentum 4 - Premium quality audio",
+    "price": 379.0,
+    "inventory": 27,
+    "sku": "AUD-0025",
+    "productType": "ELECTRONICS",
+    "category": "Audio",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Sennheiser",
+      "warranty": "24 months"
+    }
+  },
+  {
+    "name": "JBL Flip 6 Speaker",
+    "description": "JBL JBL Flip 6 Speaker - Premium quality audio",
+    "price": 129.0,
+    "inventory": 195,
+    "sku": "AUD-0026",
+    "productType": "ELECTRONICS",
+    "category": "Audio",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "JBL",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Sonos One Speaker",
+    "description": "Sonos Sonos One Speaker - Premium quality audio",
+    "price": 219.0,
+    "inventory": 62,
+    "sku": "AUD-0027",
+    "productType": "ELECTRONICS",
+    "category": "Audio",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Sonos",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Samsung Galaxy Buds 2 Pro",
+    "description": "Samsung Samsung Galaxy Buds 2 Pro - Premium quality audio",
+    "price": 229.0,
+    "inventory": 190,
+    "sku": "AUD-0028",
+    "productType": "ELECTRONICS",
+    "category": "Audio",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Samsung",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Dell UltraSharp 27\" 4K Monitor",
+    "description": "Dell Dell UltraSharp 27\" 4K Monitor - Premium quality monitors",
+    "price": 599.0,
+    "inventory": 87,
+    "sku": "MON-0029",
+    "productType": "ELECTRONICS",
+    "category": "Monitors",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Dell",
+      "warranty": "36 months"
+    }
+  },
+  {
+    "name": "LG UltraGear 34\" Gaming Monitor",
+    "description": "LG LG UltraGear 34\" Gaming Monitor - Premium quality monitors",
+    "price": 799.0,
+    "inventory": 181,
+    "sku": "MON-0030",
+    "productType": "ELECTRONICS",
+    "category": "Monitors",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "LG",
+      "warranty": "24 months"
+    }
+  },
+  {
+    "name": "Samsung Odyssey G7 32\"",
+    "description": "Samsung Samsung Odyssey G7 32\" - Premium quality monitors",
+    "price": 699.0,
+    "inventory": 173,
+    "sku": "MON-0031",
+    "productType": "ELECTRONICS",
+    "category": "Monitors",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Samsung",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "BenQ PD3220U 32\" 4K",
+    "description": "BenQ BenQ PD3220U 32\" 4K - Premium quality monitors",
+    "price": 1299.0,
+    "inventory": 123,
+    "sku": "MON-0032",
+    "productType": "ELECTRONICS",
+    "category": "Monitors",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "BenQ",
+      "warranty": "36 months"
+    }
+  },
+  {
+    "name": "ASUS ProArt 27\" Display",
+    "description": "ASUS ASUS ProArt 27\" Display - Premium quality monitors",
+    "price": 899.0,
+    "inventory": 103,
+    "sku": "MON-0033",
+    "productType": "ELECTRONICS",
+    "category": "Monitors",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "ASUS",
+      "warranty": "36 months"
+    }
+  },
+  {
+    "name": "Sony A7 IV Mirrorless Camera",
+    "description": "Sony Sony A7 IV Mirrorless Camera - Premium quality cameras",
+    "price": 2499.0,
+    "inventory": 37,
+    "sku": "CAM-0034",
+    "productType": "ELECTRONICS",
+    "category": "Cameras",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Sony",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Canon EOS R6 Mark II",
+    "description": "Canon Canon EOS R6 Mark II - Premium quality cameras",
+    "price": 2399.0,
+    "inventory": 25,
+    "sku": "CAM-0035",
+    "productType": "ELECTRONICS",
+    "category": "Cameras",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Canon",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Nikon Z6 III",
+    "description": "Nikon Nikon Z6 III - Premium quality cameras",
+    "price": 2199.0,
+    "inventory": 156,
+    "sku": "CAM-0036",
+    "productType": "ELECTRONICS",
+    "category": "Cameras",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Nikon",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "GoPro HERO 12 Black",
+    "description": "GoPro GoPro HERO 12 Black - Premium quality cameras",
+    "price": 399.0,
+    "inventory": 183,
+    "sku": "CAM-0037",
+    "productType": "ELECTRONICS",
+    "category": "Cameras",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "GoPro",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "DJI Mini 3 Pro Drone",
+    "description": "DJI DJI Mini 3 Pro Drone - Premium quality cameras",
+    "price": 759.0,
+    "inventory": 190,
+    "sku": "CAM-0038",
+    "productType": "ELECTRONICS",
+    "category": "Cameras",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "DJI",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Logitech MX Master 3S Mouse",
+    "description": "Logitech Logitech MX Master 3S Mouse - Premium quality accessories",
+    "price": 99.0,
+    "inventory": 20,
+    "sku": "ACC-0039",
+    "productType": "ELECTRONICS",
+    "category": "Accessories",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Logitech",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Keychron K8 Pro Keyboard",
+    "description": "Keychron Keychron K8 Pro Keyboard - Premium quality accessories",
+    "price": 119.0,
+    "inventory": 57,
+    "sku": "ACC-0040",
+    "productType": "ELECTRONICS",
+    "category": "Accessories",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Keychron",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Anker PowerCore 20000mAh",
+    "description": "Anker Anker PowerCore 20000mAh - Premium quality accessories",
+    "price": 49.0,
+    "inventory": 165,
+    "sku": "ACC-0041",
+    "productType": "ELECTRONICS",
+    "category": "Accessories",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Anker",
+      "warranty": "18 months"
+    }
+  },
+  {
+    "name": "Belkin 3-in-1 Wireless Charger",
+    "description": "Belkin Belkin 3-in-1 Wireless Charger - Premium quality accessories",
+    "price": 149.0,
+    "inventory": 171,
+    "sku": "ACC-0042",
+    "productType": "ELECTRONICS",
+    "category": "Accessories",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Belkin",
+      "warranty": "24 months"
+    }
+  },
+  {
+    "name": "SanDisk Extreme Pro 1TB SSD",
+    "description": "SanDisk SanDisk Extreme Pro 1TB SSD - Premium quality accessories",
+    "price": 179.0,
+    "inventory": 111,
+    "sku": "ACC-0043",
+    "productType": "ELECTRONICS",
+    "category": "Accessories",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "SanDisk",
+      "warranty": "60 months"
+    }
+  },
+  {
+    "name": "Seagate Backup Plus 5TB",
+    "description": "Seagate Seagate Backup Plus 5TB - Premium quality accessories",
+    "price": 129.0,
+    "inventory": 169,
+    "sku": "ACC-0044",
+    "productType": "ELECTRONICS",
+    "category": "Accessories",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Seagate",
+      "warranty": "24 months"
+    }
+  },
+  {
+    "name": "Razer DeathAdder V3 Mouse",
+    "description": "Razer Razer DeathAdder V3 Mouse - Premium quality accessories",
+    "price": 69.0,
+    "inventory": 28,
+    "sku": "ACC-0045",
+    "productType": "ELECTRONICS",
+    "category": "Accessories",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Razer",
+      "warranty": "24 months"
+    }
+  },
+  {
+    "name": "Blue Yeti USB Microphone",
+    "description": "Blue Blue Yeti USB Microphone - Premium quality accessories",
+    "price": 129.0,
+    "inventory": 78,
+    "sku": "ACC-0046",
+    "productType": "ELECTRONICS",
+    "category": "Accessories",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Blue",
+      "warranty": "24 months"
+    }
+  },
+  {
+    "name": "Elgato Stream Deck",
+    "description": "Elgato Elgato Stream Deck - Premium quality accessories",
+    "price": 149.0,
+    "inventory": 61,
+    "sku": "ACC-0047",
+    "productType": "ELECTRONICS",
+    "category": "Accessories",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Elgato",
+      "warranty": "24 months"
+    }
+  },
+  {
+    "name": "Wacom Intuos Pro Tablet",
+    "description": "Wacom Wacom Intuos Pro Tablet - Premium quality accessories",
+    "price": 379.0,
+    "inventory": 170,
+    "sku": "ACC-0048",
+    "productType": "ELECTRONICS",
+    "category": "Accessories",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Wacom",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Amazon Echo Dot 5th Gen",
+    "description": "Amazon Amazon Echo Dot 5th Gen - Premium quality smart home",
+    "price": 49.0,
+    "inventory": 178,
+    "sku": "SMA-0049",
+    "productType": "ELECTRONICS",
+    "category": "Smart Home",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Amazon",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Google Nest Hub Max",
+    "description": "Google Google Nest Hub Max - Premium quality smart home",
+    "price": 229.0,
+    "inventory": 185,
+    "sku": "SMA-0050",
+    "productType": "ELECTRONICS",
+    "category": "Smart Home",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Google",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Philips Hue Starter Kit",
+    "description": "Philips Philips Hue Starter Kit - Premium quality smart home",
+    "price": 199.0,
+    "inventory": 54,
+    "sku": "SMA-0051",
+    "productType": "ELECTRONICS",
+    "category": "Smart Home",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Philips",
+      "warranty": "24 months"
+    }
+  },
+  {
+    "name": "Ring Video Doorbell Pro 2",
+    "description": "Ring Ring Video Doorbell Pro 2 - Premium quality smart home",
+    "price": 249.0,
+    "inventory": 133,
+    "sku": "SMA-0052",
+    "productType": "ELECTRONICS",
+    "category": "Smart Home",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Ring",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Nest Learning Thermostat",
+    "description": "Google Nest Learning Thermostat - Premium quality smart home",
+    "price": 249.0,
+    "inventory": 175,
+    "sku": "SMA-0053",
+    "productType": "ELECTRONICS",
+    "category": "Smart Home",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Google",
+      "warranty": "24 months"
+    }
+  },
+  {
+    "name": "August Smart Lock Pro",
+    "description": "August August Smart Lock Pro - Premium quality smart home",
+    "price": 279.0,
+    "inventory": 72,
+    "sku": "SMA-0054",
+    "productType": "ELECTRONICS",
+    "category": "Smart Home",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "August",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Arlo Pro 4 Camera 2-Pack",
+    "description": "Arlo Arlo Pro 4 Camera 2-Pack - Premium quality smart home",
+    "price": 399.0,
+    "inventory": 33,
+    "sku": "SMA-0055",
+    "productType": "ELECTRONICS",
+    "category": "Smart Home",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Arlo",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "PlayStation 5 Slim",
+    "description": "Sony PlayStation 5 Slim - Premium quality gaming",
+    "price": 499.0,
+    "inventory": 31,
+    "sku": "GAM-0056",
+    "productType": "ELECTRONICS",
+    "category": "Gaming",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Sony",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Xbox Series X",
+    "description": "Microsoft Xbox Series X - Premium quality gaming",
+    "price": 499.0,
+    "inventory": 37,
+    "sku": "GAM-0057",
+    "productType": "ELECTRONICS",
+    "category": "Gaming",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Microsoft",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Nintendo Switch OLED",
+    "description": "Nintendo Nintendo Switch OLED - Premium quality gaming",
+    "price": 349.0,
+    "inventory": 180,
+    "sku": "GAM-0058",
+    "productType": "ELECTRONICS",
+    "category": "Gaming",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Nintendo",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Steam Deck 512GB",
+    "description": "Valve Steam Deck 512GB - Premium quality gaming",
+    "price": 649.0,
+    "inventory": 175,
+    "sku": "GAM-0059",
+    "productType": "ELECTRONICS",
+    "category": "Gaming",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Valve",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Meta Quest 3 128GB",
+    "description": "Meta Meta Quest 3 128GB - Premium quality gaming",
+    "price": 499.0,
+    "inventory": 78,
+    "sku": "GAM-0060",
+    "productType": "ELECTRONICS",
+    "category": "Gaming",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Meta",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Razer Blade 15 Gaming Laptop",
+    "description": "Razer Razer Blade 15 Gaming Laptop - Premium quality gaming",
+    "price": 2499.0,
+    "inventory": 195,
+    "sku": "GAM-0061",
+    "productType": "ELECTRONICS",
+    "category": "Gaming",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Razer",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Alienware m18 Gaming Laptop",
+    "description": "Dell Alienware m18 Gaming Laptop - Premium quality gaming",
+    "price": 2999.0,
+    "inventory": 133,
+    "sku": "GAM-0062",
+    "productType": "ELECTRONICS",
+    "category": "Gaming",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Dell",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "ASUS ROG Strix RTX 4080",
+    "description": "ASUS ASUS ROG Strix RTX 4080 - Premium quality gaming",
+    "price": 1199.0,
+    "inventory": 100,
+    "sku": "GAM-0063",
+    "productType": "ELECTRONICS",
+    "category": "Gaming",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "ASUS",
+      "warranty": "36 months"
+    }
+  },
+  {
+    "name": "Apple Watch Series 9 GPS 45mm",
+    "description": "Apple Apple Watch Series 9 GPS 45mm - Premium quality wearables",
+    "price": 429.0,
+    "inventory": 187,
+    "sku": "WEA-0064",
+    "productType": "ELECTRONICS",
+    "category": "Wearables",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Apple",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Samsung Galaxy Watch 6 Classic",
+    "description": "Samsung Samsung Galaxy Watch 6 Classic - Premium quality wearables",
+    "price": 399.0,
+    "inventory": 35,
+    "sku": "WEA-0065",
+    "productType": "ELECTRONICS",
+    "category": "Wearables",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Samsung",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Fitbit Charge 6",
+    "description": "Fitbit Fitbit Charge 6 - Premium quality wearables",
+    "price": 159.0,
+    "inventory": 100,
+    "sku": "WEA-0066",
+    "productType": "ELECTRONICS",
+    "category": "Wearables",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Fitbit",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Garmin Fenix 7X Sapphire",
+    "description": "Garmin Garmin Fenix 7X Sapphire - Premium quality wearables",
+    "price": 899.0,
+    "inventory": 68,
+    "sku": "WEA-0067",
+    "productType": "ELECTRONICS",
+    "category": "Wearables",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Garmin",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Oura Ring Gen 3",
+    "description": "Oura Oura Ring Gen 3 - Premium quality wearables",
+    "price": 299.0,
+    "inventory": 98,
+    "sku": "WEA-0068",
+    "productType": "ELECTRONICS",
+    "category": "Wearables",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Oura",
+      "warranty": "24 months"
+    }
+  },
+  {
+    "name": "Whoop 4.0 Band",
+    "description": "Whoop Whoop 4.0 Band - Premium quality wearables",
+    "price": 239.0,
+    "inventory": 114,
+    "sku": "WEA-0069",
+    "productType": "ELECTRONICS",
+    "category": "Wearables",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Whoop",
+      "warranty": "12 months"
+    }
+  },
+  {
+    "name": "Premium Cotton Oxford Shirt",
+    "description": "Brooks Brothers Premium Cotton Oxford Shirt - 100% Cotton",
+    "price": 79.0,
+    "inventory": 298,
+    "sku": "MEN-0070",
+    "productType": "CLOTHING",
+    "category": "Men's Shirts",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "L",
+      "color": "White",
+      "material": "100% Cotton",
+      "brand": "Brooks Brothers"
+    }
+  },
+  {
+    "name": "Linen Short Sleeve Shirt",
+    "description": "J.Crew Linen Short Sleeve Shirt - 100% Linen",
+    "price": 59.0,
+    "inventory": 195,
+    "sku": "MEN-0071",
+    "productType": "CLOTHING",
+    "category": "Men's Shirts",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "M",
+      "color": "Navy",
+      "material": "100% Linen",
+      "brand": "J.Crew"
+    }
+  },
+  {
+    "name": "Flannel Plaid Shirt",
+    "description": "L.L.Bean Flannel Plaid Shirt - Cotton Flannel",
+    "price": 49.0,
+    "inventory": 273,
+    "sku": "MEN-0072",
+    "productType": "CLOTHING",
+    "category": "Men's Shirts",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "XL",
+      "color": "Red Plaid",
+      "material": "Cotton Flannel",
+      "brand": "L.L.Bean"
+    }
+  },
+  {
+    "name": "Performance Polo Shirt",
+    "description": "Under Armour Performance Polo Shirt - Polyester Blend",
+    "price": 65.0,
+    "inventory": 148,
+    "sku": "MEN-0073",
+    "productType": "CLOTHING",
+    "category": "Men's Shirts",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "L",
+      "color": "Black",
+      "material": "Polyester Blend",
+      "brand": "Under Armour"
+    }
+  },
+  {
+    "name": "Casual Denim Shirt",
+    "description": "Levi's Casual Denim Shirt - Cotton Denim",
+    "price": 69.0,
+    "inventory": 171,
+    "sku": "MEN-0074",
+    "productType": "CLOTHING",
+    "category": "Men's Shirts",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "L",
+      "color": "Light Blue",
+      "material": "Cotton Denim",
+      "brand": "Levi's"
+    }
+  },
+  {
+    "name": "Slim Fit Chinos",
+    "description": "Bonobos Slim Fit Chinos - Cotton Stretch",
+    "price": 89.0,
+    "inventory": 186,
+    "sku": "MEN-0075",
+    "productType": "CLOTHING",
+    "category": "Men's Pants",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "32x32",
+      "color": "Khaki",
+      "material": "Cotton Stretch",
+      "brand": "Bonobos"
+    }
+  },
+  {
+    "name": "Athletic Fit Jeans",
+    "description": "Levi's 541 Athletic Fit Jeans - Stretch Denim",
+    "price": 98.0,
+    "inventory": 137,
+    "sku": "MEN-0076",
+    "productType": "CLOTHING",
+    "category": "Men's Pants",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "34x34",
+      "color": "Dark Indigo",
+      "material": "Stretch Denim",
+      "brand": "Levi's 541"
+    }
+  },
+  {
+    "name": "Dress Pants Wool Blend",
+    "description": "Hugo Boss Dress Pants Wool Blend - Wool Blend",
+    "price": 129.0,
+    "inventory": 101,
+    "sku": "MEN-0077",
+    "productType": "CLOTHING",
+    "category": "Men's Pants",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "34x32",
+      "color": "Charcoal",
+      "material": "Wool Blend",
+      "brand": "Hugo Boss"
+    }
+  },
+  {
+    "name": "Jogger Sweatpants",
+    "description": "Lululemon Jogger Sweatpants - Cotton Terry",
+    "price": 59.0,
+    "inventory": 189,
+    "sku": "MEN-0078",
+    "productType": "CLOTHING",
+    "category": "Men's Pants",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "L",
+      "color": "Gray",
+      "material": "Cotton Terry",
+      "brand": "Lululemon"
+    }
+  },
+  {
+    "name": "Cargo Pants Utility",
+    "description": "Carhartt Cargo Pants Utility - Cotton Canvas",
+    "price": 79.0,
+    "inventory": 139,
+    "sku": "MEN-0079",
+    "productType": "CLOTHING",
+    "category": "Men's Pants",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "34x32",
+      "color": "Olive",
+      "material": "Cotton Canvas",
+      "brand": "Carhartt"
+    }
+  },
+  {
+    "name": "Silk Blouse",
+    "description": "Theory Silk Blouse - 100% Silk",
+    "price": 129.0,
+    "inventory": 271,
+    "sku": "WOM-0080",
+    "productType": "CLOTHING",
+    "category": "Women's Tops",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "M",
+      "color": "Ivory",
+      "material": "100% Silk",
+      "brand": "Theory"
+    }
+  },
+  {
+    "name": "Cashmere Sweater",
+    "description": "Everlane Cashmere Sweater - 100% Cashmere",
+    "price": 189.0,
+    "inventory": 182,
+    "sku": "WOM-0081",
+    "productType": "CLOTHING",
+    "category": "Women's Tops",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "S",
+      "color": "Camel",
+      "material": "100% Cashmere",
+      "brand": "Everlane"
+    }
+  },
+  {
+    "name": "Cotton T-Shirt V-Neck",
+    "description": "Gap Cotton T-Shirt V-Neck - 100% Cotton",
+    "price": 29.0,
+    "inventory": 293,
+    "sku": "WOM-0082",
+    "productType": "CLOTHING",
+    "category": "Women's Tops",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "M",
+      "color": "White",
+      "material": "100% Cotton",
+      "brand": "Gap"
+    }
+  },
+  {
+    "name": "Wool Turtleneck",
+    "description": "Uniqlo Wool Turtleneck - Merino Wool",
+    "price": 99.0,
+    "inventory": 159,
+    "sku": "WOM-0083",
+    "productType": "CLOTHING",
+    "category": "Women's Tops",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "L",
+      "color": "Black",
+      "material": "Merino Wool",
+      "brand": "Uniqlo"
+    }
+  },
+  {
+    "name": "Crop Top Workout",
+    "description": "Lululemon Crop Top Workout - Nylon Spandex",
+    "price": 45.0,
+    "inventory": 107,
+    "sku": "WOM-0084",
+    "productType": "CLOTHING",
+    "category": "Women's Tops",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "S",
+      "color": "Purple",
+      "material": "Nylon Spandex",
+      "brand": "Lululemon"
+    }
+  },
+  {
+    "name": "High-Rise Skinny Jeans",
+    "description": "Madewell High-Rise Skinny Jeans - Stretch Denim",
+    "price": 108.0,
+    "inventory": 51,
+    "sku": "WOM-0085",
+    "productType": "CLOTHING",
+    "category": "Women's Bottoms",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "28",
+      "color": "Dark Wash",
+      "material": "Stretch Denim",
+      "brand": "Madewell"
+    }
+  },
+  {
+    "name": "Wide Leg Trousers",
+    "description": "Banana Republic Wide Leg Trousers - Wool Blend",
+    "price": 119.0,
+    "inventory": 51,
+    "sku": "WOM-0086",
+    "productType": "CLOTHING",
+    "category": "Women's Bottoms",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "6",
+      "color": "Navy",
+      "material": "Wool Blend",
+      "brand": "Banana Republic"
+    }
+  },
+  {
+    "name": "Yoga Leggings",
+    "description": "Lululemon Align Yoga Leggings - Nulu Fabric",
+    "price": 98.0,
+    "inventory": 70,
+    "sku": "WOM-0087",
+    "productType": "CLOTHING",
+    "category": "Women's Bottoms",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "4",
+      "color": "Black",
+      "material": "Nulu Fabric",
+      "brand": "Lululemon Align"
+    }
+  },
+  {
+    "name": "Pleated Midi Skirt",
+    "description": "Zara Pleated Midi Skirt - Polyester",
+    "price": 89.0,
+    "inventory": 224,
+    "sku": "WOM-0088",
+    "productType": "CLOTHING",
+    "category": "Women's Bottoms",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "M",
+      "color": "Burgundy",
+      "material": "Polyester",
+      "brand": "Zara"
+    }
+  },
+  {
+    "name": "Denim Shorts",
+    "description": "Levi's Denim Shorts - Cotton Denim",
+    "price": 58.0,
+    "inventory": 119,
+    "sku": "WOM-0089",
+    "productType": "CLOTHING",
+    "category": "Women's Bottoms",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "27",
+      "color": "Light Wash",
+      "material": "Cotton Denim",
+      "brand": "Levi's"
+    }
+  },
+  {
+    "name": "Little Black Dress",
+    "description": "Nordstrom Little Black Dress - Polyester Blend",
+    "price": 149.0,
+    "inventory": 171,
+    "sku": "DRE-0090",
+    "productType": "CLOTHING",
+    "category": "Dresses",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "8",
+      "color": "Black",
+      "material": "Polyester Blend",
+      "brand": "Nordstrom"
+    }
+  },
+  {
+    "name": "Maxi Sundress",
+    "description": "Free People Maxi Sundress - Rayon",
+    "price": 89.0,
+    "inventory": 202,
+    "sku": "DRE-0091",
+    "productType": "CLOTHING",
+    "category": "Dresses",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "M",
+      "color": "Floral Print",
+      "material": "Rayon",
+      "brand": "Free People"
+    }
+  },
+  {
+    "name": "Cocktail Dress",
+    "description": "Ted Baker Cocktail Dress - Silk Blend",
+    "price": 199.0,
+    "inventory": 280,
+    "sku": "DRE-0092",
+    "productType": "CLOTHING",
+    "category": "Dresses",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "6",
+      "color": "Emerald",
+      "material": "Silk Blend",
+      "brand": "Ted Baker"
+    }
+  },
+  {
+    "name": "Wrap Dress",
+    "description": "Diane von Furstenberg Wrap Dress - Jersey",
+    "price": 118.0,
+    "inventory": 278,
+    "sku": "DRE-0093",
+    "productType": "CLOTHING",
+    "category": "Dresses",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "10",
+      "color": "Abstract Print",
+      "material": "Jersey",
+      "brand": "Diane von Furstenberg"
+    }
+  },
+  {
+    "name": "Down Puffer Jacket",
+    "description": "The North Face Down Puffer Jacket - Nylon/Down",
+    "price": 249.0,
+    "inventory": 130,
+    "sku": "OUT-0094",
+    "productType": "CLOTHING",
+    "category": "Outerwear",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "L",
+      "color": "Black",
+      "material": "Nylon/Down",
+      "brand": "The North Face"
+    }
+  },
+  {
+    "name": "Wool Peacoat",
+    "description": "J.Crew Wool Peacoat - Wool",
+    "price": 299.0,
+    "inventory": 153,
+    "sku": "OUT-0095",
+    "productType": "CLOTHING",
+    "category": "Outerwear",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "M",
+      "color": "Navy",
+      "material": "Wool",
+      "brand": "J.Crew"
+    }
+  },
+  {
+    "name": "Leather Motorcycle Jacket",
+    "description": "AllSaints Leather Motorcycle Jacket - Genuine Leather",
+    "price": 399.0,
+    "inventory": 69,
+    "sku": "OUT-0096",
+    "productType": "CLOTHING",
+    "category": "Outerwear",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "M",
+      "color": "Black",
+      "material": "Genuine Leather",
+      "brand": "AllSaints"
+    }
+  },
+  {
+    "name": "Rain Jacket Waterproof",
+    "description": "Patagonia Rain Jacket Waterproof - Gore-Tex",
+    "price": 129.0,
+    "inventory": 213,
+    "sku": "OUT-0097",
+    "productType": "CLOTHING",
+    "category": "Outerwear",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "L",
+      "color": "Yellow",
+      "material": "Gore-Tex",
+      "brand": "Patagonia"
+    }
+  },
+  {
+    "name": "Fleece Pullover",
+    "description": "Patagonia Fleece Pullover - Recycled Polyester",
+    "price": 79.0,
+    "inventory": 164,
+    "sku": "OUT-0098",
+    "productType": "CLOTHING",
+    "category": "Outerwear",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "L",
+      "color": "Gray",
+      "material": "Recycled Polyester",
+      "brand": "Patagonia"
+    }
+  },
+  {
+    "name": "Running Shoes Men's",
+    "description": "Nike Air Zoom Running Shoes Men's - Mesh/Rubber",
+    "price": 139.0,
+    "inventory": 53,
+    "sku": "FOO-0099",
+    "productType": "CLOTHING",
+    "category": "Footwear",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "10.5",
+      "color": "Black/White",
+      "material": "Mesh/Rubber",
+      "brand": "Nike Air Zoom"
+    }
+  },
+  {
+    "name": "Leather Boots Chelsea",
+    "description": "Thursday Boot Co Leather Boots Chelsea - Full Grain Leather",
+    "price": 229.0,
+    "inventory": 277,
+    "sku": "FOO-0100",
+    "productType": "CLOTHING",
+    "category": "Footwear",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "11",
+      "color": "Brown",
+      "material": "Full Grain Leather",
+      "brand": "Thursday Boot Co"
+    }
+  },
+  {
+    "name": "Sneakers Women's",
+    "description": "Adidas Ultraboost Sneakers Women's - Primeknit",
+    "price": 120.0,
+    "inventory": 194,
+    "sku": "FOO-0101",
+    "productType": "CLOTHING",
+    "category": "Footwear",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "8",
+      "color": "White",
+      "material": "Primeknit",
+      "brand": "Adidas Ultraboost"
+    }
+  },
+  {
+    "name": "Hiking Boots",
+    "description": "Merrell Hiking Boots - Leather/Suede",
+    "price": 189.0,
+    "inventory": 178,
+    "sku": "FOO-0102",
+    "productType": "CLOTHING",
+    "category": "Footwear",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "10",
+      "color": "Brown",
+      "material": "Leather/Suede",
+      "brand": "Merrell"
+    }
+  },
+  {
+    "name": "Ballet Flats",
+    "description": "Rothy's Ballet Flats - Recycled Plastic",
+    "price": 89.0,
+    "inventory": 167,
+    "sku": "FOO-0103",
+    "productType": "CLOTHING",
+    "category": "Footwear",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "7.5",
+      "color": "Black",
+      "material": "Recycled Plastic",
+      "brand": "Rothy's"
+    }
+  },
+  {
+    "name": "Sandals Birkenstock",
+    "description": "Birkenstock Sandals Birkenstock - Cork/Leather",
+    "price": 99.0,
+    "inventory": 150,
+    "sku": "FOO-0104",
+    "productType": "CLOTHING",
+    "category": "Footwear",
+    "schemaVersion": 2,
+    "clothingDetails": {
+      "size": "9",
+      "color": "Taupe",
+      "material": "Cork/Leather",
+      "brand": "Birkenstock"
+    }
+  },
+  {
+    "name": "The Midnight Library",
+    "description": "The Midnight Library by Matt Haig - Fiction",
+    "price": 16.99,
+    "inventory": 100,
+    "sku": "FIC-0105",
+    "productType": "BOOK",
+    "category": "Fiction",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Matt Haig",
+      "isbn": "978-0525559474",
+      "publisher": "Viking",
+      "pages": 304
+    }
+  },
+  {
+    "name": "Project Hail Mary",
+    "description": "Project Hail Mary by Andy Weir - Science Fiction",
+    "price": 17.99,
+    "inventory": 136,
+    "sku": "SCI-0106",
+    "productType": "BOOK",
+    "category": "Science Fiction",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Andy Weir",
+      "isbn": "978-0593135204",
+      "publisher": "Ballantine",
+      "pages": 496
+    }
+  },
+  {
+    "name": "Where the Crawdads Sing",
+    "description": "Where the Crawdads Sing by Delia Owens - Fiction",
+    "price": 16.99,
+    "inventory": 101,
+    "sku": "FIC-0107",
+    "productType": "BOOK",
+    "category": "Fiction",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Delia Owens",
+      "isbn": "978-0735219090",
+      "publisher": "Putnam",
+      "pages": 384
+    }
+  },
+  {
+    "name": "The Seven Husbands of Evelyn Hugo",
+    "description": "The Seven Husbands of Evelyn Hugo by Taylor Jenkins Reid - Fiction",
+    "price": 17.0,
+    "inventory": 117,
+    "sku": "FIC-0108",
+    "productType": "BOOK",
+    "category": "Fiction",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Taylor Jenkins Reid",
+      "isbn": "978-1501161933",
+      "publisher": "Atria",
+      "pages": 400
+    }
+  },
+  {
+    "name": "Lessons in Chemistry",
+    "description": "Lessons in Chemistry by Bonnie Garmus - Fiction",
+    "price": 18.99,
+    "inventory": 110,
+    "sku": "FIC-0109",
+    "productType": "BOOK",
+    "category": "Fiction",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Bonnie Garmus",
+      "isbn": "978-0385547345",
+      "publisher": "Doubleday",
+      "pages": 400
+    }
+  },
+  {
+    "name": "Atomic Habits",
+    "description": "Atomic Habits by James Clear - Self-Help",
+    "price": 16.99,
+    "inventory": 66,
+    "sku": "SEL-0110",
+    "productType": "BOOK",
+    "category": "Self-Help",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "James Clear",
+      "isbn": "978-0735211292",
+      "publisher": "Avery",
+      "pages": 320
+    }
+  },
+  {
+    "name": "Sapiens",
+    "description": "Sapiens by Yuval Noah Harari - History",
+    "price": 18.99,
+    "inventory": 35,
+    "sku": "HIS-0111",
+    "productType": "BOOK",
+    "category": "History",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Yuval Noah Harari",
+      "isbn": "978-0062316097",
+      "publisher": "Harper",
+      "pages": 512
+    }
+  },
+  {
+    "name": "Educated",
+    "description": "Educated by Tara Westover - Memoir",
+    "price": 17.99,
+    "inventory": 62,
+    "sku": "MEM-0112",
+    "productType": "BOOK",
+    "category": "Memoir",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Tara Westover",
+      "isbn": "978-0399590504",
+      "publisher": "Random House",
+      "pages": 352
+    }
+  },
+  {
+    "name": "The Body Keeps the Score",
+    "description": "The Body Keeps the Score by Bessel van der Kolk - Psychology",
+    "price": 19.0,
+    "inventory": 54,
+    "sku": "PSY-0113",
+    "productType": "BOOK",
+    "category": "Psychology",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Bessel van der Kolk",
+      "isbn": "978-0143127741",
+      "publisher": "Penguin",
+      "pages": 464
+    }
+  },
+  {
+    "name": "Outlive",
+    "description": "Outlive by Peter Attia MD - Health",
+    "price": 20.99,
+    "inventory": 109,
+    "sku": "HEA-0114",
+    "productType": "BOOK",
+    "category": "Health",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Peter Attia MD",
+      "isbn": "978-0593236598",
+      "publisher": "Harmony",
+      "pages": 496
+    }
+  },
+  {
+    "name": "The Lean Startup",
+    "description": "The Lean Startup by Eric Ries - Business",
+    "price": 17.99,
+    "inventory": 68,
+    "sku": "BUS-0115",
+    "productType": "BOOK",
+    "category": "Business",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Eric Ries",
+      "isbn": "978-0307887894",
+      "publisher": "Crown Business",
+      "pages": 336
+    }
+  },
+  {
+    "name": "Designing Data-Intensive Applications",
+    "description": "Designing Data-Intensive Applications by Martin Kleppmann - Technology",
+    "price": 59.99,
+    "inventory": 115,
+    "sku": "TEC-0116",
+    "productType": "BOOK",
+    "category": "Technology",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Martin Kleppmann",
+      "isbn": "978-1449373320",
+      "publisher": "O'Reilly",
+      "pages": 616
+    }
+  },
+  {
+    "name": "Clean Code",
+    "description": "Clean Code by Robert C. Martin - Technology",
+    "price": 44.99,
+    "inventory": 90,
+    "sku": "TEC-0117",
+    "productType": "BOOK",
+    "category": "Technology",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Robert C. Martin",
+      "isbn": "978-0132350884",
+      "publisher": "Prentice Hall",
+      "pages": 464
+    }
+  },
+  {
+    "name": "The Pragmatic Programmer",
+    "description": "The Pragmatic Programmer by Andrew Hunt & David Thomas - Technology",
+    "price": 49.99,
+    "inventory": 114,
+    "sku": "TEC-0118",
+    "productType": "BOOK",
+    "category": "Technology",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Andrew Hunt & David Thomas",
+      "isbn": "978-0135957059",
+      "publisher": "Addison-Wesley",
+      "pages": 352
+    }
+  },
+  {
+    "name": "System Design Interview",
+    "description": "System Design Interview by Alex Xu - Technology",
+    "price": 39.99,
+    "inventory": 68,
+    "sku": "TEC-0119",
+    "productType": "BOOK",
+    "category": "Technology",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Alex Xu",
+      "isbn": "978-1736049112",
+      "publisher": "Independently published",
+      "pages": 280
+    }
+  },
+  {
+    "name": "Zero to One",
+    "description": "Zero to One by Peter Thiel - Business",
+    "price": 18.99,
+    "inventory": 57,
+    "sku": "BUS-0120",
+    "productType": "BOOK",
+    "category": "Business",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Peter Thiel",
+      "isbn": "978-0804139298",
+      "publisher": "Crown Business",
+      "pages": 224
+    }
+  },
+  {
+    "name": "The Innovator's Dilemma",
+    "description": "The Innovator's Dilemma by Clayton Christensen - Business",
+    "price": 19.99,
+    "inventory": 106,
+    "sku": "BUS-0121",
+    "productType": "BOOK",
+    "category": "Business",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Clayton Christensen",
+      "isbn": "978-0062060242",
+      "publisher": "Harper Business",
+      "pages": 288
+    }
+  },
+  {
+    "name": "Good to Great",
+    "description": "Good to Great by Jim Collins - Business",
+    "price": 20.99,
+    "inventory": 35,
+    "sku": "BUS-0122",
+    "productType": "BOOK",
+    "category": "Business",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Jim Collins",
+      "isbn": "978-0066620992",
+      "publisher": "Harper Business",
+      "pages": 320
+    }
+  },
+  {
+    "name": "The Name of the Wind",
+    "description": "The Name of the Wind by Patrick Rothfuss - Fantasy",
+    "price": 18.99,
+    "inventory": 118,
+    "sku": "FAN-0123",
+    "productType": "BOOK",
+    "category": "Fantasy",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Patrick Rothfuss",
+      "isbn": "978-0756404741",
+      "publisher": "DAW",
+      "pages": 662
+    }
+  },
+  {
+    "name": "Dune",
+    "description": "Dune by Frank Herbert - Science Fiction",
+    "price": 19.99,
+    "inventory": 78,
+    "sku": "SCI-0124",
+    "productType": "BOOK",
+    "category": "Science Fiction",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Frank Herbert",
+      "isbn": "978-0441172719",
+      "publisher": "Ace",
+      "pages": 688
+    }
+  },
+  {
+    "name": "The Way of Kings",
+    "description": "The Way of Kings by Brandon Sanderson - Fantasy",
+    "price": 21.99,
+    "inventory": 120,
+    "sku": "FAN-0125",
+    "productType": "BOOK",
+    "category": "Fantasy",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Brandon Sanderson",
+      "isbn": "978-0765326355",
+      "publisher": "Tor Books",
+      "pages": 1007
+    }
+  },
+  {
+    "name": "Neuromancer",
+    "description": "Neuromancer by William Gibson - Science Fiction",
+    "price": 16.99,
+    "inventory": 125,
+    "sku": "SCI-0126",
+    "productType": "BOOK",
+    "category": "Science Fiction",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "William Gibson",
+      "isbn": "978-0441569595",
+      "publisher": "Ace",
+      "pages": 271
+    }
+  },
+  {
+    "name": "The Hobbit",
+    "description": "The Hobbit by J.R.R. Tolkien - Fantasy",
+    "price": 15.99,
+    "inventory": 95,
+    "sku": "FAN-0127",
+    "productType": "BOOK",
+    "category": "Fantasy",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "J.R.R. Tolkien",
+      "isbn": "978-0547928227",
+      "publisher": "Houghton Mifflin",
+      "pages": 366
+    }
+  },
+  {
+    "name": "Salt, Fat, Acid, Heat",
+    "description": "Salt, Fat, Acid, Heat by Samin Nosrat - Cookbook",
+    "price": 35.0,
+    "inventory": 124,
+    "sku": "COO-0128",
+    "productType": "BOOK",
+    "category": "Cookbook",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Samin Nosrat",
+      "isbn": "978-1476753836",
+      "publisher": "Simon & Schuster",
+      "pages": 480
+    }
+  },
+  {
+    "name": "The Joy of Cooking",
+    "description": "The Joy of Cooking by Irma S. Rombauer - Cookbook",
+    "price": 29.99,
+    "inventory": 99,
+    "sku": "COO-0129",
+    "productType": "BOOK",
+    "category": "Cookbook",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Irma S. Rombauer",
+      "isbn": "978-0743246262",
+      "publisher": "Scribner",
+      "pages": 1152
+    }
+  },
+  {
+    "name": "Ottolenghi Simple",
+    "description": "Ottolenghi Simple by Yotam Ottolenghi - Cookbook",
+    "price": 32.5,
+    "inventory": 40,
+    "sku": "COO-0130",
+    "productType": "BOOK",
+    "category": "Cookbook",
+    "schemaVersion": 2,
+    "bookDetails": {
+      "author": "Yotam Ottolenghi",
+      "isbn": "978-1607749165",
+      "publisher": "Ten Speed Press",
+      "pages": 320
+    }
+  },
+  {
+    "name": "Stainless Steel Water Bottle 32oz",
+    "description": "High-quality Stainless Steel Water Bottle 32oz for everyday use",
+    "price": 24.99,
+    "inventory": 74,
+    "sku": "DRI-0131",
+    "productType": "GENERIC",
+    "category": "Drinkware",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Yoga Mat Premium 6mm",
+    "description": "High-quality Yoga Mat Premium 6mm for everyday use",
+    "price": 39.99,
+    "inventory": 44,
+    "sku": "FIT-0132",
+    "productType": "GENERIC",
+    "category": "Fitness",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Desk Organizer Bamboo",
+    "description": "High-quality Desk Organizer Bamboo for everyday use",
+    "price": 34.99,
+    "inventory": 84,
+    "sku": "OFF-0133",
+    "productType": "GENERIC",
+    "category": "Office",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Travel Backpack 40L",
+    "description": "High-quality Travel Backpack 40L for everyday use",
+    "price": 89.99,
+    "inventory": 75,
+    "sku": "LUG-0134",
+    "productType": "GENERIC",
+    "category": "Luggage",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Throw Pillow Set of 2",
+    "description": "High-quality Throw Pillow Set of 2 for everyday use",
+    "price": 44.99,
+    "inventory": 149,
+    "sku": "HOM-0135",
+    "productType": "GENERIC",
+    "category": "Home Decor",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Coffee Maker 12-Cup",
+    "description": "High-quality Coffee Maker 12-Cup for everyday use",
+    "price": 79.99,
+    "inventory": 197,
+    "sku": "KIT-0136",
+    "productType": "GENERIC",
+    "category": "Kitchen",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Bath Towel Set 6-Piece",
+    "description": "High-quality Bath Towel Set 6-Piece for everyday use",
+    "price": 54.99,
+    "inventory": 206,
+    "sku": "BAT-0137",
+    "productType": "GENERIC",
+    "category": "Bath",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Canvas Wall Art 3-Panel",
+    "description": "High-quality Canvas Wall Art 3-Panel for everyday use",
+    "price": 69.99,
+    "inventory": 104,
+    "sku": "HOM-0138",
+    "productType": "GENERIC",
+    "category": "Home Decor",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Essential Oil Diffuser",
+    "description": "High-quality Essential Oil Diffuser for everyday use",
+    "price": 29.99,
+    "inventory": 125,
+    "sku": "WEL-0139",
+    "productType": "GENERIC",
+    "category": "Wellness",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Resistance Bands Set",
+    "description": "High-quality Resistance Bands Set for everyday use",
+    "price": 19.99,
+    "inventory": 92,
+    "sku": "FIT-0140",
+    "productType": "GENERIC",
+    "category": "Fitness",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Cutting Board Set",
+    "description": "High-quality Cutting Board Set for everyday use",
+    "price": 39.99,
+    "inventory": 133,
+    "sku": "KIT-0141",
+    "productType": "GENERIC",
+    "category": "Kitchen",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Desk Lamp LED",
+    "description": "High-quality Desk Lamp LED for everyday use",
+    "price": 49.99,
+    "inventory": 123,
+    "sku": "OFF-0142",
+    "productType": "GENERIC",
+    "category": "Office",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Picnic Blanket Waterproof",
+    "description": "High-quality Picnic Blanket Waterproof for everyday use",
+    "price": 34.99,
+    "inventory": 174,
+    "sku": "OUT-0143",
+    "productType": "GENERIC",
+    "category": "Outdoor",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Storage Bins Set of 4",
+    "description": "High-quality Storage Bins Set of 4 for everyday use",
+    "price": 44.99,
+    "inventory": 191,
+    "sku": "ORG-0144",
+    "productType": "GENERIC",
+    "category": "Organization",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Plant Pot Set Ceramic",
+    "description": "High-quality Plant Pot Set Ceramic for everyday use",
+    "price": 29.99,
+    "inventory": 45,
+    "sku": "GAR-0145",
+    "productType": "GENERIC",
+    "category": "Garden",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Kitchen Knife Set 15-Piece",
+    "description": "High-quality Kitchen Knife Set 15-Piece for everyday use",
+    "price": 99.99,
+    "inventory": 164,
+    "sku": "KIT-0146",
+    "productType": "GENERIC",
+    "category": "Kitchen",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Memory Foam Pillow 2-Pack",
+    "description": "High-quality Memory Foam Pillow 2-Pack for everyday use",
+    "price": 59.99,
+    "inventory": 85,
+    "sku": "BED-0147",
+    "productType": "GENERIC",
+    "category": "Bedding",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Umbrella Windproof",
+    "description": "High-quality Umbrella Windproof for everyday use",
+    "price": 24.99,
+    "inventory": 221,
+    "sku": "ACC-0148",
+    "productType": "GENERIC",
+    "category": "Accessories",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Wall Clock Modern",
+    "description": "High-quality Wall Clock Modern for everyday use",
+    "price": 39.99,
+    "inventory": 76,
+    "sku": "HOM-0149",
+    "productType": "GENERIC",
+    "category": "Home Decor",
+    "schemaVersion": 2
+  },
+  {
+    "name": "Wine Glasses Set of 6",
+    "description": "High-quality Wine Glasses Set of 6 for everyday use",
+    "price": 34.99,
+    "inventory": 184,
+    "sku": "DRI-0150",
+    "productType": "GENERIC",
+    "category": "Drinkware",
+    "schemaVersion": 2
+  }
+]

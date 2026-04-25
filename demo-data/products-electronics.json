@@ -1,0 +1,193 @@
+[
+  {
+    "name": "MacBook Pro 16\" M3 Max",
+    "description": "High-performance laptop with M3 Max chip, 36GB RAM, 1TB SSD. Perfect for developers and creative professionals.",
+    "price": 3499.00,
+    "inventory": 45,
+    "productType": "ELECTRONICS",
+    "category": "Laptops",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Apple",
+      "warrantyMonths": 12,
+      "powerConsumption": "140W"
+    }
+  },
+  {
+    "name": "Dell XPS 15 9530",
+    "description": "Premium laptop with Intel i9-13900H, 32GB RAM, RTX 4070. Excellent for gaming and productivity.",
+    "price": 2799.00,
+    "inventory": 38,
+    "productType": "ELECTRONICS",
+    "category": "Laptops",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Dell",
+      "warrantyMonths": 12,
+      "powerConsumption": "130W"
+    }
+  },
+  {
+    "name": "Lenovo ThinkPad X1 Carbon Gen 11",
+    "description": "Business ultrabook with Intel i7-1365U, 16GB RAM, 512GB SSD. Lightweight and durable.",
+    "price": 1899.00,
+    "inventory": 62,
+    "productType": "ELECTRONICS",
+    "category": "Laptops",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Lenovo",
+      "warrantyMonths": 36,
+      "powerConsumption": "65W"
+    }
+  },
+  {
+    "name": "ASUS ROG Zephyrus G14",
+    "description": "Gaming laptop with AMD Ryzen 9, RTX 4060, 16GB RAM. Compact and powerful.",
+    "price": 1699.00,
+    "inventory": 28,
+    "productType": "ELECTRONICS",
+    "category": "Laptops",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "ASUS",
+      "warrantyMonths": 12,
+      "powerConsumption": "240W"
+    }
+  },
+  {
+    "name": "HP Spectre x360 14",
+    "description": "2-in-1 convertible laptop with Intel i7, 16GB RAM, OLED touchscreen. Versatile and stylish.",
+    "price": 1599.00,
+    "inventory": 41,
+    "productType": "ELECTRONICS",
+    "category": "Laptops",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "HP",
+      "warrantyMonths": 12,
+      "powerConsumption": "65W"
+    }
+  },
+  {
+    "name": "iPhone 15 Pro Max 256GB",
+    "description": "Latest iPhone with A17 Pro chip, titanium design, advanced camera system.",
+    "price": 1199.00,
+    "inventory": 125,
+    "productType": "ELECTRONICS",
+    "category": "Smartphones",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Apple",
+      "warrantyMonths": 12,
+      "powerConsumption": "20W"
+    }
+  },
+  {
+    "name": "Samsung Galaxy S24 Ultra 512GB",
+    "description": "Premium Android flagship with S Pen, 200MP camera, AI features.",
+    "price": 1299.00,
+    "inventory": 98,
+    "productType": "ELECTRONICS",
+    "category": "Smartphones",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Samsung",
+      "warrantyMonths": 12,
+      "powerConsumption": "45W"
+    }
+  },
+  {
+    "name": "Google Pixel 8 Pro 256GB",
+    "description": "AI-powered smartphone with exceptional camera and pure Android experience.",
+    "price": 999.00,
+    "inventory": 74,
+    "productType": "ELECTRONICS",
+    "category": "Smartphones",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Google",
+      "warrantyMonths": 12,
+      "powerConsumption": "30W"
+    }
+  },
+  {
+    "name": "OnePlus 12 256GB",
+    "description": "Fast-charging flagship with Snapdragon 8 Gen 3, excellent display.",
+    "price": 799.00,
+    "inventory": 56,
+    "productType": "ELECTRONICS",
+    "category": "Smartphones",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "OnePlus",
+      "warrantyMonths": 12,
+      "powerConsumption": "100W"
+    }
+  },
+  {
+    "name": "iPad Pro 12.9\" M2 256GB",
+    "description": "Professional tablet with M2 chip, Liquid Retina XDR display, Apple Pencil support.",
+    "price": 1099.00,
+    "inventory": 67,
+    "productType": "ELECTRONICS",
+    "category": "Tablets",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Apple",
+      "warrantyMonths": 12,
+      "powerConsumption": "40W"
+    }
+  },
+  {
+    "name": "Samsung Galaxy Tab S9 Ultra",
+    "description": "Premium Android tablet with 14.6\" AMOLED display, S Pen included.",
+    "price": 1199.00,
+    "inventory": 42,
+    "productType": "ELECTRONICS",
+    "category": "Tablets",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Samsung",
+      "warrantyMonths": 12,
+      "powerConsumption": "45W"
+    }
+  },
+  {
+    "name": "Microsoft Surface Pro 9",
+    "description": "Versatile 2-in-1 tablet with Intel i7, detachable keyboard, Windows 11.",
+    "price": 1299.00,
+    "inventory": 51,
+    "productType": "ELECTRONICS",
+    "category": "Tablets",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Microsoft",
+      "warrantyMonths": 12,
+      "powerConsumption": "65W"
+    }
+  },
+  {
+    "name": "Sony WH-1000XM5 Headphones",
+    "description": "Industry-leading noise cancelling headphones with exceptional sound quality.",
+    "price": 399.00,
+    "inventory": 156,
+    "productType": "ELECTRONICS",
+    "category": "Audio",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Sony",
+      "warrantyMonths": 12,
+      "powerConsumption": "5W"
+    }
+  },
+  {
+    "name": "Bose QuietComfort Ultra",
+    "description": "Premium noise cancelling headphones with spatial audio and luxurious comfort.",
+    "price": 429.00,
+    "inventory": 89,
+    "productType": "ELECTRONICS",
+    "category": "Audio",
+    "schemaVersion": 2,
+    "electronicsDetails": {
+      "brand": "Bose"

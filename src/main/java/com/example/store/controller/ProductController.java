@@ -7,6 +7,9 @@ import com.example.store.service.ProductValidationService;
 import com.example.store.validation.ProductValidationException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -129,12 +132,31 @@ public class ProductController {
     }
 
     /**
-     * Get all products.
-     * GET /products
+     * Get all products with pagination (P0 FIX).
+     * GET /products?page=0&size=20
+     *
+     * 🎯 PAGINATION: Prevents OOM when product catalog grows
+     * - page: Page number (0-based)
+     * - size: Results per page (default: 20, max: 100)
+     * - Sorted alphabetically by name
+     *
+     * Example:
+     * - GET /products          → First 20 products
+     * - GET /products?size=50  → First 50 products
+     * - GET /products?page=2&size=20  → Products 41-60
      */
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
-        List<Product> products = productRepository.findAll();
+    public ResponseEntity<Page<Product>> getAllProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+
+        // Cap page size to prevent large scans
+        size = Math.min(size, 100);
+
+        PageRequest pageable = PageRequest.of(page, size,
+            Sort.by(Sort.Direction.ASC, "name"));
+        Page<Product> products = productRepository.findAll(pageable);
+
         return ResponseEntity.ok(products);
     }
 }

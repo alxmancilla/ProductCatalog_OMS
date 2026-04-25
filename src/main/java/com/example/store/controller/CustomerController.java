@@ -5,6 +5,9 @@ import com.example.store.model.Order;
 import com.example.store.repository.CustomerRepository;
 import com.example.store.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,12 +37,31 @@ public class CustomerController {
     }
 
     /**
-     * Get all customers.
-     * GET /customers
+     * Get all customers with pagination (P0 FIX).
+     * GET /customers?page=0&size=20
+     *
+     * 🎯 PAGINATION: Prevents OOM with large customer bases
+     * - page: Page number (0-based)
+     * - size: Results per page (default: 20, max: 100)
+     * - Sorted alphabetically by name
+     *
+     * Example:
+     * - GET /customers          → First 20 customers
+     * - GET /customers?size=50  → First 50 customers
+     * - GET /customers?page=1&size=20  → Customers 21-40
      */
     @GetMapping
-    public ResponseEntity<List<Customer>> getAllCustomers() {
-        List<Customer> customers = customerRepository.findAll();
+    public ResponseEntity<Page<Customer>> getAllCustomers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+
+        // Cap page size to prevent large scans
+        size = Math.min(size, 100);
+
+        PageRequest pageable = PageRequest.of(page, size,
+            Sort.by(Sort.Direction.ASC, "name"));
+        Page<Customer> customers = customerRepository.findAll(pageable);
+
         return ResponseEntity.ok(customers);
     }
 

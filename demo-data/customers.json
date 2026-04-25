@@ -1,0 +1,177 @@
+[
+  {
+    "name": "Sarah Johnson",
+    "email": "sarah.johnson@techcorp.com",
+    "phone": "+1-415-555-0101",
+    "tier": "PLATINUM",
+    "address": {
+      "street": "123 Innovation Drive",
+      "city": "San Francisco",
+      "state": "CA",
+      "zipCode": "94105",
+      "country": "USA"
+    },
+    "metadata": {
+      "company": "TechCorp Inc.",
+      "industry": "Technology",
+      "customerSince": "2022-01-15"
+    }
+  },
+  {
+    "name": "Michael Chen",
+    "email": "michael.chen@email.com",
+    "phone": "+1-206-555-0202",
+    "tier": "GOLD",
+    "address": {
+      "street": "456 Pike Street",
+      "city": "Seattle",
+      "state": "WA",
+      "zipCode": "98101",
+      "country": "USA"
+    },
+    "metadata": {
+      "occupation": "Software Engineer",
+      "customerSince": "2022-03-20"
+    }
+  },
+  {
+    "name": "Emily Rodriguez",
+    "email": "emily.rodriguez@gmail.com",
+    "phone": "+1-512-555-0303",
+    "tier": "GOLD",
+    "address": {
+      "street": "789 Congress Avenue",
+      "city": "Austin",
+      "state": "TX",
+      "zipCode": "78701",
+      "country": "USA"
+    },
+    "metadata": {
+      "occupation": "Product Manager",
+      "customerSince": "2022-05-10"
+    }
+  },
+  {
+    "name": "David Kim",
+    "email": "david.kim@startup.io",
+    "phone": "+1-650-555-0404",
+    "tier": "PLATINUM",
+    "address": {
+      "street": "321 University Avenue",
+      "city": "Palo Alto",
+      "state": "CA",
+      "zipCode": "94301",
+      "country": "USA"
+    },
+    "metadata": {
+      "company": "InnovateTech Startup",
+      "industry": "AI/ML",
+      "customerSince": "2022-02-28"
+    }
+  },
+  {
+    "name": "Jessica Martinez",
+    "email": "jessica.martinez@fashionhouse.com",
+    "phone": "+1-212-555-0505",
+    "tier": "GOLD",
+    "address": {
+      "street": "555 Fifth Avenue",
+      "city": "New York",
+      "state": "NY",
+      "zipCode": "10017",
+      "country": "USA"
+    },
+    "metadata": {
+      "company": "Fashion House NY",
+      "industry": "Retail",
+      "customerSince": "2022-06-15"
+    }
+  },
+  {
+    "name": "Robert Thompson",
+    "email": "robert.thompson@email.com",
+    "phone": "+1-617-555-0606",
+    "tier": "STANDARD",
+    "address": {
+      "street": "888 Beacon Street",
+      "city": "Boston",
+      "state": "MA",
+      "zipCode": "02215",
+      "country": "USA"
+    },
+    "metadata": {
+      "occupation": "Teacher",
+      "customerSince": "2023-01-10"
+    }
+  },
+  {
+    "name": "Lisa Wang",
+    "email": "lisa.wang@consulting.com",
+    "phone": "+1-312-555-0707",
+    "tier": "PLATINUM",
+    "address": {
+      "street": "200 West Madison Street",
+      "city": "Chicago",
+      "state": "IL",
+      "zipCode": "60606",
+      "country": "USA"
+    },
+    "metadata": {
+      "company": "Global Consulting Group",
+      "industry": "Consulting",
+      "customerSince": "2022-04-05"
+    }
+  },
+  {
+    "name": "James Anderson",
+    "email": "james.anderson@email.com",
+    "phone": "+1-303-555-0808",
+    "tier": "STANDARD",
+    "address": {
+      "street": "1500 Larimer Street",
+      "city": "Denver",
+      "state": "CO",
+      "zipCode": "80202",
+      "country": "USA"
+    },
+    "metadata": {
+      "occupation": "Freelance Designer",
+      "customerSince": "2023-03-22"
+    }
+  },
+  {
+    "name": "Maria Garcia",
+    "email": "maria.garcia@healthsystems.com",
+    "phone": "+1-305-555-0909",
+    "tier": "GOLD",
+    "address": {
+      "street": "100 Biscayne Boulevard",
+      "city": "Miami",
+      "state": "FL",
+      "zipCode": "33132",
+      "country": "USA"
+    },
+    "metadata": {
+      "company": "HealthSystems Inc.",
+      "industry": "Healthcare",
+      "customerSince": "2022-08-18"
+    }
+  },
+  {
+    "name": "Thomas Lee",
+    "email": "thomas.lee@email.com",
+    "phone": "+1-503-555-1010",
+    "tier": "STANDARD",
+    "address": {
+      "street": "700 SW Taylor Street",
+      "city": "Portland",
+      "state": "OR",
+      "zipCode": "97205",
+      "country": "USA"
+    },
+    "metadata": {
+      "occupation": "Graduate Student",
+      "customerSince": "2023-09-05"
+    }
+  }
+]

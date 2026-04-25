@@ -209,9 +209,14 @@ curl http://localhost:8080/analytics/orders/popular-products?limit=10 | jq
 Once loaded, you can:
 - Browse all entities via web interface: http://localhost:8080
 - Search and filter 5,000 orders
-- View analytics dashboards
+- View analytics dashboards (V1: aggregation, V2: CQRS)
 - Demonstrate ACID transactions
 - Show MongoDB aggregation pipelines
 - Highlight 8 design patterns
+- Test CQRS materialized views (100x faster!)
 
-See `COMPREHENSIVE_DEMO_GUIDE.md` for complete demo script!
+**Next Steps:**
+1. Rebuild CQRS views: `curl -X POST http://localhost:8080/admin/analytics/rebuild-all`
+2. Test analytics V2: `curl "http://localhost:8080/api/v2/analytics/top-products?limit=10"`
+3. See **WEBINAR_OUTLINE.md** for complete demo script
+4. See **CQRS_IMPLEMENTATION_SUMMARY.md** for CQRS architecture details

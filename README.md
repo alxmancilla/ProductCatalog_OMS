@@ -5,6 +5,33 @@ A **production-ready** demo application built with **Java 21**, **Spring Boot 3*
 > **Perfect for:** MongoDB workshops, production architecture demos, and teaching advanced database patterns
 > **NEW:** CQRS for 100x faster analytics + Full production hardening (P0/P1 complete)! 🚀
 
+---
+
+## 🚀 Quick Navigation
+
+**👶 New to MongoDB?** → **[30-Minute Quick Start](QUICK_START_30MIN.md)** ⭐
+Get from zero to hero in 30 minutes! Visual guide with Compass integration.
+
+**💻 Developer?** → **[Build From Scratch Workshop](BUILD_FROM_SCRATCH.md)** 🆕
+2-hour code-along workshop - build this OMS yourself!
+
+**🔬 Want hands-on practice?** → **[Exercises](EXERCISES.md)** 🆕
+10 challenges from beginner to advanced with solutions.
+
+**📊 Need performance proof?** → **[Performance Benchmarks](PERFORMANCE_BENCHMARKS.md)** 🆕
+Concrete timing data: 4.5x (embedding), 225x (indexing), 30x (CQRS).
+
+**🔍 Want to see your data?** → **[Compass Guide](COMPASS_GUIDE.md)**
+Visual MongoDB exploration with free GUI tool.
+
+**🚀 Testing APIs?** → **[Postman Collection](postman/README.md)** 🆕
+80+ pre-built API requests with auto-extraction.
+
+**❓ Have questions?** → **[FAQ](FAQ.md)**
+50+ common questions answered from beginners to architects.
+
+---
+
 ## 💡 MongoDB's Guiding Principle
 
 > ### **"Data that is accessed together should be stored together."**
@@ -189,11 +216,12 @@ http://localhost:8080
 
 ## 📚 Documentation for Different Audiences
 
-### 🎓 **New to MongoDB? Start Here!**
-1. **[BEGINNERS_GUIDE.md](BEGINNERS_GUIDE.md)** - MongoDB concepts explained simply
-2. **[WEB_INTERFACE_GUIDE.md](WEB_INTERFACE_GUIDE.md)** - Use the interactive web interface
-3. **[DEMO_GUIDE.md](DEMO_GUIDE.md)** - Complete API walkthrough with examples
-4. **[DEMO_DATA_COMPLETE_GUIDE.md](DEMO_DATA_COMPLETE_GUIDE.md)** 🆕 - Load realistic 5K order demo dataset
+### 🎓 **New to MongoDB? Start Here!** (Updated!)
+1. **[QUICK_START_30MIN.md](QUICK_START_30MIN.md)** ⭐ **NEW!** - Get started in 30 minutes
+2. **[COMPASS_GUIDE.md](COMPASS_GUIDE.md)** 🆕 **NEW!** - Visual data exploration with free GUI
+3. **[FAQ.md](FAQ.md)** 🆕 **NEW!** - 50+ common questions answered
+4. **[BEGINNERS_GUIDE.md](BEGINNERS_GUIDE.md)** - MongoDB concepts with visual diagrams
+5. **[WEB_INTERFACE_GUIDE.md](WEB_INTERFACE_GUIDE.md)** - Use the interactive web interface
 
 ### 👨‍💻 **For Developers**
 - **[SCHEMA_PATTERNS_GUIDE.md](SCHEMA_PATTERNS_GUIDE.md)** ⭐ - Eight MongoDB Schema Design Patterns
@@ -709,9 +737,105 @@ This demo showcases **SEVEN MongoDB design patterns**:
 | **Scalability** | ⭐⭐⭐⭐⭐ | Pagination, indexes, connection pool tuning |
 | **Observability** | ⭐⭐⭐⭐ | Slow query monitoring, health checks, metrics |
 | **Performance** | ⭐⭐⭐⭐⭐ | CQRS for 100x faster analytics |
-| **Documentation** | ⭐⭐⭐⭐⭐ | 15+ guides covering all aspects |
+| **Documentation** | ⭐⭐⭐⭐⭐ | 20+ guides + benchmarks + exercises + anti-patterns |
 
 **Overall:** ⭐⭐⭐⭐ (4.5/5) - **Production-Ready!**
+
+---
+
+## 📚 Complete Documentation Guide
+
+### 🎓 Learning Path (Progressive)
+
+#### 👶 **Beginner Track** (1-2 hours)
+Start here if you're new to MongoDB!
+
+| Guide | Purpose | Time |
+|-------|---------|------|
+| **[QUICK_START_30MIN.md](QUICK_START_30MIN.md)** ⭐ | Get started fast | 30 min |
+| **[COMPASS_GUIDE.md](COMPASS_GUIDE.md)** | See your data visually | 15 min |
+| **[WEB_INTERFACE_GUIDE.md](WEB_INTERFACE_GUIDE.md)** | Test APIs in browser | 10 min |
+| **[FAQ.md](FAQ.md)** | Quick answers | 5 min |
+| **[BEGINNERS_GUIDE.md](BEGINNERS_GUIDE.md)** | MongoDB concepts | 20 min |
+| **[DATA_MODELING_PRINCIPLE.md](DATA_MODELING_PRINCIPLE.md)** | Core principle | 15 min |
+
+#### 👨‍💻 **Developer Track** (4-6 hours)
+Hands-on coding and practice!
+
+| Guide | Purpose | Time |
+|-------|---------|------|
+| **[BUILD_FROM_SCRATCH.md](BUILD_FROM_SCRATCH.md)** 🔥 | Code-along workshop | 2 hrs |
+| **[EXERCISES.md](EXERCISES.md)** 💪 | 10 practice challenges | 4-5 hrs |
+| **[ANTIPATTERNS.md](ANTIPATTERNS.md)** ⚠️ | Learn from mistakes | 30 min |
+| **[PERFORMANCE_BENCHMARKS.md](PERFORMANCE_BENCHMARKS.md)** 📊 | Concrete proof | 20 min |
+| **[postman/](postman/)** 🚀 | API testing collection | 15 min |
+
+#### 🏗️ **Architect Track** (2-3 hours)
+Deep dive into patterns and production!
+
+| Guide | Purpose | Complexity |
+|-------|---------|------------|
+| **[SCHEMA_PATTERNS_GUIDE.md](SCHEMA_PATTERNS_GUIDE.md)** | 8 design patterns | ⭐⭐⭐ |
+| **[TRANSACTIONS_GUIDE.md](TRANSACTIONS_GUIDE.md)** | ACID transactions | ⭐⭐⭐⭐ |
+| **[CQRS_IMPLEMENTATION_SUMMARY.md](CQRS_IMPLEMENTATION_SUMMARY.md)** | 100x analytics | ⭐⭐⭐⭐⭐ |
+| **[OUTLIER_PATTERN_GUIDE.md](OUTLIER_PATTERN_GUIDE.md)** | Large arrays | ⭐⭐⭐ |
+| **[PRODUCT_SCHEMA_VERSIONING.md](PRODUCT_SCHEMA_VERSIONING.md)** | Schema evolution | ⭐⭐⭐ |
+| **[VALIDATION_ARCHITECTURE.md](VALIDATION_ARCHITECTURE.md)** | Defense-in-depth | ⭐⭐⭐ |
+| **[SECURITY.md](SECURITY.md)** | Production security | ⭐⭐⭐⭐ |
+| **[IMPLEMENTATION_COMPLETE.md](IMPLEMENTATION_COMPLETE.md)** | Production status | ⭐⭐⭐ |
+| **[OMS_P0_TESTING_GUIDE.md](OMS_P0_TESTING_GUIDE.md)** | Testing strategy | ⭐⭐⭐ |
+
+#### 🎤 **Presenter Track** (30 minutes)
+Prepare for demos and presentations!
+
+| Guide | Purpose | Time |
+|-------|---------|------|
+| **[PRESENTER_CHECKLIST.md](PRESENTER_CHECKLIST.md)** | Pre-demo setup | 10 min |
+| **[WEBINAR_OUTLINE.md](WEBINAR_OUTLINE.md)** | 15-min demo script | 15 min |
+| **[demo-data/README.md](demo-data/README.md)** | Load demo data | 5 min |
+
+---
+
+### 📖 Quick Reference by Topic
+
+**Getting Started:**
+- [QUICK_START_30MIN.md](QUICK_START_30MIN.md) - Fastest path to success
+- [README.md](README.md) - This file (overview)
+
+**MongoDB Basics:**
+- [BEGINNERS_GUIDE.md](BEGINNERS_GUIDE.md) - Fundamental concepts
+- [DATA_MODELING_PRINCIPLE.md](DATA_MODELING_PRINCIPLE.md) - "Data together" principle
+- [FAQ.md](FAQ.md) - Common questions
+
+**Design Patterns:**
+- [SCHEMA_PATTERNS_GUIDE.md](SCHEMA_PATTERNS_GUIDE.md) - All 8 patterns
+- [OUTLIER_PATTERN_GUIDE.md](OUTLIER_PATTERN_GUIDE.md) - Handle large arrays
+- [ANTIPATTERNS.md](ANTIPATTERNS.md) - What NOT to do
+
+**Advanced Features:**
+- [TRANSACTIONS_GUIDE.md](TRANSACTIONS_GUIDE.md) - ACID guarantees
+- [CQRS_IMPLEMENTATION_SUMMARY.md](CQRS_IMPLEMENTATION_SUMMARY.md) - Materialized views
+- [PRODUCT_SCHEMA_VERSIONING.md](PRODUCT_SCHEMA_VERSIONING.md) - Schema migration
+
+**Hands-On:**
+- [BUILD_FROM_SCRATCH.md](BUILD_FROM_SCRATCH.md) - Build OMS yourself
+- [EXERCISES.md](EXERCISES.md) - Practice challenges
+- [postman/](postman/) - API testing
+
+**Production:**
+- [SECURITY.md](SECURITY.md) - Secure deployment
+- [IMPLEMENTATION_COMPLETE.md](IMPLEMENTATION_COMPLETE.md) - Production checklist
+- [OMS_P0_TESTING_GUIDE.md](OMS_P0_TESTING_GUIDE.md) - Testing guide
+- [PERFORMANCE_BENCHMARKS.md](PERFORMANCE_BENCHMARKS.md) - Performance data
+
+**Tools:**
+- [COMPASS_GUIDE.md](COMPASS_GUIDE.md) - MongoDB Compass GUI
+- [WEB_INTERFACE_GUIDE.md](WEB_INTERFACE_GUIDE.md) - Built-in web UI
+- [postman/README.md](postman/README.md) - Postman collection
+
+**Presentations:**
+- [WEBINAR_OUTLINE.md](WEBINAR_OUTLINE.md) - Demo script
+- [PRESENTER_CHECKLIST.md](PRESENTER_CHECKLIST.md) - Setup checklist
 
 ---
 

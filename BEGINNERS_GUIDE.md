@@ -52,6 +52,30 @@ You DON'T usually need:
 
 ## 📚 Three Simple Patterns (Explained Simply)
 
+### Visual Overview: Design Pattern Decision Tree
+
+```mermaid
+graph TD
+    START[How often is data accessed together?]
+    START --> ALWAYS[Always together?]
+    START --> FREQUENT[Frequently together?]
+    START --> RARE[Rarely together?]
+
+    ALWAYS --> EMBED[✅ EMBEDDING PATTERN<br/>Store data inside document]
+    FREQUENT --> SUBSET[✅ SUBSET PATTERN<br/>Store subset + reference]
+    RARE --> REFERENCE[✅ REFERENCE PATTERN<br/>Store ID only]
+
+    EMBED --> EX1[Example: Order items<br/>in order document]
+    SUBSET --> EX2[Example: Customer name<br/>in order + full customer]
+    REFERENCE --> EX3[Example: Customer ID<br/>lookup when needed]
+
+    style EMBED fill:#00684a,stroke:#00ed64,color:#fff
+    style SUBSET fill:#00684a,stroke:#00ed64,color:#fff
+    style REFERENCE fill:#00684a,stroke:#00ed64,color:#fff
+```
+
+---
+
 ### Pattern 1: Embedding (Store Everything Together)
 
 **When to use:** Data is ALWAYS accessed together
@@ -73,6 +97,28 @@ You DON'T usually need:
 
 **Benefit:** One query gets everything. No joins!
 
+**Visual: Embedding vs SQL Joins**
+
+```mermaid
+graph LR
+    subgraph "SQL (2 Queries + Join)"
+        O1[Orders Table] -.Query 1.-> OI1[OrderItems Table]
+        OI1 -.Join in App.-> RESULT1[Combined Result]
+    end
+
+    subgraph "MongoDB Embedding (1 Query)"
+        O2[Order Document<br/>with embedded items] --> RESULT2[Complete Data]
+    end
+
+    style O2 fill:#00684a,stroke:#00ed64,color:#fff
+    style RESULT2 fill:#001e2b,stroke:#00ed64,color:#00ed64
+```
+
+**Performance:**
+- SQL: 15ms (2 queries + network + join)
+- MongoDB: 3ms (1 query)
+- **5x faster!**
+
 ---
 
 ### Pattern 2: Subset Pattern (Store Some Data Together)
@@ -90,6 +136,28 @@ You DON'T usually need:
 ```
 
 **Benefit:** Fast queries most of the time, full data when needed
+
+**Visual: Subset Pattern**
+
+```mermaid
+graph TB
+    subgraph "Order Document (90% of queries)"
+        ORDER[Order<br/>customerName: John Doe<br/>customerId: cust456]
+    end
+
+    subgraph "Customer Document (10% of queries)"
+        CUSTOMER[Full Customer<br/>name: John Doe<br/>email: john@example.com<br/>phone: 555-1234<br/>address: ...]
+    end
+
+    ORDER -.Rare lookup.-> CUSTOMER
+
+    style ORDER fill:#00684a,stroke:#00ed64,color:#fff
+    style CUSTOMER fill:#4a4a00,stroke:#eded00,color:#fff
+```
+
+**Why this works:**
+- 90% of queries: Just show "John Doe" → Fast! (no lookup)
+- 10% of queries: Need full customer → Lookup by ID
 
 ---
 
